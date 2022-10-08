@@ -1,0 +1,54 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "CommonJS",
+		"moduleResolution": "node",
+		"lib": [
+			"esnext",
+			"es2016",
+			"es6",
+			"dom",
+			"es2018.promise"
+		],
+		"noImplicitAny": false,
+		"strict": true,
+		"strictNullChecks": false,
+		"noImplicitReturns": true,
+		"esModuleInterop": true,
+		"strictPropertyInitialization": false,
+		"declaration": false,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"noImplicitThis": false,
+		"sourceMap": false,
+		"baseUrl": ".",
+		"paths": {
+			"~/*": [
+				"./"
+			],
+			"@/*": [
+				"./src"
+			]
+		},
+		"types": [
+			"core-js",
+			"es6-collections",
+			"node",
+			"vue",
+			"vuex"
+		]
+	},
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.vue",
+		"shims-vue.d.ts",
+		"shims-vuex.d.ts",
+		"shims-svg.d.ts",
+		"node_modules/@dns-modules"
+	],
+	"exclude": [
+		"node_modules",
+		"dist"
+	]
+}

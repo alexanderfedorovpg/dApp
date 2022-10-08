@@ -1,0 +1,117 @@
+<template>
+	<div class="stay-in-touch">
+		<div class="stay-in-touch-title">Оставайтесь на связи</div>
+		<div class="stay-in-touch-block">
+			<a class="stay-in-touch-button" href="#">
+				<img src="../../assets/images/telegram.svg">
+				<div class="stay-in-touch-button__description">
+					<div class="stay-in-touch-button__description-title">Telegram</div>
+					<div class="stay-in-touch-button__description-text">Связаться</div>
+				</div>
+				<img class="stay-in-touch-button__arrow" src="../../assets/images/arrow6.svg">
+				<div class="stay-in-touch-button__blur"></div>
+			</a>
+			<a class="stay-in-touch-button" href="#">
+				<img src="../../assets/images/discord.svg">
+				<div class="stay-in-touch-button__description">
+					<div class="stay-in-touch-button__description-title">Discord</div>
+					<div class="stay-in-touch-button__description-text">Связаться</div>
+					<div class="stay-in-touch-button__description-blur"></div>
+				</div>
+				<img class="stay-in-touch-button__arrow" src="../../assets/images/arrow6.svg">
+				<div class="stay-in-touch-button__blur"></div>
+			</a>
+			<a class="stay-in-touch-button" href="#">
+				<img src="../../assets/images/reddit.svg">
+				<div class="stay-in-touch-button__description">
+					<div class="stay-in-touch-button__description-title">Reddit</div>
+					<div class="stay-in-touch-button__description-text">Связаться</div>
+				</div>
+				<img class="stay-in-touch-button__arrow" src="../../assets/images/arrow6.svg">
+				<div class="stay-in-touch-button__blur"></div>
+			</a>
+		</div>
+	</div>
+</template>
+
+<style lang="scss">
+.stay-in-touch {
+	margin-top:    128px;
+	margin-bottom: 80px;
+}
+
+.stay-in-touch-title {
+	font-weight: 700;
+	font-size:   32px;
+	color:       #fff;
+}
+
+.stay-in-touch-block {
+	margin-top:      80px;
+	display:         flex;
+	flex-direction:  row;
+	justify-content: space-between;
+}
+
+.stay-in-touch-button__blur {
+	position:   absolute;
+	width:      150px;
+	height:     150px;
+	background: #9751f3;
+	filter:     blur(100px);
+	z-index:    -1;
+}
+
+.stay-in-touch-button {
+	display:         flex;
+	flex-direction:  row;
+	overflow:        hidden;
+	align-items:     center;
+	width:           378px;
+	height:          126px;
+	background:      rgba(104, 104, 104, 0.3);
+	backdrop-filter: blur(10px);
+	border-radius:   20px;
+
+	&:hover {
+		.stay-in-touch-button__blur {
+			position:   absolute;
+			width:      200px;
+			height:     200px;
+			background: #9751f3;
+			filter:     blur(100px);
+			right:      30%;
+
+		}
+	}
+}
+
+.stay-in-touch-button__description-blur {
+	background: #9751f3;
+	filter:     blur(100px);
+}
+
+.stay-in-touch-button__description {
+	text-align:  left;
+	margin-left: 10px;
+}
+
+.stay-in-touch-button__description-title {
+	font-size: 20px;
+	color:     #fff;
+}
+
+.stay-in-touch-button__description-text {
+	font-size:  16px;
+	color:      #c6c6c6;
+	margin-top: 5px;
+}
+
+.stay-in-touch-button__arrow {
+	margin-left: 100px;
+	position:    relative;
+	top:         -10px;
+}
+
+
+</style>
