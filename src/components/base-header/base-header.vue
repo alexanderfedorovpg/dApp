@@ -72,7 +72,9 @@ export default {
 	top:      0;
 
 	&_background {
-		background: #22162799;
+		background:              rgba(34, 22, 39, 0.6);
+		backdrop-filter:         blur(9.5px);
+		-webkit-backdrop-filter: blur(9.5px);
 
 		.header {
 			border: none;
