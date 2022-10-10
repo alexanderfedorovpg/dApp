@@ -1,27 +1,40 @@
+<script lang="ts">
+import {useI18n} from 'vue-i18n';
+/**
+ * Component Why BUSD
+ */
+export default {
+	setup() {
+		const { t } = useI18n();
+
+		return {t}
+	},
+}
+</script>
 <template>
 	<div class="why-BUSD">
-		<div class="why-BUSD-title">Почему именно BUSD?</div>
+		<div class="why-BUSD-title">{{t('why-BUSD_title')}}</div>
 		<div class="why-BUSD-steps">
 			<div class="why-BUSD-step">
 				<div class="why-BUSD-step__blur1"></div>
 				<div class="why-BUSD-step__blur2"></div>
 				<div class="why-BUSD-step__number">1</div>
-				<div class="why-BUSD-step__title">Почему мы выбрали BUSD?</div>
-				<div class="why-BUSD-step__text">Стейблкоин устойчив к колебанию рынка</div>
+				<div class="why-BUSD-step__title">{{t('why-BUSD-step1__title')}}</div>
+				<div class="why-BUSD-step__text">{{t('why-BUSD-step1__text')}}</div>
 			</div>
 			<div class="why-BUSD-step">
 				<div class="why-BUSD-step__blur1"></div>
 				<div class="why-BUSD-step__blur2"></div>
 				<div class="why-BUSD-step__number">2</div>
-				<div class="why-BUSD-step__title">Почему мы не выпустили собственный токен?</div>
-				<div class="why-BUSD-step__text">Опираясь на опыт других проектов, мы неоднократно наблюдали резкое снижение цены токенов</div>
+			<div class="why-BUSD-step__title">{{t('why-BUSD-step2__title')}}</div>
+				<div class="why-BUSD-step__text">{{t('why-BUSD-step2__text')}}</div>
 			</div>
 			<div class="why-BUSD-step">
 				<div class="why-BUSD-step__blur1"></div>
 				<div class="why-BUSD-step__blur2"></div>
 				<div class="why-BUSD-step__number">3</div>
-				<div class="why-BUSD-step__title">Почему мы не выбрали альткоин?</div>
-				<div class="why-BUSD-step__text">Нестабильность рынка может резко изменить порог входа для инвесторов</div>
+				<div class="why-BUSD-step__title">{{t('why-BUSD-step3__title')}}</div>
+				<div class="why-BUSD-step__text">{{t('why-BUSD-step3__text')}}</div>
 			</div>
 		</div>
 	</div>

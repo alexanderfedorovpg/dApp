@@ -1,31 +1,45 @@
+<script lang="ts">
+import {useI18n} from 'vue-i18n';
+
+/**
+ * Component Distribution Of Funds
+ */
+export default {
+	setup() {
+		const { t } = useI18n();
+
+		return {t}
+	},
+}
+</script>
 <template>
 	<div class="distribution-of-funds">
-		<div class="distribution-of-funds-title">Распределение средств</div>
+		<div class="distribution-of-funds-title">{{t('distribution_of_funds_title')}}</div>
 		<div class="distribution-of-funds-block">
 			<div class="distribution-of-funds-block__description">
 				<div class="distribution-of-funds-description-block">
 					<div class="distribution-of-funds-description-block__title">Project marketing</div>
-					<div class="distribution-of-funds-description-block__text">20 056 $</div>
+					<div class="distribution-of-funds-description-block__text">62 000 BUSD</div>
 				</div>
 				<div class="distribution-of-funds-description-block">
 					<div class="distribution-of-funds-description-block__title">Blockchain developer</div>
-					<div class="distribution-of-funds-description-block__text">20 056 $</div>
+					<div class="distribution-of-funds-description-block__text">40 000 BUSD</div>
 				</div>
 				<div class="distribution-of-funds-description-block">
 					<div class="distribution-of-funds-description-block__title">Back-end developer</div>
-					<div class="distribution-of-funds-description-block__text">20 056 $</div>
+					<div class="distribution-of-funds-description-block__text">40 000 BUSD</div>
 				</div>
 				<div class="distribution-of-funds-description-block">
 					<div class="distribution-of-funds-description-block__title">Bug tester</div>
-					<div class="distribution-of-funds-description-block__text">20 056 $</div>
+					<div class="distribution-of-funds-description-block__text">28 000 BUSD</div>
 				</div>
 				<div class="distribution-of-funds-description-block">
 					<div class="distribution-of-funds-description-block__title">React native developer</div>
-					<div class="distribution-of-funds-description-block__text">20 056 $</div>
+					<div class="distribution-of-funds-description-block__text">46 000 BUSD</div>
 				</div>
 				<div class="distribution-of-funds-description-block">
 					<div class="distribution-of-funds-description-block__title">UI/UX designer</div>
-					<div class="distribution-of-funds-description-block__text">20 056 $</div>
+					<div class="distribution-of-funds-description-block__text">34 000 BUSD</div>
 				</div>
 			</div>
 			<div class="distribution-of-funds-block__image">

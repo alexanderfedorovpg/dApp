@@ -33,17 +33,12 @@ export default {
 </template>
 
 <style lang="scss">
+@import "assets/values.scss";
+
 #crowdsale {
 	width:    100%;
 	overflow: hidden;
 	position: relative;
-}
-
-.wrapper {
-	max-width: 1194px;
-	margin:    auto;
-	position:  relative;
-	z-index:   1;
 }
 
 .text-center {

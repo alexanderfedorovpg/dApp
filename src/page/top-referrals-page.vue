@@ -1,4 +1,5 @@
 <script lang="ts">
+import {useI18n} from 'vue-i18n';
 import BaseButton from '../components/base-button/base-button.vue';
 
 /**
@@ -6,6 +7,11 @@ import BaseButton from '../components/base-button/base-button.vue';
  */
 export default {
 	components: {BaseButton},
+	setup() {
+		const {t} = useI18n();
+
+		return {t}
+	},
 }
 </script>
 
@@ -15,7 +21,7 @@ export default {
 				<div>
 					<div class="top-referrals-page__description-tabs">
 						<div class="top-referrals-page__description-tab">
-							<div class="top-referrals-page-description-tab__title">Привлечено</div>
+							<div class="top-referrals-page-description-tab__title">{{ t('referral_page_invited') }}</div>
 							<div class="top-referrals-page-description-tab__counter">
 								<img src="../assets/images/person.svg">
 								<div class="top-referrals-page-description-tab__counter-text">12</div>
@@ -23,30 +29,30 @@ export default {
 						</div>
 						<div class="top-referrals-page__description-tab-split"></div>
 						<div class="top-referrals-page__description-tab">
-							<div class="top-referrals-page-description-tab__title">Поощрение</div>
+							<div class="top-referrals-page-description-tab__title">{{ t('referral_page_profit') }}</div>
 							<div class="top-referrals-page-description-tab__counter">
 									<img src="../assets/images/bitcoins.svg">
 									<div class="top-referrals-page-description-tab__counter-text">343</div>
 							</div>
 						</div>
 					</div>
-					<div class="top-referrals-page-link-text">Ваша реферальная ссылка</div>
-					<div class="top-referrals-page-link-description">Ссылка будет доступна после инвестиции</div>
-					<base-button :text="'Инвестировать 25  BUSD'"/>
+					<div class="top-referrals-page-link-text">{{ t('referral_page_text_about_link') }}</div>
+					<div class="top-referrals-page-link-description">{{ t('referral_page_text_about_description') }}</div>
+					<base-button :text="t('referral_page_about_button_text') +' 25  BUSD'"/>
 				</div>
 				<div class="top-referrals-page-block-description-qr">
-					<div>Ваш QR для авторизации в приложении</div>
+					<div>{{ t('referral_page_qr_code') }}</div>
 				</div>
 		</div>
 		<div class="top-referrals-page__active-investors">
-			Самые активные инвесторы
+			{{ t('referral_page_the_most_active_investors') }}
 		</div>
 		<table class="top-referrals-page__table">
 			<thead>
 				<tr>
-					<td class="top-referrals-page__table-head">Адрес</td>
-					<td class="top-referrals-page__table-head">Привлечено <span>чел</span></td>
-					<td class="top-referrals-page__table-head">Поощрения <span>BUSD</span></td>
+					<td class="top-referrals-page__table-head">{{ t('referral_page_table_address') }}</td>
+					<td class="top-referrals-page__table-head">{{ t('referral_page_table_attracted') }} <span>{{ t('referral_page_table_people') }}</span></td>
+					<td class="top-referrals-page__table-head">{{ t('referral_page_table_profit') }} <span>BUSD</span></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -83,12 +89,11 @@ export default {
 			</tbody>
 		</table>
 	</div>
-
 </template>
 
 <style lang="scss">
 .top-referrals-page {
-	margin-top: 80px;
+	margin: 184px auto auto;
 
 	&__table-row {
 		font-weight: 400;
@@ -121,7 +126,7 @@ export default {
 		}
 
 		span {
-			color: #d0d0d0;
+			color: #585467;
 		}
 	}
 

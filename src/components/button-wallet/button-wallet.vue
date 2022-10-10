@@ -1,10 +1,3 @@
-<script lang="ts">
-/**
- * Component Button Wallet
- */
-export default {}
-
-</script>
 <template>
 	<button class="button-wallet">Connect wallet</button>
 </template>

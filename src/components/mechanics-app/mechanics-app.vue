@@ -1,14 +1,27 @@
+<script lang="ts">
+import {useI18n} from 'vue-i18n';
+/**
+ * Component Mechanics App
+ */
+export default {
+	setup() {
+		const { t } = useI18n();
+
+		return {t}
+	},
+}
+</script>
 <template>
 	<div class="mechanics-app">
-		<p class="mechanics-app__title">Механика приложения</p>
+		<p class="mechanics-app__title">{{t('mechanics-app_title')}}</p>
 		<div class="mechanics-app__steps">
 			<div class="mechanics-app__steps-item">
 				<div class="mechanics-app__steps-item-blur"></div>
 				<div class="mechanics-app__steps-item-wrapper">
 					<div class="mechanics-app__steps-item-description">
-						<div class="mechanics-app__steps-item-step">ШАГ &nbsp; 1</div>
-						<div class="mechanics-app__steps-item-title">Депозит</div>
-						<div class="mechanics-app__steps-item-text">Сделать разовый депозит 12&nbsp;BUSD.</div>
+						<div class="mechanics-app__steps-item-step">{{t('mechanics-app_step')}} &nbsp; 1</div>
+						<div class="mechanics-app__steps-item-title">{{t('mechanics-app_block1_title')}}</div>
+						<div class="mechanics-app__steps-item-text">{{t('mechanics-app_block1_description')}}</div>
 					</div>
 					<div class="mechanics-app__steps-item-image">
 						<img src="../../assets/images/step1.png">
@@ -19,9 +32,9 @@
 				<div class="mechanics-app__steps-item-blur"></div>
 				<div class="mechanics-app__steps-item-wrapper">
 					<div class="mechanics-app__steps-item-description">
-						<div class="mechanics-app__steps-item-step">ШАГ &nbsp; 2</div>
-						<div class="mechanics-app__steps-item-title">Инвайт</div>
-						<div class="mechanics-app__steps-item-text">Новый пользователь который захочет зарегистрироваться в приложении, должен получить приглашение от премиум пользователя (инвестора).</div>
+						<div class="mechanics-app__steps-item-step">{{t('mechanics-app_step')}} &nbsp; 2</div>
+						<div class="mechanics-app__steps-item-title">{{t('mechanics-app_block2_title')}}</div>
+						<div class="mechanics-app__steps-item-text">{{t('mechanics-app_block2_description')}}</div>
 					</div>
 					<div class="mechanics-app__steps-item-image">
 						<img src="../../assets/images/step2.png">
@@ -32,9 +45,9 @@
 				<div class="mechanics-app__steps-item-blur"></div>
 				<div class="mechanics-app__steps-item-wrapper">
 					<div class="mechanics-app__steps-item-description">
-						<div class="mechanics-app__steps-item-step">ШАГ &nbsp; 3</div>
-						<div class="mechanics-app__steps-item-title">Встреча</div>
-						<div class="mechanics-app__steps-item-text">Найти рядом со своей геопозицией другого премиум пользователя, договариться  о месте и времени встречи, сделать соместное фото.</div>
+						<div class="mechanics-app__steps-item-step">{{t('mechanics-app_step')}} &nbsp; 3</div>
+						<div class="mechanics-app__steps-item-title">{{t('mechanics-app_block3_title')}}</div>
+						<div class="mechanics-app__steps-item-text">{{t('mechanics-app_block3_description')}}</div>
 					</div>
 					<div class="mechanics-app__steps-item-image">
 						<img src="../../assets/images/step3.png">
@@ -45,9 +58,9 @@
 				<div class="mechanics-app__steps-item-blur"></div>
 				<div class="mechanics-app__steps-item-wrapper">
 					<div class="mechanics-app__steps-item-description">
-						<div class="mechanics-app__steps-item-step">ШАГ &nbsp; 4</div>
-						<div class="mechanics-app__steps-item-title">Верификация</div>
-						<div class="mechanics-app__steps-item-text">Это фото отправляется трём случайным премиум пользователям, они сравнивают фото профилей и совместное фото, убеждаются что это одни и те же люди, подверждают.</div>
+						<div class="mechanics-app__steps-item-step">{{t('mechanics-app_step')}} &nbsp; 4</div>
+						<div class="mechanics-app__steps-item-title">{{t('mechanics-app_block4_title')}}</div>
+						<div class="mechanics-app__steps-item-text">{{t('mechanics-app_block4_description')}}</div>
 					</div>
 					<div class="mechanics-app__steps-item-image">
 						<img src="../../assets/images/step4.png">
@@ -58,9 +71,9 @@
 				<div class="mechanics-app__steps-item-blur"></div>
 				<div class="mechanics-app__steps-item-wrapper">
 					<div class="mechanics-app__steps-item-description">
-						<div class="mechanics-app__steps-item-step">ШАГ &nbsp; 5</div>
-						<div class="mechanics-app__steps-item-title">Премиум</div>
-						<div class="mechanics-app__steps-item-text">Пользователь получает премиум статус, возможность делиться кодами, приглашать новых пользователей и зарабатывать.<br/><br/> Ежемесячная подписка для него составляет 5 BUSD.</div>
+						<div class="mechanics-app__steps-item-step">{{t('mechanics-app_step')}} &nbsp; 5</div>
+						<div class="mechanics-app__steps-item-title">{{t('mechanics-app_block5_title')}}</div>
+						<div class="mechanics-app__steps-item-text" v-html="t('mechanics-app_block5_description')"></div>
 					</div>
 					<div class="mechanics-app__steps-item-image">
 						<img src="../../assets/images/step5.png">
@@ -71,9 +84,9 @@
 				<div class="mechanics-app__steps-item-blur"></div>
 				<div class="mechanics-app__steps-item-wrapper">
 					<div class="mechanics-app__steps-item-description">
-						<div class="mechanics-app__steps-item-step">ШАГ &nbsp; 6</div>
-						<div class="mechanics-app__steps-item-title">Движение</div>
-						<div class="mechanics-app__steps-item-text">За шаги или потраченные каллории начисляется энергия которую можно тратить на проявление симпатий (лайков). <br/><br/> Знакомиться и общаться с новыми реальными людьми.</div>
+						<div class="mechanics-app__steps-item-step">{{t('mechanics-app_step')}} &nbsp; 6</div>
+						<div class="mechanics-app__steps-item-title">{{t('mechanics-app_block6_title')}}</div>
+						<div class="mechanics-app__steps-item-text" v-html="t('mechanics-app_block6_description')"></div>
 					</div>
 					<div class="mechanics-app__steps-item-image">
 						<img src="../../assets/images/step6.png">
@@ -82,24 +95,24 @@
 			</div>
 		</div>
 		<div class="mechanics-app__about">
-			<div class="mechanics-app__about-title">Как распределяется разовый депозит 12 BUSD</div>
+			<div class="mechanics-app__about-title">{{t('mechanics-app_about_title')}}</div>
 			<div class="mechanics-app__about-items">
 				<div class="mechanics-app__about-item">
 					<span class="mechanics-app__about-item-title">3 BUSD </span>
-					<p class="mechanics-app__about-item-text">Получает пользователь выдавший уникальный код</p>
+					<p class="mechanics-app__about-item-text">{{t('mechanics-app_about_block1_title')}}</p>
 				</div>
 				<div class="mechanics-app__about-item">
 					<div class="mechanics-app__about-item-blur"></div>
 					<span class="mechanics-app__about-item-title">3 BUSD </span>
-					<p class="mechanics-app__about-item-text">Получает пользователь сделавший совместное фото</p>
+					<p class="mechanics-app__about-item-text">{{t('mechanics-app_about_block2_title')}}</p>
 				</div>
 				<div class="mechanics-app__about-item">
 					<span class="mechanics-app__about-item-title">по 1 BUSD</span>
-					<p class="mechanics-app__about-item-text">Получают три пользователя сделавшие сравнение фото</p>
+					<p class="mechanics-app__about-item-text">{{t('mechanics-app_about_block3_title')}}</p>
 				</div>
 				<div class="mechanics-app__about-item">
 					<span class="mechanics-app__about-item-title">3 BUSD </span>
-					<p class="mechanics-app__about-item-text">Получает команда, для поддержки и обслуживания проекта</p>
+					<p class="mechanics-app__about-item-text">{{t('mechanics-app_about_block4_title')}}</p>
 				</div>
 			</div>
 		</div>

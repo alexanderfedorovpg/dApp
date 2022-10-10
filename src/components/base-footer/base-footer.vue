@@ -1,4 +1,6 @@
 <script lang="ts">
+import {useI18n} from 'vue-i18n';
+import {useLinks} from '../../hooks/links-hook';
 import ButtonWallet from '../button-wallet/button-wallet.vue';
 
 /**
@@ -7,7 +9,13 @@ import ButtonWallet from '../button-wallet/button-wallet.vue';
 export default {
 	components: {
 		ButtonWallet
-	}
+	},
+	setup() {
+		const { t } = useI18n();
+		const {scrollTo} = useLinks();
+
+		return {t, scrollTo}
+	},
 }
 
 </script>
@@ -41,8 +49,8 @@ export default {
 			</defs>
 		</svg>
 		</a>
-		<span class="footer__link">Политика конфиденциальности</span>
-		<span class="footer__link">Распределение средств</span>
+		<span class="footer__link">{{t('link7')}}</span>
+		<span class="footer__link" @click="scrollTo('.distribution-of-funds')">{{t('link6')}}</span>
 		<button-wallet/>
 	</footer>
 

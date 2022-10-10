@@ -1,3 +1,17 @@
+<script lang="ts">
+import {useI18n} from 'vue-i18n';
+
+/**
+ * Component What Is Invest
+ */
+export default {
+	setup() {
+		const { t } = useI18n();
+
+		return {t}
+	},
+}
+</script>
 <template>
 	<div class="what-is-invest">
 		<div class="what-is-invest__item">
@@ -5,18 +19,14 @@
 				<img class="what-is-invest__item-image" src="../../assets/images/img_1.png">
 			</div>
 			<div class="what-is-invest__item-block what-is-invest__item-block_text">
-				<span class="what-is-invest__item-title">Во что  вы инвестируете</span>
-				<p class="what-is-invest__item-text">В разработку дэйтинг приложения без фейков, спама, интимных усуг, оскорблений и прочих неприятных вещей которыми переполнены существующие сейчас проекты.</p>
-				<p class="what-is-invest__item-text">Потому что, наше комьюнити само решает кого приглашать в проект, и каждый новый пользователь проходит три этапа вериикации прежде чем попасть в сеть.</p>
+				<span class="what-is-invest__item-title">{{t('what_is_invest_block1_title')}}</span>
+				<p class="what-is-invest__item-text" v-html="t('what_is_invest_block1_description_text')"></p>
 			</div>
 		</div>
 		<div class="what-is-invest__item">
 			<div class="what-is-invest__item-container what-is-invest__item-container_text">
-				<span class="what-is-invest__item-title">Как вы можете заработать на стадии сбора средств</span>
-				<p class="what-is-invest__item-text">Вы инвестируете 25 BUSD, получаете реферальную ссылку, делитесь ей с друзьями и знакомыми, если вы владелец какой то площадки, вам еще проще рассказать своей аудитории о нашем проекте, и привлечь заинтересованных пользователей которые могут так же инвестировать и зарабатывать.</p>
-				<p class="what-is-invest__item-text">С каждого привлеченного реферала (сделавшего депозит) вы получаете 5 BUSD.</p>
-				<p class="what-is-invest__item-text">20 BUSD идут в фонд команды разработчиков.</p>
-				<p class="what-is-invest__item-text">Таким образом мы пытаемся заинтересовать инвесторов, и ускорить процесс сбора средств для начала разработки.</p>
+				<span class="what-is-invest__item-title">{{t('what_is_invest_block2_title')}}</span>
+			<p class="what-is-invest__item-text" v-html="t('what_is_invest_block2_description_text')"></p>
 			</div>
 			<div class="what-is-invest__item-block what-is-invest__item-block_image">
 				<img class="what-is-invest__item-image1" src="../../assets/images/img_2.png">
@@ -27,9 +37,8 @@
 				<img class="what-is-invest__item-image2" src="../../assets/images/fgerg_1.png">
 			</div>
 			<div class="what-is-invest__item-block what-is-invest__item-block_text">
-				<span class="what-is-invest__item-title">Какие преимущества получат инвесторы</span>
-				<p class="what-is-invest__item-text">Неограниченный доступ к премиум функционалу приложения (для пользователей пришедших после релиза ежемесячная подписка будет составлять 5 BUSD).</p>
-				<p class="what-is-invest__item-text">Инвесторы первыми смогут привлекать новых пользователей в приложение и получать за каждого нового пользователя 3 BUSD.</p>
+				<span class="what-is-invest__item-title">{{t('what_is_invest_block3_title')}}</span>
+				<p class="what-is-invest__item-text" v-html="t('what_is_invest_block3_description_text')"></p>
 			</div>
 	</div>
 	</div>

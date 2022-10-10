@@ -1,4 +1,5 @@
 <script lang="ts">
+import {useI18n} from 'vue-i18n';
 import DescriptionBlock from '../components/description-block/description-block.vue';
 import WhatIsInvest from '../components/what-is-invest/what-is-invest.vue';
 import MechanicsApp from '../components/mechanics-app/mechanics-app.vue';
@@ -8,7 +9,7 @@ import DistributionOfFunds from '../components/distribution-of-funds/distributio
 import StayInTouch from '../components/stay-in-touch/stay-in-touch.vue';
 
 /**
- * Main app
+ * Home page
  */
 export default {
 	components: {
@@ -20,11 +21,17 @@ export default {
 		DistributionOfFunds,
 		StayInTouch
 	},
+	setup() {
+		const { t } = useI18n();
+
+		return {t}
+	},
+
 }
 </script>
 <template>
 	<description-block/>
-	<p class="text-center">Мы не финансовая пирамида, не площадка для быстрого заработка,<strong> мы — стартап, с которым инвесторы зарабатывают</strong></p>
+	<p class="text-center" v-html="t('homepage_text_block')"></p>
 	<what-is-invest/>
 	<mechanics-app/>
 	<WhyBUSD/>
@@ -34,6 +41,8 @@ export default {
 </template>
 
 <style lang="scss">
+@import "../assets/values.scss";
+
 #crowdsale {
 	width:    100%;
 	overflow: hidden;
@@ -41,10 +50,10 @@ export default {
 }
 
 .wrapper {
-	max-width: 1194px;
-	margin:    auto;
-	position:  relative;
-	z-index:   1;
+	max-width:  $max-desktop-with;
+	margin:     104px auto auto;
+	position:   relative;
+	z-index:    1;
 }
 
 .text-center {

@@ -1,12 +1,25 @@
+<script lang="ts">
+import {useI18n} from 'vue-i18n';
+/**
+ * Component Roadmap
+ */
+export default {
+	setup() {
+		const { t } = useI18n();
+
+		return {t}
+	},
+}
+</script>
 <template>
 	<div class="roadmap">
-		<div class="roadmap-title">Дорожная карта</div>
+		<div class="roadmap-title">{{t('roadmap_title')}}</div>
 		<div class="roadmap-map">
 			<div class="roadmap-map__step">
 				<img src="../../assets/images/1.svg">
 				<div class="roadmap-map__step-description">
-					<div class="roadmap-map__step-title">Q1 2022</div>
-					<div class="roadmap-map__step-text">Завершение работы над MVP и запуск закрытого бета-тестирования на блокчейне. <br/><br/> iOS, Android, Веб-приложения</div>
+					<div class="roadmap-map__step-title">{{t('roadmap_stage1')}}</div>
+					<div class="roadmap-map__step-text" v-html="t('roadmap_q1_description')"></div>
 				</div>
 			</div>
 			<div class="roadmap-map-dots-wrapper">
@@ -15,12 +28,8 @@
 			<div class="roadmap-map__step">
 				<img src="../../assets/images/2.svg">
 				<div class="roadmap-map__step-description">
-					<div class="roadmap-map__step-title">Q2 2022</div>
-					<div class="roadmap-map__step-text">
-								Трансмутация и способность скрещивать Катлетов для создания новых. <br/><br/>
-								Казначейский фонд (случайным образом раздает игрокам МЕТ-предметы). <br/><br/>
-								Листинги на первых биржах <br/><br/>
-								Фиатный протокол, позволяющий покупать NFT за фиатные деньги</div>
+					<div class="roadmap-map__step-title">{{t('roadmap_stage2')}}</div>
+					<div class="roadmap-map__step-text" v-html="t('roadmap_q2_description')"></div>
 				</div>
 			</div>
 			<div class="roadmap-map-dots-wrapper">
@@ -29,13 +38,8 @@
 			<div class="roadmap-map__step">
 				<img src="../../assets/images/3.svg">
 				<div class="roadmap-map__step-description">
-					<div class="roadmap-map__step-title">Q3 2022</div>
-					<div class="roadmap-map__step-text">
-						Завершение технического решения и разработка продукта до версии 1.0.<br/><br/>
-						Торговая площадка NFT для покупки и продажи игровых персонажей и снаряжения.<br/><br/>
-						Функциональность стейкинга.<br/><br/>
-						Алгоритм PvE  для подбора игроков и сражений.<br/><br/>
-					</div>
+					<div class="roadmap-map__step-title">{{t('roadmap_stage3')}}</div>
+					<div class="roadmap-map__step-text" v-html="t('roadmap_q3_description')"></div>
 				</div>
 			</div>
 			<div class="roadmap-map-dots-wrapper">
@@ -44,15 +48,8 @@
 			<div class="roadmap-map__step">
 				<img src="../../assets/images/4.svg">
 				<div class="roadmap-map__step-description">
-					<div class="roadmap-map__step-title">Q4 2022</div>
-					<div class="roadmap-map__step-text">
-						Дополнительная игровая механика.<br/><br/>
-						Открытый API для разработчиков, позволяющий изобретать и реализовывать собственную игровую механику.<br/><br/>
-						Расширение возможностей использования способностей игроков вне сражений.<br/><br/>
-						Создание фитнес-мета-вселенной и мета-игровой механики. <br/><br/>
-						Выделение земли для продажи и среды обитания. игроков.<br/><br/>
-						Платформа DeFi.<br/><br/>
-					</div>
+					<div class="roadmap-map__step-title">{{t('roadmap_stage4')}}</div>
+					<div class="roadmap-map__step-text" v-html="t('roadmap_q4_description')"></div>
 				</div>
 			</div>
 		</div>

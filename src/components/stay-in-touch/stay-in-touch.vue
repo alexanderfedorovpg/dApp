@@ -1,31 +1,44 @@
+<script lang="ts">
+import {useI18n} from 'vue-i18n';
+/**
+ * Component Stay In Touch
+ */
+export default {
+	setup() {
+		const { t } = useI18n();
+
+		return {t}
+	},
+}
+</script>
 <template>
 	<div class="stay-in-touch">
-		<div class="stay-in-touch-title">Оставайтесь на связи</div>
+		<div class="stay-in-touch-title">{{t('follow_the_news_title')}}</div>
 		<div class="stay-in-touch-block">
-			<a class="stay-in-touch-button" href="#">
+			<a class="stay-in-touch-button" :href="t('social_link_telegram')">
 				<img src="../../assets/images/telegram.svg">
 				<div class="stay-in-touch-button__description">
 					<div class="stay-in-touch-button__description-title">Telegram</div>
-					<div class="stay-in-touch-button__description-text">Связаться</div>
+					<div class="stay-in-touch-button__description-text">{{t('follow_the_news_join')}}</div>
 				</div>
 				<img class="stay-in-touch-button__arrow" src="../../assets/images/arrow6.svg">
 				<div class="stay-in-touch-button__blur"></div>
 			</a>
-			<a class="stay-in-touch-button" href="#">
+			<a class="stay-in-touch-button" :href="t('social_link_discord')">
 				<img src="../../assets/images/discord.svg">
 				<div class="stay-in-touch-button__description">
 					<div class="stay-in-touch-button__description-title">Discord</div>
-					<div class="stay-in-touch-button__description-text">Связаться</div>
+					<div class="stay-in-touch-button__description-text">{{t('follow_the_news_join')}}</div>
 					<div class="stay-in-touch-button__description-blur"></div>
 				</div>
 				<img class="stay-in-touch-button__arrow" src="../../assets/images/arrow6.svg">
 				<div class="stay-in-touch-button__blur"></div>
 			</a>
-			<a class="stay-in-touch-button" href="#">
+			<a class="stay-in-touch-button" :href="t('social_link_reddit')">
 				<img src="../../assets/images/reddit.svg">
 				<div class="stay-in-touch-button__description">
 					<div class="stay-in-touch-button__description-title">Reddit</div>
-					<div class="stay-in-touch-button__description-text">Связаться</div>
+					<div class="stay-in-touch-button__description-text">{{t('follow_the_news_join')}}</div>
 				</div>
 				<img class="stay-in-touch-button__arrow" src="../../assets/images/arrow6.svg">
 				<div class="stay-in-touch-button__blur"></div>
