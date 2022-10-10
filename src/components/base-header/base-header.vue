@@ -49,8 +49,8 @@ export default {
 					</defs>
 				</svg>
 				</a>
-				<span class="header__link" @click="scrollTo('.description-block-wrapper')">{{ t('link1') }}</span>
-				<span class="header__link" @click="scrollTo('.what-is-invest')">{{ t('link2') }}</span>
+				<span class="header__link" @click="scrollTo('.wrapper')">{{ t('link1') }}</span>
+				<span class="header__link" @click="scrollTo('.text-center')">{{ t('link2') }}</span>
 				<span class="header__link" @click="scrollTo('.mechanics-app')">{{ t('link3') }}</span>
 				<span class="header__link" @click="scrollTo('.why-BUSD')">{{ t('link4') }}</span>
 				<span class="header__link" @click="scrollTo('.roadmap')">{{ t('link5') }}</span>

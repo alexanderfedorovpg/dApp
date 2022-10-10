@@ -58,11 +58,10 @@ export default {
 
 .text-center {
 	max-width:   685px;
-	padding-top: 120px;
 	font-size:   32px;
 	line-height: 120%;
 	text-align:  center;
 	color:       #fff;
-	margin:      auto;
+	margin:      120px auto auto;
 }
 </style>

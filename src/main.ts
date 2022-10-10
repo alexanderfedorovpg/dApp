@@ -15,7 +15,8 @@ import messages from './translations/messages';
 const router = createRouter({
 	routes:  [
 		{path: '/top', name: 'top', component: TopReferralsPage},
-		{path: '/', name: 'home', component: HomePage}
+		{path: '/', name: 'home', component: HomePage},
+		{path: '/:pathMatch(.*)*', name: 'not-found', redirect: '/' },
 	],
 	history: createWebHistory(),
 });
@@ -23,7 +24,7 @@ const router = createRouter({
 createApp(App)
 	.use(router)
 	.use(createI18n({
-		legacy:         false, // you must specify 'legacy: false' option
+		legacy:         false,
 		locale:         detectLang(),
 		fallbackLocale: 'en',
 		messages

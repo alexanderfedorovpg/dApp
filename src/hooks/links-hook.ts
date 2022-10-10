@@ -16,14 +16,23 @@ export const useLinks = () => {
 		})
 	})
 
-	/** Method scroll to element on page */
-	async function scrollTo(selectorElement) {
+	/**
+	 * Method scroll to element on page
+	 *
+	 * @param {string} selectorElement Selector html element
+	 * @param {number} correctionValue Scroll correction
+	 */
+	async function scrollTo(selectorElement, correctionValue = 0) {
 
 		if ('home' !== router.currentRoute.value.name) {
 			await router.push('/')
 		}
 
-		document.querySelector(selectorElement).scrollIntoView({behavior: 'smooth', block: 'start'})
+		const yOffset = -104;
+		const element = document.querySelector(selectorElement);
+		const y = element.getBoundingClientRect().top + window.scrollY + yOffset + correctionValue;
+
+		window.scrollTo({top: y, behavior: 'smooth'});
 	}
 
 	return {isNeedBackground, scrollTo}

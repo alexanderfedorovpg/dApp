@@ -1,11 +1,12 @@
 <script lang="ts">
 import {useI18n} from 'vue-i18n';
+
 /**
  * Component Stay In Touch
  */
 export default {
 	setup() {
-		const { t } = useI18n();
+		const {t} = useI18n();
 
 		return {t}
 	},
@@ -13,13 +14,13 @@ export default {
 </script>
 <template>
 	<div class="stay-in-touch">
-		<div class="stay-in-touch-title">{{t('follow_the_news_title')}}</div>
+		<div class="stay-in-touch-title">{{ t('follow_the_news_title') }}</div>
 		<div class="stay-in-touch-block">
 			<a class="stay-in-touch-button" :href="t('social_link_telegram')">
 				<img src="../../assets/images/telegram.svg">
 				<div class="stay-in-touch-button__description">
 					<div class="stay-in-touch-button__description-title">Telegram</div>
-					<div class="stay-in-touch-button__description-text">{{t('follow_the_news_join')}}</div>
+					<div class="stay-in-touch-button__description-text">{{ t('follow_the_news_join') }}</div>
 				</div>
 				<img class="stay-in-touch-button__arrow" src="../../assets/images/arrow6.svg">
 				<div class="stay-in-touch-button__blur"></div>
@@ -28,7 +29,7 @@ export default {
 				<img src="../../assets/images/discord.svg">
 				<div class="stay-in-touch-button__description">
 					<div class="stay-in-touch-button__description-title">Discord</div>
-					<div class="stay-in-touch-button__description-text">{{t('follow_the_news_join')}}</div>
+					<div class="stay-in-touch-button__description-text">{{ t('follow_the_news_join') }}</div>
 					<div class="stay-in-touch-button__description-blur"></div>
 				</div>
 				<img class="stay-in-touch-button__arrow" src="../../assets/images/arrow6.svg">
@@ -38,7 +39,7 @@ export default {
 				<img src="../../assets/images/reddit.svg">
 				<div class="stay-in-touch-button__description">
 					<div class="stay-in-touch-button__description-title">Reddit</div>
-					<div class="stay-in-touch-button__description-text">{{t('follow_the_news_join')}}</div>
+					<div class="stay-in-touch-button__description-text">{{ t('follow_the_news_join') }}</div>
 				</div>
 				<img class="stay-in-touch-button__arrow" src="../../assets/images/arrow6.svg">
 				<div class="stay-in-touch-button__blur"></div>
@@ -77,6 +78,7 @@ export default {
 
 .stay-in-touch-button {
 	display:         flex;
+	justify-content: space-between;
 	flex-direction:  row;
 	overflow:        hidden;
 	align-items:     center;
@@ -94,7 +96,6 @@ export default {
 			background: #9751f3;
 			filter:     blur(100px);
 			right:      30%;
-
 		}
 	}
 }
@@ -105,8 +106,8 @@ export default {
 }
 
 .stay-in-touch-button__description {
-	text-align:  left;
-	margin-left: 10px;
+	text-align:   left;
+	margin-right: auto;
 }
 
 .stay-in-touch-button__description-title {
@@ -121,10 +122,8 @@ export default {
 }
 
 .stay-in-touch-button__arrow {
-	margin-left: 100px;
-	position:    relative;
-	top:         -10px;
+	position:     relative;
+	top:          -10px;
+	margin-right: 40px;
 }
-
-
 </style>

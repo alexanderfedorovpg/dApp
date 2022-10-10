@@ -41,16 +41,6 @@ export default {
 	position: relative;
 }
 
-.text-center {
-	max-width:   685px;
-	padding-top: 120px;
-	font-size:   32px;
-	line-height: 120%;
-	text-align:  center;
-	color:       #fff;
-	margin:      auto;
-}
-
 .blur {
 	position:       absolute;
 	width:          400px;
