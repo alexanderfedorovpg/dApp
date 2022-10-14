@@ -1,27 +1,38 @@
 <script lang="ts">
+import {onMounted, ref} from 'vue';
 import {useI18n} from 'vue-i18n';
+import {useObserverHook} from '../../hooks/use-observer-hook';
+
 /**
  * Component Mechanics App
  */
 export default {
 	setup() {
-		const { t } = useI18n();
+		const {t}        = useI18n();
+		const {observer} = useObserverHook()
 
-		return {t}
+		/** Ref HTML Block Component */
+		const block = ref<Element>(null);
+
+		onMounted(() => {
+			observer.observe(block.value)
+		})
+
+		return {t, block}
 	},
 }
 </script>
 <template>
-	<div class="mechanics-app">
-		<p class="mechanics-app__title">{{t('mechanics-app_title')}}</p>
+	<div ref="block" class="mechanics-app">
+		<p class="mechanics-app__title">{{ t('mechanics-app_title') }}</p>
 		<div class="mechanics-app__steps">
 			<div class="mechanics-app__steps-item">
 				<div class="mechanics-app__steps-item-blur"></div>
 				<div class="mechanics-app__steps-item-wrapper">
 					<div class="mechanics-app__steps-item-description">
-						<div class="mechanics-app__steps-item-step">{{t('mechanics-app_step')}} &nbsp; 1</div>
-						<div class="mechanics-app__steps-item-title">{{t('mechanics-app_block1_title')}}</div>
-						<div class="mechanics-app__steps-item-text">{{t('mechanics-app_block1_description')}}</div>
+						<div class="mechanics-app__steps-item-step">{{ t('mechanics-app_step') }} &nbsp; 1</div>
+						<div class="mechanics-app__steps-item-title">{{ t('mechanics-app_block1_title') }}</div>
+						<div class="mechanics-app__steps-item-text">{{ t('mechanics-app_block1_description') }}</div>
 					</div>
 					<div class="mechanics-app__steps-item-image">
 						<img src="../../assets/images/step1.png">
@@ -32,9 +43,9 @@ export default {
 				<div class="mechanics-app__steps-item-blur"></div>
 				<div class="mechanics-app__steps-item-wrapper">
 					<div class="mechanics-app__steps-item-description">
-						<div class="mechanics-app__steps-item-step">{{t('mechanics-app_step')}} &nbsp; 2</div>
-						<div class="mechanics-app__steps-item-title">{{t('mechanics-app_block2_title')}}</div>
-						<div class="mechanics-app__steps-item-text">{{t('mechanics-app_block2_description')}}</div>
+						<div class="mechanics-app__steps-item-step">{{ t('mechanics-app_step') }} &nbsp; 2</div>
+						<div class="mechanics-app__steps-item-title">{{ t('mechanics-app_block2_title') }}</div>
+						<div class="mechanics-app__steps-item-text">{{ t('mechanics-app_block2_description') }}</div>
 					</div>
 					<div class="mechanics-app__steps-item-image">
 						<img src="../../assets/images/step2.png">
@@ -45,9 +56,9 @@ export default {
 				<div class="mechanics-app__steps-item-blur"></div>
 				<div class="mechanics-app__steps-item-wrapper">
 					<div class="mechanics-app__steps-item-description">
-						<div class="mechanics-app__steps-item-step">{{t('mechanics-app_step')}} &nbsp; 3</div>
-						<div class="mechanics-app__steps-item-title">{{t('mechanics-app_block3_title')}}</div>
-						<div class="mechanics-app__steps-item-text">{{t('mechanics-app_block3_description')}}</div>
+						<div class="mechanics-app__steps-item-step">{{ t('mechanics-app_step') }} &nbsp; 3</div>
+						<div class="mechanics-app__steps-item-title">{{ t('mechanics-app_block3_title') }}</div>
+						<div class="mechanics-app__steps-item-text">{{ t('mechanics-app_block3_description') }}</div>
 					</div>
 					<div class="mechanics-app__steps-item-image">
 						<img src="../../assets/images/step3.png">
@@ -58,9 +69,9 @@ export default {
 				<div class="mechanics-app__steps-item-blur"></div>
 				<div class="mechanics-app__steps-item-wrapper">
 					<div class="mechanics-app__steps-item-description">
-						<div class="mechanics-app__steps-item-step">{{t('mechanics-app_step')}} &nbsp; 4</div>
-						<div class="mechanics-app__steps-item-title">{{t('mechanics-app_block4_title')}}</div>
-						<div class="mechanics-app__steps-item-text">{{t('mechanics-app_block4_description')}}</div>
+						<div class="mechanics-app__steps-item-step">{{ t('mechanics-app_step') }} &nbsp; 4</div>
+						<div class="mechanics-app__steps-item-title">{{ t('mechanics-app_block4_title') }}</div>
+						<div class="mechanics-app__steps-item-text">{{ t('mechanics-app_block4_description') }}</div>
 					</div>
 					<div class="mechanics-app__steps-item-image">
 						<img src="../../assets/images/step4.png">
@@ -71,8 +82,8 @@ export default {
 				<div class="mechanics-app__steps-item-blur"></div>
 				<div class="mechanics-app__steps-item-wrapper">
 					<div class="mechanics-app__steps-item-description">
-						<div class="mechanics-app__steps-item-step">{{t('mechanics-app_step')}} &nbsp; 5</div>
-						<div class="mechanics-app__steps-item-title">{{t('mechanics-app_block5_title')}}</div>
+						<div class="mechanics-app__steps-item-step">{{ t('mechanics-app_step') }} &nbsp; 5</div>
+						<div class="mechanics-app__steps-item-title">{{ t('mechanics-app_block5_title') }}</div>
 						<div class="mechanics-app__steps-item-text" v-html="t('mechanics-app_block5_description')"></div>
 					</div>
 					<div class="mechanics-app__steps-item-image">
@@ -84,8 +95,8 @@ export default {
 				<div class="mechanics-app__steps-item-blur"></div>
 				<div class="mechanics-app__steps-item-wrapper">
 					<div class="mechanics-app__steps-item-description">
-						<div class="mechanics-app__steps-item-step">{{t('mechanics-app_step')}} &nbsp; 6</div>
-						<div class="mechanics-app__steps-item-title">{{t('mechanics-app_block6_title')}}</div>
+						<div class="mechanics-app__steps-item-step">{{ t('mechanics-app_step') }} &nbsp; 6</div>
+						<div class="mechanics-app__steps-item-title">{{ t('mechanics-app_block6_title') }}</div>
 						<div class="mechanics-app__steps-item-text" v-html="t('mechanics-app_block6_description')"></div>
 					</div>
 					<div class="mechanics-app__steps-item-image">
@@ -95,24 +106,24 @@ export default {
 			</div>
 		</div>
 		<div class="mechanics-app__about">
-			<div class="mechanics-app__about-title">{{t('mechanics-app_about_title')}}</div>
+			<div class="mechanics-app__about-title">{{ t('mechanics-app_about_title') }}</div>
 			<div class="mechanics-app__about-items">
 				<div class="mechanics-app__about-item">
 					<span class="mechanics-app__about-item-title">3 BUSD </span>
-					<p class="mechanics-app__about-item-text">{{t('mechanics-app_about_block1_title')}}</p>
+					<p class="mechanics-app__about-item-text">{{ t('mechanics-app_about_block1_title') }}</p>
 				</div>
 				<div class="mechanics-app__about-item">
 					<div class="mechanics-app__about-item-blur"></div>
 					<span class="mechanics-app__about-item-title">3 BUSD </span>
-					<p class="mechanics-app__about-item-text">{{t('mechanics-app_about_block2_title')}}</p>
+					<p class="mechanics-app__about-item-text">{{ t('mechanics-app_about_block2_title') }}</p>
 				</div>
 				<div class="mechanics-app__about-item">
 					<span class="mechanics-app__about-item-title">по 1 BUSD</span>
-					<p class="mechanics-app__about-item-text">{{t('mechanics-app_about_block3_title')}}</p>
+					<p class="mechanics-app__about-item-text">{{ t('mechanics-app_about_block3_title') }}</p>
 				</div>
 				<div class="mechanics-app__about-item">
 					<span class="mechanics-app__about-item-title">3 BUSD </span>
-					<p class="mechanics-app__about-item-text">{{t('mechanics-app_about_block4_title')}}</p>
+					<p class="mechanics-app__about-item-text">{{ t('mechanics-app_about_block4_title') }}</p>
 				</div>
 			</div>
 		</div>
@@ -191,6 +202,7 @@ export default {
 		height:          381px;
 		overflow:        hidden;
 		margin:          0 0 30px 30px;
+		position:        relative;
 
 		&:nth-child(2n+1) {
 			margin-left: 0;

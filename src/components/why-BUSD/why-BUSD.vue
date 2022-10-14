@@ -1,40 +1,51 @@
 <script lang="ts">
+import {onMounted, ref} from 'vue';
 import {useI18n} from 'vue-i18n';
+import {useObserverHook} from '../../hooks/use-observer-hook';
+
 /**
  * Component Why BUSD
  */
 export default {
 	setup() {
-		const { t } = useI18n();
+		const {t}        = useI18n();
+		const {observer} = useObserverHook()
 
-		return {t}
+		/** Ref HTML Block Component */
+		const block = ref<Element>(null);
+
+		onMounted(() => {
+			observer.observe(block.value)
+		})
+
+		return {t, block}
 	},
 }
 </script>
 <template>
-	<div class="why-BUSD">
-		<div class="why-BUSD-title">{{t('why-BUSD_title')}}</div>
+	<div ref="block" class="why-BUSD">
+		<div class="why-BUSD-title">{{ t('why-BUSD_title') }}</div>
 		<div class="why-BUSD-steps">
 			<div class="why-BUSD-step">
 				<div class="why-BUSD-step__blur1"></div>
 				<div class="why-BUSD-step__blur2"></div>
 				<div class="why-BUSD-step__number">1</div>
-				<div class="why-BUSD-step__title">{{t('why-BUSD-step1__title')}}</div>
-				<div class="why-BUSD-step__text">{{t('why-BUSD-step1__text')}}</div>
+				<div class="why-BUSD-step__title">{{ t('why-BUSD-step1__title') }}</div>
+				<div class="why-BUSD-step__text">{{ t('why-BUSD-step1__text') }}</div>
 			</div>
 			<div class="why-BUSD-step">
 				<div class="why-BUSD-step__blur1"></div>
 				<div class="why-BUSD-step__blur2"></div>
 				<div class="why-BUSD-step__number">2</div>
-			<div class="why-BUSD-step__title">{{t('why-BUSD-step2__title')}}</div>
-				<div class="why-BUSD-step__text">{{t('why-BUSD-step2__text')}}</div>
+			<div class="why-BUSD-step__title">{{ t('why-BUSD-step2__title') }}</div>
+				<div class="why-BUSD-step__text">{{ t('why-BUSD-step2__text') }}</div>
 			</div>
 			<div class="why-BUSD-step">
 				<div class="why-BUSD-step__blur1"></div>
 				<div class="why-BUSD-step__blur2"></div>
 				<div class="why-BUSD-step__number">3</div>
-				<div class="why-BUSD-step__title">{{t('why-BUSD-step3__title')}}</div>
-				<div class="why-BUSD-step__text">{{t('why-BUSD-step3__text')}}</div>
+				<div class="why-BUSD-step__title">{{ t('why-BUSD-step3__title') }}</div>
+				<div class="why-BUSD-step__text">{{ t('why-BUSD-step3__text') }}</div>
 			</div>
 		</div>
 	</div>

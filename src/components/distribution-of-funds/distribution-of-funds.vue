@@ -1,20 +1,30 @@
 <script lang="ts">
+import {onMounted, ref} from 'vue';
 import {useI18n} from 'vue-i18n';
+import {useObserverHook} from '../../hooks/use-observer-hook';
 
 /**
  * Component Distribution Of Funds
  */
 export default {
 	setup() {
-		const { t } = useI18n();
+		const {t}        = useI18n();
+		const {observer} = useObserverHook()
 
-		return {t}
+		/** Ref HTML Block Component */
+		const block = ref<Element>(null);
+
+		onMounted(() => {
+			observer.observe(block.value)
+		})
+
+		return {t, block}
 	},
 }
 </script>
 <template>
-	<div class="distribution-of-funds">
-		<div class="distribution-of-funds-title">{{t('distribution_of_funds_title')}}</div>
+	<div ref="block" class="distribution-of-funds">
+		<div class="distribution-of-funds-title">{{ t('distribution_of_funds_title') }}</div>
 		<div class="distribution-of-funds-block">
 			<div class="distribution-of-funds-block__description">
 				<div class="distribution-of-funds-description-block">

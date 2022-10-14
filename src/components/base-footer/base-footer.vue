@@ -49,8 +49,8 @@ export default {
 			</defs>
 		</svg>
 		</a>
-		<span class="footer__link">{{t('link7')}}</span>
-		<span class="footer__link" @click="scrollTo('.distribution-of-funds')">{{t('link6')}}</span>
+		<a class="footer__link" href="/Swayze Terms and Conditions.pdf">{{t('link8')}}</a>
+		<a class="footer__link" href="/Privacy Policy.pdf">{{t('link7')}}</a>
 		<button-wallet/>
 	</footer>
 

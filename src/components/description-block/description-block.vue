@@ -1,5 +1,7 @@
 <script lang="ts">
+import {onMounted, ref} from 'vue';
 import {useI18n} from 'vue-i18n';
+import {useObserverHook} from '../../hooks/use-observer-hook';
 import BaseButton from '../base-button/base-button.vue';
 
 /**
@@ -10,14 +12,22 @@ export default {
 		BaseButton,
 	},
 	setup() {
-		const {t} = useI18n();
+		const {t}        = useI18n();
+		const {observer} = useObserverHook()
 
-		return {t}
+		/** Ref HTML Block Component */
+		const block = ref<Element>(null);
+
+		onMounted(() => {
+			observer.observe(block.value)
+		})
+
+		return {t, block}
 	},
 }
 </script>
 <template>
-	<div class="description-block-wrapper">
+	<div ref="block" class="description-block-wrapper">
 		<div class="description-block">
 			<div class="description-tabs">
 					<div class="description-tab">
@@ -88,7 +98,7 @@ export default {
 		</div>
 		<div class="description-total-block__item">
 				<div class="description-total-block__item-value">1203</div>
-				<div class="description-total-block__item-text">{{t('members') }}</div>
+				<div class="description-total-block__item-text">{{ t('members') }}</div>
 		</div>
 	</div>
 </template>

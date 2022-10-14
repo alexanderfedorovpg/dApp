@@ -1,19 +1,29 @@
 <script lang="ts">
+import {onMounted, ref} from 'vue';
 import {useI18n} from 'vue-i18n';
+import {useObserverHook} from '../../hooks/use-observer-hook';
 
 /**
  * Component Stay In Touch
  */
 export default {
 	setup() {
-		const {t} = useI18n();
+		const {t}        = useI18n();
+		const {observer} = useObserverHook()
 
-		return {t}
+		/** Ref HTML Block Component */
+		const block = ref<Element>(null);
+
+		onMounted(() => {
+			observer.observe(block.value)
+		})
+
+		return {t, block}
 	},
 }
 </script>
 <template>
-	<div class="stay-in-touch">
+	<div ref="block" class="stay-in-touch">
 		<div class="stay-in-touch-title">{{ t('follow_the_news_title') }}</div>
 		<div class="stay-in-touch-block">
 			<a class="stay-in-touch-button" :href="t('social_link_telegram')">

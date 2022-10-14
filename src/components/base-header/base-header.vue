@@ -1,7 +1,9 @@
 <script lang="ts">
 import {useI18n} from 'vue-i18n';
 import {useLinks} from '../../hooks/links-hook';
+import Links from '../../types/links';
 import ButtonWallet from '../button-wallet/button-wallet.vue';
+import {useObserverHook} from '../../hooks/use-observer-hook';
 
 /**
  * Component Header
@@ -13,8 +15,9 @@ export default {
 	setup() {
 		const {t}                          = useI18n();
 		const {isNeedBackground, scrollTo} = useLinks();
+		const {activeLink}                 = useObserverHook();
 
-		return {isNeedBackground, scrollTo, t}
+		return {isNeedBackground, scrollTo, t, Links, activeLink}
 	}
 }
 </script>
@@ -49,12 +52,12 @@ export default {
 					</defs>
 				</svg>
 				</a>
-				<span class="header__link" @click="scrollTo('.wrapper')">{{ t('link1') }}</span>
-				<span class="header__link" @click="scrollTo('.text-center')">{{ t('link2') }}</span>
-				<span class="header__link" @click="scrollTo('.mechanics-app')">{{ t('link3') }}</span>
-				<span class="header__link" @click="scrollTo('.why-BUSD')">{{ t('link4') }}</span>
-				<span class="header__link" @click="scrollTo('.roadmap')">{{ t('link5') }}</span>
-				<span class="header__link" @click="scrollTo('.distribution-of-funds')">{{ t('link6') }}</span>
+				<span class="header__link" :class="{'header__link_active': Links.DescriptionBlockWrapper === activeLink }" @click="scrollTo('.' + Links.DescriptionBlockWrapper)">{{ t('link1') }}</span>
+				<span class="header__link" :class="{'header__link_active': 'what-is-invest' === activeLink }" @click="scrollTo('.'+ Links.TextCenter)">{{ t('link2') }}</span>
+				<span class="header__link" :class="{'header__link_active': Links.MechanicsApp === activeLink }" @click="scrollTo('.' + Links.MechanicsApp)">{{ t('link3') }}</span>
+				<span class="header__link" :class="{'header__link_active': Links.WhyBUSD === activeLink } " @click="scrollTo('.' + Links.WhyBUSD)">{{ t('link4') }}</span>
+				<span class="header__link" :class="{'header__link_active': Links.Roadmap === activeLink }" @click="scrollTo('.' + Links.Roadmap)">{{ t('link5') }}</span>
+				<span class="header__link" :class="{'header__link_active': Links.DistributionOfFunds === activeLink }" @click="scrollTo('.' + Links.DistributionOfFunds)">{{ t('link6') }}</span>
 				<button-wallet/>
 		</header>
 	</div>
@@ -101,6 +104,10 @@ export default {
 		color:       #fff;
 		white-space: nowrap;
 		font-size:   15px;
+
+		&_active {
+			color: #ad42ec;
+		}
 
 		&:hover {
 			color:  #ad42ec;

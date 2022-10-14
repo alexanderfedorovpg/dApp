@@ -1,24 +1,35 @@
 <script lang="ts">
+import {onMounted, ref} from 'vue';
 import {useI18n} from 'vue-i18n';
+import {useObserverHook} from '../../hooks/use-observer-hook';
+
 /**
  * Component Roadmap
  */
 export default {
 	setup() {
-		const { t } = useI18n();
+		const {t} = useI18n();
 
-		return {t}
+		/** Ref HTML Block Component */
+		const block      = ref<Element>(null);
+		const {observer} = useObserverHook()
+
+		onMounted(() => {
+			observer.observe(block.value)
+		})
+
+		return {t, block}
 	},
 }
 </script>
 <template>
-	<div class="roadmap">
-		<div class="roadmap-title">{{t('roadmap_title')}}</div>
+	<div ref="block" class="roadmap">
+		<div class="roadmap-title">{{ t('roadmap_title') }}</div>
 		<div class="roadmap-map">
 			<div class="roadmap-map__step">
 				<img src="../../assets/images/1.svg">
 				<div class="roadmap-map__step-description">
-					<div class="roadmap-map__step-title">{{t('roadmap_stage1')}}</div>
+					<div class="roadmap-map__step-title">{{ t('roadmap_stage1') }}</div>
 					<div class="roadmap-map__step-text" v-html="t('roadmap_q1_description')"></div>
 				</div>
 			</div>
@@ -28,7 +39,7 @@ export default {
 			<div class="roadmap-map__step">
 				<img src="../../assets/images/2.svg">
 				<div class="roadmap-map__step-description">
-					<div class="roadmap-map__step-title">{{t('roadmap_stage2')}}</div>
+					<div class="roadmap-map__step-title">{{ t('roadmap_stage2') }}</div>
 					<div class="roadmap-map__step-text" v-html="t('roadmap_q2_description')"></div>
 				</div>
 			</div>
@@ -38,7 +49,7 @@ export default {
 			<div class="roadmap-map__step">
 				<img src="../../assets/images/3.svg">
 				<div class="roadmap-map__step-description">
-					<div class="roadmap-map__step-title">{{t('roadmap_stage3')}}</div>
+					<div class="roadmap-map__step-title">{{ t('roadmap_stage3') }}</div>
 					<div class="roadmap-map__step-text" v-html="t('roadmap_q3_description')"></div>
 				</div>
 			</div>
@@ -48,7 +59,7 @@ export default {
 			<div class="roadmap-map__step">
 				<img src="../../assets/images/4.svg">
 				<div class="roadmap-map__step-description">
-					<div class="roadmap-map__step-title">{{t('roadmap_stage4')}}</div>
+					<div class="roadmap-map__step-title">{{ t('roadmap_stage4') }}</div>
 					<div class="roadmap-map__step-text" v-html="t('roadmap_q4_description')"></div>
 				</div>
 			</div>

@@ -17,6 +17,7 @@ export default {
 		link5: 'Дорожная карта',
 		link6: 'Распределение средств',
 		link7: 'Политика конфиденциальности',
+		link8: 'Условия использования',
 		// -- -- -- --
 		//-- Description Block
 		powered_by:              'Реализован на',
@@ -126,6 +127,7 @@ export default {
 		link5: 'Road map',
 		link6: 'Distribution of funds',
 		link7: 'Privacy policy',
+		link8: 'Terms of Use',
 		// -- -- -- --
 		//-- Description Block
 		powered_by:              'Powered by',
