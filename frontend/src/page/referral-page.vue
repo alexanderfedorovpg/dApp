@@ -3,7 +3,7 @@ import {useI18n} from 'vue-i18n';
 import BaseButton from '../components/base-button/base-button.vue';
 
 /**
- * Page top referrals
+ * Page referrals
  */
 export default {
 	components: {BaseButton},

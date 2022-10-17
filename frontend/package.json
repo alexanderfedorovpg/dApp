@@ -13,17 +13,20 @@
 	"main": "index.js",
 	"dependencies": {
 		"@vue/cli-plugin-typescript": "^5.0.8",
+		"@walletconnect/web3-provider": "^1.8.0",
 		"core-js": "^3.8.3",
 		"detect-browser-language": "0.0.2",
-		"ethers": "^5.7.0",
-		"get-user-locale": "^2.0.0",
+		"ethers": "^5.7.1",
+		"node-polyfill-webpack-plugin": "^2.0.1",
 		"sass": "^1.54.9",
 		"sass-loader": "^13.0.2",
 		"typescript": "^4.8.3",
 		"vue": "^3.2.13",
+		"vue-connect-wallet": "^0.1.6",
+		"vue-dapp": "^0.5.8",
 		"vue-i18n": "^9.2.2",
 		"vue-router": "^4.1.5",
-		"web3": "^1.7.5"
+		"web3": "^1.8.0"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.12.16",

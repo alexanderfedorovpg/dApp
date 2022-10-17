@@ -1,0 +1,45 @@
+{
+	"ts-node": {
+		"allowJs": true,
+		"transpileOnly": true,
+	},
+	"compilerOptions": {
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"noImplicitAny": false,
+		"strictNullChecks": false,
+		"target": "esnext",
+		"module": "commonjs",
+		"strict": true,
+		"jsx": "preserve",
+		"importHelpers": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"baseUrl": "./",
+		"types": [
+			"core-js",
+			"es6-collections",
+			"node",
+			"vue",
+			"vuex",
+		],
+		"paths": {
+			"@/*": [
+				"src/*"
+			],
+		},
+		"lib": [
+			"esnext",
+			"es5",
+			"es6",
+			"dom",
+			"dom.iterable",
+			"scripthost",
+			"es2015.symbol"
+		]
+	},
+	"exclude": [
+		"node_modules"
+	]
+}

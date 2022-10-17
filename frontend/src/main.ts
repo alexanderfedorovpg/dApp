@@ -5,8 +5,9 @@ import App from './app.vue';
 import './assets/normalize.scss';
 import './assets/main.scss';
 import detectLang from './helpers/detect-user-lang';
-import TopReferralsPage from './page/top-referrals-page.vue';
+import ReferralPage from './page/referral-page.vue';
 import HomePage from './page/home-page.vue';
+import {VueDapp} from 'vue-dapp';
 import messages from './translations/messages';
 
 /**
@@ -14,15 +15,16 @@ import messages from './translations/messages';
  */
 const router = createRouter({
 	routes:  [
-		{path: '/top', name: 'top', component: TopReferralsPage},
+		{path: '/referral', name: 'referral', component: ReferralPage},
 		{path: '/', name: 'home', component: HomePage},
-		{path: '/:pathMatch(.*)*', name: 'not-found', redirect: '/' },
+		{path: '/:pathMatch(.*)*', name: 'not-found', redirect: '/'},
 	],
 	history: createWebHistory(),
 });
 
 createApp(App)
 	.use(router)
+	.use(VueDapp)
 	.use(createI18n({
 		legacy:         false,
 		locale:         detectLang(),
