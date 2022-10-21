@@ -47,7 +47,8 @@ export default {
 		<div class="top-referrals-page__active-investors">
 			{{ t('referral_page_the_most_active_investors') }}
 		</div>
-		<table class="top-referrals-page__table">
+		<div class="top-referrals-page-table-wrapper">
+			<table class="top-referrals-page__table">
 			<thead>
 				<tr>
 					<td class="top-referrals-page__table-head">{{ t('referral_page_table_address') }}</td>
@@ -88,11 +89,20 @@ export default {
 				</tr>
 			</tbody>
 		</table>
+		</div>
 	</div>
 </template>
 
 <style lang="scss">
 @import "../assets/values.scss";
+
+.top-referrals-page-table-wrapper {
+	@media (max-width: $max-mobile-with) {
+		overflow-x: scroll;
+		display:    flex;
+		width:      100%;
+	}
+}
 
 .top-referrals-page {
 	margin: 184px auto auto;
