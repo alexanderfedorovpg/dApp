@@ -263,15 +263,15 @@ export default {
 }
 
 .description-total-block {
-	display:         flex;
-	flex-direction:  row;
-	align-items:     center;
-	justify-content: center;
-	margin-top:      80px;
+	display:        flex;
+	flex-direction: row;
+	margin-top:     80px;
 
 	@media (max-width: $max-mobile-with) {
-		flex-direction: column;
-		margin-top:     50px;
+		flex-direction:  column;
+		margin-top:      50px;
+		align-items:     center;
+		justify-content: center;
 	}
 
 	&__item {

@@ -18,7 +18,7 @@ export default {
 <template>
 	<div class="top-referrals-page">
 			<div class="top-referrals-page-block-description">
-				<div>
+				<div class="top-referrals-page-block-description-wrapper">
 					<div class="top-referrals-page__description-tabs">
 						<div class="top-referrals-page__description-tab">
 							<div class="top-referrals-page-description-tab__title">{{ t('referral_page_invited') }}</div>
@@ -92,6 +92,8 @@ export default {
 </template>
 
 <style lang="scss">
+@import "../assets/values.scss";
+
 .top-referrals-page {
 	margin: 184px auto auto;
 
@@ -104,6 +106,10 @@ export default {
 		&:nth-child(2n) {
 			background: transparent;
 		}
+
+		@media (max-width: $max-mobile-with) {
+			font-size: 14px;
+		}
 	}
 
 	&__table-cell {
@@ -112,6 +118,14 @@ export default {
 
 		&:first-child {
 			padding-left: 50px;
+		}
+
+		@media (max-width: $max-mobile-with) {
+			padding: 10px 10px 10px 0;
+
+			&:first-child {
+				padding-left: 10px;
+			}
 		}
 	}
 
@@ -128,18 +142,38 @@ export default {
 		span {
 			color: #585467;
 		}
+
+		@media (max-width: $max-mobile-with) {
+			padding:   10px 10px 10px 0;
+			font-size: 15px;
+
+			&:first-child {
+				padding-left: 10px;
+			}
+		}
 	}
 
 	&__table {
 		margin-top:    90px;
 		margin-bottom: 80px;
 		width:         100%;
+
+		@media (max-width: $max-mobile-with) {
+			margin-top: 50px
+		}
 	}
 
 	&__active-investors {
 		font-size:  32px;
 		text-align: center;
 		color:      #fff;
+
+		@media (max-width: $max-mobile-with) {
+			flex-direction:  column;
+			justify-content: center;
+			align-items:     center;
+			font-size:       20px;
+		}
 	}
 
 	&-block-description {
@@ -147,6 +181,16 @@ export default {
 		display:         flex;
 		flex-direction:  row;
 		justify-content: space-between;
+
+		@media (max-width: $max-mobile-with) {
+			flex-direction:  column;
+			justify-content: center;
+			align-items:     center;
+		}
+	}
+
+	&-block-description-wrapper {
+		text-align: center;
 	}
 
 	&-block-description-qr {
@@ -162,6 +206,11 @@ export default {
 		font-size:       16px;
 		text-align:      center;
 		color:           #c6c6c6;
+
+		@media (max-width: $max-mobile-with) {
+			text-align: center;
+			margin:     20px auto;
+		}
 	}
 
 	&-link-text {
@@ -170,6 +219,11 @@ export default {
 		font-weight: 500;
 		font-size:   22px;
 		color:       #fff;
+
+		@media (max-width: $max-mobile-with) {
+			text-align: center;
+			font-size:  18px;
+		}
 	}
 
 	&-link-description {
@@ -179,6 +233,11 @@ export default {
 		font-size:     16px;
 		color:         #c6c6c6;
 		margin-bottom: 50px;
+
+		@media (max-width: $max-mobile-with) {
+			text-align: center;
+			font-size:  14px;
+		}
 	}
 
 	&__description-tabs {
