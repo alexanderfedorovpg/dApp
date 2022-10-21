@@ -33,7 +33,7 @@ export default {
 				<p class="what-is-invest__item-text" v-html="t('what_is_invest_block1_description_text')"></p>
 			</div>
 		</div>
-		<div class="what-is-invest__item">
+		<div class="what-is-invest__item what-is-invest__item_reverse">
 			<div class="what-is-invest__item-container what-is-invest__item-container_text">
 				<span class="what-is-invest__item-title">{{ t('what_is_invest_block2_title') }}</span>
 			<p class="what-is-invest__item-text" v-html="t('what_is_invest_block2_description_text')"></p>
@@ -55,6 +55,8 @@ export default {
 </template>
 
 <style lang="scss">
+@import "../../assets/values.scss";
+
 .what-is-invest {
 	margin-top: 80px;
 }
@@ -64,11 +66,23 @@ export default {
 	flex-direction:  row;
 	justify-content: space-around;
 	margin-bottom:   40px;
+
+	@media (max-width: $max-mobile-with) {
+		flex-direction: column;
+
+		&_reverse {
+			flex-direction: column-reverse;
+		}
+	}
 }
 
 .what-is-invest__item-block {
 	text-align: left;
 	width:      582px;
+
+	@media (max-width: $max-mobile-with) {
+		width: 100%;
+	}
 
 	&_text {
 		text-align: left;
@@ -93,26 +107,52 @@ export default {
 	font-size:  22px;
 	color:      #fff;
 	text-align: left;
+
+	@media (max-width: $max-mobile-with) {
+		font-size: 18px;
+	}
 }
 
 .what-is-invest__item-text {
 	font-size:  18px;
 	color:      #c6c6c6;
 	text-align: left;
+
+	@media (max-width: $max-mobile-with) {
+		font-size: 15px;
+	}
 }
 
 .what-is-invest__item-image {
 	width:  385px;
 	height: 380px;
+
+	@media (max-width: $max-mobile-with) {
+		width:         auto;
+		height:        220px;
+		margin-bottom: 30px;
+	}
 }
 
 .what-is-invest__item-image1 {
 	width:  301px;
 	height: 380px;
+
+	@media (max-width: $max-mobile-with) {
+		width:         auto;
+		height:        220px;
+		margin-bottom: 30px;
+	}
 }
 
 .what-is-invest__item-image2 {
 	width:  365px;
 	height: 380px;
+
+	@media (max-width: $max-mobile-with) {
+		width:         auto;
+		height:        220px;
+		margin-bottom: 30px;
+	}
 }
 </style>

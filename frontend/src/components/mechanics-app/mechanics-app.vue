@@ -131,18 +131,31 @@ export default {
 </template>
 
 <style lang="scss">
+@import "../../assets/values.scss";
+
 .mechanics-app {
 	margin-top: 120px;
 
 	&__title {
 		font-size: 32px;
 		color:     #fff;
+
+		@media (max-width: $max-mobile-with) {
+			font-size: 20px;
+		}
 	}
 
 	&__steps {
 		margin-top: 80px;
 		display:    flex;
 		flex-wrap:  wrap;
+
+		@media (max-width: $max-mobile-with) {
+			margin-top:      50px;
+			justify-content: center;
+			flex-direction:  column;
+			align-items:     center;
+		}
 	}
 
 	&__about {
@@ -152,6 +165,10 @@ export default {
 		backdrop-filter: blur(10px);
 		border-radius:   20px;
 		height:          365px;
+
+		@media (max-width: $max-mobile-with) {
+			height: inherit;
+		}
 	}
 
 	&__about-items {
@@ -159,6 +176,11 @@ export default {
 		flex-flow:       row;
 		justify-content: space-between;
 		margin:          40px 50px 50px;
+
+		@media (max-width: $max-mobile-with) {
+			flex-flow: column;
+			margin:    30px;
+		}
 	}
 
 	&__about-item {
@@ -171,18 +193,34 @@ export default {
 		&:last-child {
 			margin-right: 0;
 		}
+
+		@media (max-width: $max-mobile-with) {
+			margin: 10px 0;
+
+			&:last-child {
+				margin-bottom: 20px;
+			}
+		}
 	}
 
 	&__about-item-title {
 		color:       #fff;
 		font-weight: 500;
 		font-size:   20px;
+
+		@media (max-width: $max-mobile-with) {
+			font-size: 18px;
+		}
 	}
 
 	&__about-item-text {
 		color:       #c6c6c6;
 		font-weight: 400;
 		font-size:   16px;
+
+		@media (max-width: $max-mobile-with) {
+			font-size: 15px;
+		}
 	}
 
 	&__about-title {
@@ -192,6 +230,11 @@ export default {
 		text-align:  left;
 		width:       530px;
 		padding:     50px 50px 0 40px;
+
+		@media (max-width: $max-mobile-with) {
+			font-size: 20px;
+			width:     100%;
+		}
 	}
 
 	&__steps-item {
@@ -206,6 +249,13 @@ export default {
 
 		&:nth-child(2n+1) {
 			margin-left: 0;
+		}
+
+		@media (max-width: $max-mobile-with) {
+			margin:    0 0 30px 0;
+			height:    436px;
+			max-width: 425px;
+			width:     100%;
 		}
 	}
 
@@ -230,6 +280,11 @@ export default {
 		color:       #ffff;
 		font-size:   22px;
 		font-weight: 500;
+
+		@media (max-width: $max-mobile-with) {
+			margin-top: 20px;
+			font-size:  18px;
+		}
 	}
 
 	&__steps-item-text {
@@ -238,11 +293,20 @@ export default {
 		font-weight: 400;
 		font-size:   18px;
 		width:       260px;
+
+		@media (max-width: $max-mobile-with) {
+			font-size: 15px;
+			width:     100%;
+		}
 	}
 
 	&__steps-item-description {
 		text-align: left;
 		padding:    40px;
+
+		@media (max-width: $max-mobile-with) {
+			padding: 20px;
+		}
 	}
 
 	&__steps-item-image {
@@ -250,6 +314,12 @@ export default {
 		bottom:     -5px;
 		right:      0;
 		text-align: end;
+
+		@media (max-width: $max-mobile-with) {
+			img {
+				height: 219px;
+			}
+		}
 	}
 
 	&__steps-item-blur {

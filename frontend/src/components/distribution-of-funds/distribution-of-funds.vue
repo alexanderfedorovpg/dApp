@@ -60,14 +60,24 @@ export default {
 </template>
 
 <style lang="scss">
+@import "../../assets/values.scss";
+
 .distribution-of-funds {
 	margin-top: 120px;
+
+	@media (max-width: $max-mobile-with) {
+		margin-top: 80px;
+	}
 }
 
 .distribution-of-funds-title {
 	font-weight: 700;
 	font-size:   32px;
 	color:       #fff;
+
+	@media (max-width: $max-mobile-with) {
+		font-size: 20px;
+	}
 }
 
 .distribution-of-funds-block {
@@ -77,9 +87,27 @@ export default {
 	width:          100%;
 	align-items:    center;
 
+	@media (max-width: $max-mobile-with) {
+		margin:          50px auto auto auto;
+		flex-direction:  column;
+		justify-content: center;
+	}
+
+	&__image {
+		margin-top: 20px;
+
+		img {
+			height: 234px
+		}
+	}
+
 	&__description {
 		display:   flex;
 		flex-wrap: wrap;
+
+		@media (max-width: $max-mobile-with) {
+			justify-content: center;
+		}
 	}
 
 	.distribution-of-funds-description-block {
@@ -92,12 +120,19 @@ export default {
 		border:          2px solid rgba(151, 81, 243, 0.3);
 		margin:          0 0 30px 30px;
 
+		@media (max-width: $max-mobile-with) {
+			margin: 30px 0;
+		}
 
 		&__title {
 			font-weight: 500;
 			font-size:   20px;
 			text-align:  center;
 			color:       #c6c6c6;
+
+			@media (max-width: $max-mobile-with) {
+				font-size: 18px;
+			}
 		}
 
 		&__text {
@@ -106,6 +141,10 @@ export default {
 			font-size:   26px;
 			text-align:  center;
 			color:       #fff;
+
+			@media (max-width: $max-mobile-with) {
+				font-size: 20px;
+			}
 		}
 	}
 }

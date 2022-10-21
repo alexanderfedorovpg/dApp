@@ -11,7 +11,7 @@ export default {
 		ButtonWallet
 	},
 	setup() {
-		const { t } = useI18n();
+		const {t}        = useI18n();
 		const {scrollTo} = useLinks();
 
 		return {t, scrollTo}
@@ -49,14 +49,24 @@ export default {
 			</defs>
 		</svg>
 		</a>
-		<a class="footer__link" href="/Swayze Terms and Conditions.pdf">{{t('link8')}}</a>
-		<a class="footer__link" href="/Privacy Policy.pdf">{{t('link7')}}</a>
-		<button-wallet/>
+		<a class="footer__link" href="/Privacy Policy.pdf">{{ t('link7') }}</a>
+		<a class="footer__link" href="/Swayze Terms and Conditions.pdf">{{ t('link8') }}</a>
+		<div class="footer-wallet-button">
+			<button-wallet/>
+		</div>
 	</footer>
-
 </template>
 
 <style lang="scss">
+@import "../../assets/values.scss";
+
+@media (max-width: $max-mobile-with) {
+	.footer-wallet-button {
+		margin: 30px 0;
+		order:  2;
+	}
+}
+
 .footer {
 	display:         flex;
 	flex-direction:  row;
@@ -65,14 +75,34 @@ export default {
 	align-items:     center;
 	height:          104px;
 
+	@media (max-width: $max-mobile-with) {
+		flex-direction: column;
+		height:         auto;
+		margin-bottom:  17px;
+	}
+
 	&__logo {
 		min-width: 127px;
+
+		@media (max-width: $max-mobile-with) {
+			order: 1;
+		}
 	}
 
 	&__link {
 		color:       #fff;
 		white-space: nowrap;
 		font-size:   15px;
+
+		@media (max-width: $max-mobile-with) {
+			font-size:  12px;
+			margin-top: 7px;
+			order:      3;
+
+			&:last-child {
+				margin-bottom: 30px;
+			}
+		}
 
 		&:hover {
 			color:  #ad42ec;

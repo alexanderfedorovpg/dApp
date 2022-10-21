@@ -53,6 +53,10 @@ export default {
 	-moz-filter:    blur(350px);
 	-ms-filter:     blur(350px);
 	-o-filter:      blur(350px);
+
+	@media (max-width: $max-mobile-with) {
+		display: none;
+	}
 }
 
 .blur1 {
@@ -67,6 +71,10 @@ export default {
 	-moz-filter:    blur(350px);
 	-ms-filter:     blur(350px);
 	-o-filter:      blur(350px);
+
+	@media (max-width: $max-mobile-with) {
+		display: none;
+	}
 }
 
 .blur2 {
@@ -81,6 +89,10 @@ export default {
 	-moz-filter:    blur(350px);
 	-ms-filter:     blur(350px);
 	-o-filter:      blur(350px);
+
+	@media (max-width: $max-mobile-with) {
+		display: none;
+	}
 }
 
 .blur3 {
@@ -95,6 +107,10 @@ export default {
 	-moz-filter:    blur(300px);
 	-ms-filter:     blur(300px);
 	-o-filter:      blur(300px);
+
+	@media (max-width: $max-mobile-with) {
+		display: none;
+	}
 }
 
 .blur4 {
@@ -109,6 +125,10 @@ export default {
 	-moz-filter:    blur(350px);
 	-ms-filter:     blur(350px);
 	-o-filter:      blur(350px);
+
+	@media (max-width: $max-mobile-with) {
+		display: none;
+	}
 }
 
 .blur5 {
@@ -123,6 +143,10 @@ export default {
 	-moz-filter:    blur(350px);
 	-ms-filter:     blur(350px);
 	-o-filter:      blur(350px);
+
+	@media (max-width: $max-mobile-with) {
+		display: none;
+	}
 }
 
 .blur6 {
@@ -137,6 +161,10 @@ export default {
 	-moz-filter:    blur(350px);
 	-ms-filter:     blur(350px);
 	-o-filter:      blur(350px);
+
+	@media (max-width: $max-mobile-with) {
+		display: none;
+	}
 }
 
 .blur7 {
@@ -151,6 +179,10 @@ export default {
 	-moz-filter:    blur(350px);
 	-ms-filter:     blur(350px);
 	-o-filter:      blur(350px);
+
+	@media (max-width: $max-mobile-with) {
+		display: none;
+	}
 }
 
 .blur8 {
@@ -165,6 +197,10 @@ export default {
 	-moz-filter:    blur(350px);
 	-ms-filter:     blur(350px);
 	-o-filter:      blur(350px);
+
+	@media (max-width: $max-mobile-with) {
+		display: none;
+	}
 }
 
 .blur9 {
@@ -179,6 +215,10 @@ export default {
 	-moz-filter:    blur(350px);
 	-ms-filter:     blur(350px);
 	-o-filter:      blur(350px);
+
+	@media (max-width: $max-mobile-with) {
+		display: none;
+	}
 }
 
 .blur10 {
@@ -193,6 +233,10 @@ export default {
 	-moz-filter:    blur(350px);
 	-ms-filter:     blur(350px);
 	-o-filter:      blur(350px);
+
+	@media (max-width: $max-mobile-with) {
+		display: none;
+	}
 }
 
 .blur11 {
@@ -207,5 +251,9 @@ export default {
 	-moz-filter:    blur(350px);
 	-ms-filter:     blur(350px);
 	-o-filter:      blur(350px);
+
+	@media (max-width: $max-mobile-with) {
+		display: none;
+	}
 }
 </style>

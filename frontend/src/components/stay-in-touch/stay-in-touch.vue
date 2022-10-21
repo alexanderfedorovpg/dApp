@@ -59,6 +59,8 @@ export default {
 </template>
 
 <style lang="scss">
+@import "../../assets/values.scss";
+
 .stay-in-touch {
 	margin-top:    128px;
 	margin-bottom: 80px;
@@ -68,6 +70,10 @@ export default {
 	font-weight: 700;
 	font-size:   32px;
 	color:       #fff;
+
+	@media (max-width: $max-mobile-with) {
+		font-size: 20px;
+	}
 }
 
 .stay-in-touch-block {
@@ -75,6 +81,14 @@ export default {
 	display:         flex;
 	flex-direction:  row;
 	justify-content: space-between;
+
+	@media (max-width: $max-mobile-with) {
+		margin-top:      50px;
+		width:           100%;
+		flex-direction:  column;
+		justify-content: center;
+		align-items:     center;
+	}
 }
 
 .stay-in-touch-button__blur {
@@ -92,7 +106,9 @@ export default {
 	flex-direction:  row;
 	overflow:        hidden;
 	align-items:     center;
-	width:           378px;
+	width:           100%;
+	min-width:       300px;
+	max-width:       378px;
 	height:          126px;
 	background:      rgba(104, 104, 104, 0.3);
 	backdrop-filter: blur(10px);
@@ -107,6 +123,10 @@ export default {
 			filter:     blur(100px);
 			right:      30%;
 		}
+	}
+
+	@media (max-width: $max-mobile-with) {
+		margin: 10px 0;
 	}
 }
 

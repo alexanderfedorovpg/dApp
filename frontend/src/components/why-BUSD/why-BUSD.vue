@@ -52,6 +52,8 @@ export default {
 </template>
 
 <style lang="scss">
+@import "../../assets/values.scss";
+
 .why-BUSD {
 	margin-top: 120px;
 }
@@ -60,14 +62,23 @@ export default {
 	font-weight: 700;
 	font-size:   32px;
 	color:       #fff;
+
+	@media (max-width: $max-mobile-with) {
+		font-size: 20px;
+	}
 }
 
 .why-BUSD-steps {
 	display:         flex;
 	flex-flow:       row;
-	justify-content: space-between;
+	justify-content: center;
+	align-items:     center;
 	margin-top:      40px;
 	margin-bottom:   50px;
+
+	@media (max-width: $max-mobile-with) {
+		flex-flow: column;
+	}
 }
 
 .why-BUSD-step {
@@ -86,10 +97,21 @@ export default {
 		margin-right: 0
 	}
 
+	@media (max-width: $max-mobile-with) {
+		width:   100%;
+		height:  250px;
+		margin:  10px 0;
+		padding: 30px;
+	}
+
 	&__title {
 		margin-top: 25px;
 		font-size:  20px;
 		color:      #fff;
+
+		@media (max-width: $max-mobile-with) {
+			font-size: 18px;
+		}
 	}
 
 	&__blur1 {
@@ -130,12 +152,20 @@ export default {
 		background:    linear-gradient(224.43deg, #9751f3 17.36%, #eb14d5 101.01%);
 		box-shadow:    inset 0 0 12px rgba(255, 255, 255, 0.5);
 		border-radius: 8px;
+
+		@media (max-width: $max-mobile-with) {
+			font-size: 22px;
+		}
 	}
 
 	&__text {
 		margin-top: 10px;
 		font-size:  16px;
 		color:      #c6c6c6;
+
+		@media (max-width: $max-mobile-with) {
+			font-size: 15px;
+		}
 	}
 }
 </style>

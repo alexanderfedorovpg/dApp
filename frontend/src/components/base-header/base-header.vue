@@ -1,4 +1,5 @@
 <script lang="ts">
+import {ref} from 'vue';
 import {useI18n} from 'vue-i18n';
 import {useLinks} from '../../hooks/links-hook';
 import Links from '../../types/links';
@@ -16,15 +17,32 @@ export default {
 		const {t}                          = useI18n();
 		const {isNeedBackground, scrollTo} = useLinks();
 		const {activeLink}                 = useObserverHook();
+		const isShoMobileMenu              = ref(false)
 
-		return {isNeedBackground, scrollTo, t, Links, activeLink}
+		/** Handler click button menu */
+		function clickMenu() {
+			isShoMobileMenu.value = !isShoMobileMenu.value
+		}
+
+		/**
+		 * Handler click button menu
+		 *
+		 * @param {string} selector Element selector to scroll
+		 */
+		function clickHeaderLink(selector) {
+			isShoMobileMenu.value = false;
+
+			scrollTo(selector);
+		}
+
+		return {isNeedBackground, isShoMobileMenu, clickHeaderLink, clickMenu, t, Links, activeLink}
 	}
 }
 </script>
 <template>
 	<div class="header-wrapper" :class="{ 'header-wrapper_background' : isNeedBackground }">
 		<header class="header">
-				<a class="header__logo" href="/">
+			<a class="header__logo" href="/">
 					<svg width="127" height="40" viewBox="0 0 127 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M7.65849 27.6953C1.23152 21.4858 1.07758 11.2382 7.35061 4.8382C13.6236 -1.5237 23.9761 -1.63799 30.4415 4.57154L22.8215 12.3049C20.6664 10.2477 17.2412 10.2858 15.1246 12.4192C13.0464 14.5525 13.0849 17.943 15.24 20.0382L7.65849 27.6953Z" fill="url(#paint0_linear_0_1)"/>
 					<path d="M11.4685 39.9999C7.3506 39.9999 3.27121 38.4761 0.0769653 35.4285L7.65848 27.7333C9.81363 29.7904 13.2388 29.7523 15.3555 27.619C17.4336 25.4856 17.3951 22.0952 15.24 19.9999L22.8215 12.3047C29.2485 18.5142 29.4024 28.7618 23.1294 35.1618C19.9351 38.3618 15.7018 39.9999 11.4685 39.9999Z" fill="url(#paint1_linear_0_1)"/>
@@ -52,13 +70,18 @@ export default {
 					</defs>
 				</svg>
 				</a>
-				<span class="header__link" :class="{'header__link_active': Links.DescriptionBlockWrapper === activeLink }" @click="scrollTo('.' + Links.DescriptionBlockWrapper)">{{ t('link1') }}</span>
-				<span class="header__link" :class="{'header__link_active': 'what-is-invest' === activeLink }" @click="scrollTo('.'+ Links.TextCenter)">{{ t('link2') }}</span>
-				<span class="header__link" :class="{'header__link_active': Links.MechanicsApp === activeLink }" @click="scrollTo('.' + Links.MechanicsApp)">{{ t('link3') }}</span>
-				<span class="header__link" :class="{'header__link_active': Links.WhyBUSD === activeLink } " @click="scrollTo('.' + Links.WhyBUSD)">{{ t('link4') }}</span>
-				<span class="header__link" :class="{'header__link_active': Links.Roadmap === activeLink }" @click="scrollTo('.' + Links.Roadmap)">{{ t('link5') }}</span>
-				<span class="header__link" :class="{'header__link_active': Links.DistributionOfFunds === activeLink }" @click="scrollTo('.' + Links.DistributionOfFunds)">{{ t('link6') }}</span>
+			<div class="header-links" :class="{'header-links_open': isShoMobileMenu}">
+				<span class="header__link" :class="{'header__link_active': Links.DescriptionBlockWrapper === activeLink }" @click="clickHeaderLink('.' + Links.DescriptionBlockWrapper)">{{ t('link1') }}</span>
+				<span class="header__link" :class="{'header__link_active': 'what-is-invest' === activeLink }" @click="clickHeaderLink('.'+ Links.TextCenter)">{{ t('link2') }}</span>
+				<span class="header__link" :class="{'header__link_active': Links.MechanicsApp === activeLink }" @click="clickHeaderLink('.' + Links.MechanicsApp)">{{ t('link3') }}</span>
+				<span class="header__link" :class="{'header__link_active': Links.WhyBUSD === activeLink } " @click="clickHeaderLink('.' + Links.WhyBUSD)">{{ t('link4') }}</span>
+				<span class="header__link" :class="{'header__link_active': Links.Roadmap === activeLink }" @click="clickHeaderLink('.' + Links.Roadmap)">{{ t('link5') }}</span>
+				<span class="header__link" :class="{'header__link_active': Links.DistributionOfFunds === activeLink }" @click="clickHeaderLink('.' + Links.DistributionOfFunds)">{{ t('link6') }}</span>
 				<button-wallet/>
+			</div>
+			<div class="header-menu-mobile-button">
+				<i class="header-menu-mobile-button__icon" @click="clickMenu" :class="{'header-menu-mobile-button__icon_cross': isShoMobileMenu}"/>
+			</div>
 		</header>
 	</div>
 </template>
@@ -79,6 +102,12 @@ export default {
 		backdrop-filter:         blur(9.5px);
 		-webkit-backdrop-filter: blur(9.5px);
 
+		@media (max-width: $max-mobile-with) {
+			background:              #110c26;
+			backdrop-filter:         none;
+			-webkit-backdrop-filter: none;
+		}
+
 		.header {
 			border: none;
 		}
@@ -96,8 +125,17 @@ export default {
 	max-width:       $max-desktop-with;
 	width:           100%;
 
+	@media (max-width: $max-mobile-with) {
+		border: none;
+	}
+
 	&__logo {
-		min-width: 127px;
+		min-width:    127px;
+		margin-right: 25px;
+
+		@media (max-width: $max-mobile-with) {
+			margin: 22px;
+		}
 	}
 
 	&__link {
@@ -113,6 +151,62 @@ export default {
 			color:  #ad42ec;
 			cursor: pointer;
 		}
+	}
+}
+
+.header-links {
+	display:         flex;
+	flex-direction:  row;
+	justify-content: space-between;
+	margin:          auto;
+	align-items:     center;
+	width:           100%;
+	position:        relative;
+
+	@media (max-width: $max-mobile-with) {
+		display: none;
+
+		&_open {
+			background:      #110c26;
+			position:        absolute;
+			display:         flex;
+			flex-direction:  column;
+			justify-content: space-evenly;
+			top:             104px;
+			width:           100%;
+			height:          calc(100vh - 104px);
+		}
+	}
+}
+
+.header-menu-mobile-button {
+	display: none;
+
+	&__icon {
+		display:    inline-block;
+		margin:     auto;
+		width:      22px;
+		height:     22px;
+		background: no-repeat center center url("../../assets/images/menu.svg");
+
+		&_cross {
+			background: no-repeat center center url("../../assets/images/cross.svg");
+		}
+	}
+
+
+	@media (max-width: $max-mobile-with) {
+		display:         flex;
+		justify-content: center;
+		align-items:     center;
+		text-align:      center;
+		vertical-align:  middle;
+		background:      rgba(104, 104, 104, 0.3);
+		backdrop-filter: blur(10px);
+		border-radius:   6px;
+		width:           44px;
+		height:          44px;
+		margin:          20px;
 	}
 }
 </style>

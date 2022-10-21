@@ -28,6 +28,22 @@ export default {
 </script>
 <template>
 	<div ref="block" class="description-block-wrapper">
+		<div class="description-block-powered-by">
+			Powered by &nbsp;
+			<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<g clip-path="url(#clip0_235_743)">
+					<path d="M6 12C9.31371 12 12 9.31371 12 6C12 2.68629 9.31371 0 6 0C2.68629 0 0 2.68629 0 6C0 9.31371 2.68629 12 6 12Z" fill="#F0B90B"/>
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M3.44638 4.47592L6.00238 1.91992L7.02154 2.93908L4.46554 5.49508L3.44638 4.47592ZM3.44824 7.53028L7.53298 3.44554L8.55214 4.4647L4.4674 8.54944L3.44824 7.53028ZM9.0607 4.97614L4.97596 9.06088L5.99506 10.0799L10.0799 5.99524L9.0607 4.97614ZM1.91992 6.00208L2.93908 4.98292L3.95824 6.00208L2.93908 7.02124L1.91992 6.00208Z" fill="white"/>
+				</g>
+				<defs>
+					<clipPath id="clip0_235_743">
+						<rect width="12" height="12" fill="white"/>
+					</clipPath>
+				</defs>
+			</svg>
+			&nbsp;
+			BUSD
+		</div>
 		<div class="description-block">
 			<div class="description-tabs">
 					<div class="description-tab">
@@ -83,9 +99,11 @@ export default {
 					<p class="description-sub-text">{{ t('description2') }}</p>
 				</article>
 			</section>
-			<base-button :text="t('description_button_text')"/>
 		</div>
 		<img class="description-block-image" src="../../assets/images/img.png">
+	</div>
+	<div class="description-block__button-join-us">
+		<base-button :text="t('description_button_text')"/>
 	</div>
 	<div class="description-total-block">
 			<div class="description-total-block__item">
@@ -104,21 +122,65 @@ export default {
 </template>
 
 <style lang="scss">
+@import "../../assets/values.scss";
+
 .description-block-wrapper {
 	display:        flex;
 	flex-direction: row;
+
+	@media (max-width: $max-mobile-with) {
+		flex-direction:  column;
+		justify-content: center;
+		align-items:     center;
+	}
 }
 
 .description-block-image {
 	position: relative;
 	top:      130px;
 	left:     39px;
+
+	@media (max-width: $max-mobile-with) {
+		position: inherit;
+		width:    fit-content;
+		height:   352px;
+	}
+}
+
+.description-block-powered-by {
+	display: none;
+
+	@media (max-width: $max-mobile-with) {
+		display:         flex;
+		justify-content: space-between;
+		align-items:     center;
+		padding:         10px 15px;
+		border:          1px solid #696a87;
+		border-radius:   30px;
+		color:           #c6c6c6;
+		font-size:       12px;
+	}
 }
 
 .description-block {
 	margin-top: 50px;
 	width:      700px;
 	text-align: left;
+
+	@media (max-width: $max-mobile-with) {
+		width:      100%;
+		margin-top: 10px;
+		text-align: center;
+	}
+
+	&__button-join-us {
+		text-align: left;
+
+		@media (max-width: $max-mobile-with) {
+			margin-top: 30px;
+			text-align: center;
+		}
+	}
 }
 
 .description-main-text {
@@ -127,6 +189,11 @@ export default {
 	font-size:   44px;
 	color:       #fff;
 	text-align:  left;
+
+	@media (max-width: $max-mobile-with) {
+		font-size:  22px;
+		text-align: center;
+	}
 }
 
 .description-sub-text {
@@ -136,6 +203,13 @@ export default {
 	color:         #c6c6c6;
 	line-height:   130%;
 	margin-bottom: 50px;
+
+	@media (max-width: $max-mobile-with) {
+		font-size:  14px;
+		text-align: center;
+		width:      100%;
+		max-width:  inherit;
+	}
 }
 
 .description-tabs {
@@ -144,6 +218,10 @@ export default {
 	justify-content: space-between;
 	align-items:     center;
 	width:           290px;
+
+	@media (max-width: $max-mobile-with) {
+		display: none;
+	}
 }
 
 .description-tab {
@@ -185,9 +263,16 @@ export default {
 }
 
 .description-total-block {
-	display:        flex;
-	flex-direction: row;
-	margin-top:     80px;
+	display:         flex;
+	flex-direction:  row;
+	align-items:     center;
+	justify-content: center;
+	margin-top:      80px;
+
+	@media (max-width: $max-mobile-with) {
+		flex-direction: column;
+		margin-top:     50px;
+	}
 
 	&__item {
 		padding:      0 40px;
@@ -200,17 +285,31 @@ export default {
 		&:last-child {
 			border-right: none;
 		}
+
+		@media (max-width: $max-mobile-with) {
+			padding:       20px 0;
+			border-right:  none;
+			border-bottom: 1px solid #696a87;
+		}
 	}
 
 	&__item-value {
 		font-size:     30px;
 		color:         #fff;
 		margin-bottom: 10px;
+
+		@media (max-width: $max-mobile-with) {
+			font-size: 24px;
+		}
 	}
 
 	&__item-text {
 		font-size: 18px;
 		color:     #c6c6c6;
+
+		@media (max-width: $max-mobile-with) {
+			font-size: 16px;
+		}
 	}
 }
 </style>

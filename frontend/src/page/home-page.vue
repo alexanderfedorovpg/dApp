@@ -22,7 +22,7 @@ export default {
 		StayInTouch
 	},
 	setup() {
-		const { t } = useI18n();
+		const {t} = useI18n();
 
 		return {t}
 	},
@@ -50,10 +50,15 @@ export default {
 }
 
 .wrapper {
-	max-width:  $max-desktop-with;
-	margin:     104px auto auto;
-	position:   relative;
-	z-index:    1;
+	max-width: $max-desktop-with;
+	margin:    104px auto auto;
+	position:  relative;
+	z-index:   1;
+
+	@media (max-width: $max-mobile-with) {
+		max-width: 100%;
+		margin:    104px 20px auto;
+	}
 }
 
 .text-center {
@@ -63,5 +68,10 @@ export default {
 	text-align:  center;
 	color:       #fff;
 	margin:      120px auto auto;
+
+	@media (max-width: $max-mobile-with) {
+		margin:    80px auto auto;
+		font-size: 20px;
+	}
 }
 </style>

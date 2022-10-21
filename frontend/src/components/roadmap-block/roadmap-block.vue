@@ -68,6 +68,8 @@ export default {
 </template>
 
 <style lang="scss">
+@import "../../assets/values.scss";
+
 .roadmap {
 	margin-top: 120px;
 }
@@ -76,6 +78,10 @@ export default {
 	font-weight: 700;
 	font-size:   32px;
 	color:       #fff;
+
+	@media (max-width: $max-mobile-with) {
+		font-size: 20px;
+	}
 }
 
 .roadmap-map {
@@ -83,11 +89,21 @@ export default {
 	display:        flex;
 	flex-direction: row;
 	width:          100%;
+
+	@media (max-width: $max-mobile-with) {
+		flex-direction: column;
+		margin-top:     40px;
+	}
 }
 
 .roadmap-map__step {
 	text-align: left;
 	max-width:  276px;
+
+	@media (max-width: $max-mobile-with) {
+		margin:    10px 0;
+		max-width: 100%;
+	}
 }
 
 .roadmap-map__step-title {
@@ -106,6 +122,10 @@ export default {
 .roadmap-map-dots-wrapper {
 	position: relative;
 	width:    43px;
+
+	@media (max-width: $max-mobile-with) {
+		display: none;
+	}
 }
 
 .roadmap-map-dots {
