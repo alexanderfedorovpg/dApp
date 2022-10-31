@@ -1,26 +1,40 @@
 <script lang="ts">
-	import {MetaMaskConnector, WalletConnectConnector, useBoard} from 'vue-dapp';
-	import {siteUrl} from '../../../../config';
+	import axios from 'axios';
+	import {MetaMaskConnector, WalletConnectConnector, useBoard, useEthersHooks} from 'vue-dapp';
+	import {apiUrl, siteUrl} from '../../../../config';
 
 	/**
 	 * Button Wallet
 	 */
 	export default {
 		setup() {
-			const { open } = useBoard();
-			const infuraId = "0xBf8F49734544385A46C69C339A929DCe58925604";
+			const {open}        = useBoard();
+			const {onActivated} = useEthersHooks();
+
+			/** Activated Wallet Hook */
+			onActivated((data) => {
+				axios.post(apiUrl + '/api/v1/user', {
+					addressUser: data.address
+				}).then((response) => {
+					location.replace('/referral/' + response.data.referralId)
+				});
+			});
+
+			const infuraId = '0xBf8F49734544385A46C69C339A929DCe58925604';
+
 			const connectors = [
 				new MetaMaskConnector({
 					appUrl: siteUrl,
 				}),
 				new WalletConnectConnector({
 					qrcode: true,
-					rpc: {
+					rpc:    {
 						1: `https://mainnet.infura.io/v3/${infuraId}`,
 						4: `https://rinkeby.infura.io/v3/${infuraId}`,
 					},
 				}),
 			];
+
 			return {
 				connectors,
 				open,
@@ -30,7 +44,7 @@
 </script>
 <template>
 	<button class="button-wallet" @click="open">Connect wallet</button>
-	<vd-board :connectors="connectors" dark />
+	<vd-board :connectors="connectors" dark/>
 </template>
 
 <style lang="scss">
