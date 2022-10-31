@@ -7,3 +7,12 @@ CREATE TABLE "InvestorsTransactions" (
 
     CONSTRAINT "InvestorsTransactions_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateTable
+CREATE TABLE "Investor" (
+    "addressUser" TEXT NOT NULL,
+    "referralId" TEXT NOT NULL
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Investor_addressUser_key" ON "Investor"("addressUser");

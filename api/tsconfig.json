@@ -1,7 +1,7 @@
 {
 	"ts-node": {
 		"allowJs": true,
-		"transpileOnly": true,
+		"transpileOnly": true
 	},
 	"compilerOptions": {
 		"experimentalDecorators": true,
@@ -22,12 +22,12 @@
 			"es6-collections",
 			"node",
 			"vue",
-			"vuex",
+			"vuex"
 		],
 		"paths": {
 			"@/*": [
 				"src/*"
-			],
+			]
 		},
 		"lib": [
 			"esnext",
@@ -39,6 +39,9 @@
 			"es2015.symbol"
 		]
 	},
+	"include": [
+		"../config.ts"
+	],
 	"exclude": [
 		"node_modules"
 	]

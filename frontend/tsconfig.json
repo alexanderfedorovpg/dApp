@@ -42,10 +42,7 @@
 	"include": [
 		"src/**/*.ts",
 		"src/**/*.vue",
-		"shims-vue.d.ts",
-		"shims-vuex.d.ts",
-		"shims-svg.d.ts",
-		"node_modules/@dns-modules"
+		"../config.ts"
 	],
 	"exclude": [
 		"node_modules",

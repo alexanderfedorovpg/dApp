@@ -1,5 +1,6 @@
 <script lang="ts">
 	import {MetaMaskConnector, WalletConnectConnector, useBoard} from 'vue-dapp';
+	import {siteUrl} from '../../../../config';
 
 	/**
 	 * Button Wallet
@@ -10,7 +11,7 @@
 			const infuraId = "0xBf8F49734544385A46C69C339A929DCe58925604";
 			const connectors = [
 				new MetaMaskConnector({
-					appUrl: "http://localhost:3000",
+					appUrl: siteUrl,
 				}),
 				new WalletConnectConnector({
 					qrcode: true,
@@ -36,7 +37,6 @@
 .button-wallet {
 	font-weight:    500;
 	font-size:      11px;
-	line-height:    130%;
 	text-transform: uppercase;
 	color:          #fff;
 	background:     transparent;

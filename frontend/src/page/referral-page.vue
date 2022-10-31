@@ -1,22 +1,40 @@
 <script lang="ts">
+import axios, {AxiosResponse} from 'axios';
+import {reactive} from 'vue';
 import {useI18n} from 'vue-i18n';
+import {useRoute} from 'vue-router';
+import {apiUrl} from '../../../config';
 import BaseButton from '../components/base-button/base-button.vue';
+import QRCodeVue3 from 'qrcode-vue3';
+import ReferralData from '../../../types/referral-data';
+import UserData from '../../../types/user-data';
 
 /**
  * Page referrals
  */
 export default {
-	components: {BaseButton},
+	components: {BaseButton, QRCodeVue3},
 	setup() {
-		const {t} = useI18n();
+		const {t}                                                          = useI18n();
+		const {params}                                                     = useRoute();
+		const referralId                                                   = params.referralId;
+		const state: { userData: UserData, referralsData: ReferralData[] } = reactive({userData: null, referralsData: null});
 
-		return {t}
+		axios.get(apiUrl + `/api/v1/user/?referralId=${referralId}`).then((response: AxiosResponse<UserData>) => {
+			state.userData = response.data;
+		})
+
+		axios.get(apiUrl + '/api/v1/get-referrals/').then((response: AxiosResponse<ReferralData[]>) => {
+			state.referralsData = response.data;
+		})
+
+		return {t, state}
 	},
 }
 </script>
 
 <template>
-	<div class="top-referrals-page">
+	<div class="top-referrals-page" v-if="state.userData !== null">
 			<div class="top-referrals-page-block-description">
 				<div class="top-referrals-page-block-description-wrapper">
 					<div class="top-referrals-page__description-tabs">
@@ -24,7 +42,7 @@ export default {
 							<div class="top-referrals-page-description-tab__title">{{ t('referral_page_invited') }}</div>
 							<div class="top-referrals-page-description-tab__counter">
 								<img src="../assets/images/person.svg">
-								<div class="top-referrals-page-description-tab__counter-text">12</div>
+								<div class="top-referrals-page-description-tab__counter-text">{{ state.userData.invited }}</div>
 							</div>
 						</div>
 						<div class="top-referrals-page__description-tab-split"></div>
@@ -32,7 +50,7 @@ export default {
 							<div class="top-referrals-page-description-tab__title">{{ t('referral_page_profit') }}</div>
 							<div class="top-referrals-page-description-tab__counter">
 									<img src="../assets/images/bitcoins.svg">
-									<div class="top-referrals-page-description-tab__counter-text">343</div>
+									<div class="top-referrals-page-description-tab__counter-text">{{ state.userData.profit }}</div>
 							</div>
 						</div>
 					</div>
@@ -41,13 +59,36 @@ export default {
 					<base-button :text="t('referral_page_about_button_text') +' 25  BUSD'"/>
 				</div>
 				<div class="top-referrals-page-block-description-qr">
+					<QRCodeVue3
+							:width="200"
+							:height="200"
+							:value="state.userData.addressUser + 'referral'"
+							:qrOptions="{ typeNumber: 0, mode: 'Byte', errorCorrectionLevel: 'H' }"
+							:imageOptions="{ hideBackgroundDots: true, imageSize: 0.4, margin: 0 }"
+							:image="require('../assets/images/SwayzeLogo.svg')"
+							:backgroundOptions="{ color: '#d9d9d9' }"
+							:cornersSquareOptions="{ type: 'extra-rounded', color: '#453563' }"
+							:cornersDotOptions="{type: 'square', color: '#453563'}"
+							:imgclass="'top-referrals-page-block-description-qr-image'"
+							:dotsOptions="{
+									type: 'dots',
+									gradient: {
+										type: 'radial',
+										rotation: 0,
+										colorStops: [
+											{ offset: 0, color: '#9f068f' },
+											{ offset: 1, color: '#6627c2' },
+										],
+									},
+								}"
+					/>
 					<div>{{ t('referral_page_qr_code') }}</div>
 				</div>
 		</div>
 		<div class="top-referrals-page__active-investors">
 			{{ t('referral_page_the_most_active_investors') }}
 		</div>
-		<div class="top-referrals-page-table-wrapper">
+		<div class="top-referrals-page-table-wrapper" v-if="null !== state.referralsData">
 			<table class="top-referrals-page__table">
 			<thead>
 				<tr>
@@ -57,36 +98,13 @@ export default {
 				</tr>
 			</thead>
 			<tbody>
+			<template v-for="row in state.referralsData">
 				<tr class="top-referrals-page__table-row">
-					<td class="top-referrals-page__table-cell">0x40c3354т6329b16ac844b8d47566d677bc15d1c8</td>
-					<td class="top-referrals-page__table-cell">100</td>
-					<td class="top-referrals-page__table-cell">500</td>
+					<td class="top-referrals-page__table-cell">{{ row.address }}</td>
+					<td class="top-referrals-page__table-cell">{{ row.attracted }}</td>
+					<td class="top-referrals-page__table-cell">{{ row.profit }}</td>
 				</tr>
-				<tr class="top-referrals-page__table-row">
-					<td class="top-referrals-page__table-cell">0x40c3354т6329b16ac844b8d47566d677bc15d1c8</td>
-					<td class="top-referrals-page__table-cell">100</td>
-					<td class="top-referrals-page__table-cell">500</td>
-				</tr>
-				<tr class="top-referrals-page__table-row">
-					<td class="top-referrals-page__table-cell">0x40c3354т6329b16ac844b8d47566d677bc15d1c8</td>
-					<td class="top-referrals-page__table-cell">100</td>
-					<td class="top-referrals-page__table-cell">500</td>
-				</tr>
-				<tr class="top-referrals-page__table-row">
-					<td class="top-referrals-page__table-cell">0x40c3354т6329b16ac844b8d47566d677bc15d1c8</td>
-					<td class="top-referrals-page__table-cell">100</td>
-					<td class="top-referrals-page__table-cell">500</td>
-				</tr>
-				<tr class="top-referrals-page__table-row">
-					<td class="top-referrals-page__table-cell">0x40c3354т6329b16ac844b8d47566d677bc15d1c8</td>
-					<td class="top-referrals-page__table-cell">100</td>
-					<td class="top-referrals-page__table-cell">500</td>
-				</tr>
-				<tr class="top-referrals-page__table-row">
-					<td class="top-referrals-page__table-cell">0x40c3354т6329b16ac844b8d47566d677bc15d1c8</td>
-					<td class="top-referrals-page__table-cell">100</td>
-					<td class="top-referrals-page__table-cell">500</td>
-				</tr>
+			</template>
 			</tbody>
 		</table>
 		</div>
@@ -216,6 +234,10 @@ export default {
 		font-size:       16px;
 		text-align:      center;
 		color:           #c6c6c6;
+
+		&-image {
+			border-radius: 18px;
+		}
 
 		@media (max-width: $max-mobile-with) {
 			text-align: center;

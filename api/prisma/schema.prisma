@@ -17,3 +17,9 @@ model InvestorsTransactions {
   addressUserTo   String
   cost            Float
 }
+
+// Model investor
+model Investor {
+  addressUser String @unique
+  referralId  String
+}
