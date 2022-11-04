@@ -25,7 +25,7 @@ export default {
 		const {t}                                                          = useI18n();
 		const {params}                                                     = useRoute();
 		const referralId                                                   = params.referralId;
-		const state: { userData: UserData, referralsData: ReferralData[] } = reactive({userData: {invited: 0, profit: 0, referralLink: '', addressUser: ''}, referralsData: null});
+		const state: { userData: UserData, referralsData: ReferralData[] } = reactive({userData: {invited: 0, profit: 0, referralId: '', addressUser: ''}, referralsData: null});
 		const {accounts}                                                   = useWalletHook();
 		const router                                                       = useRouter();
 
