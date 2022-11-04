@@ -39,12 +39,12 @@ export default {
 			const cToken   = new web3.eth.Contract(token, ADDRESS_TOKEN);
 
 			cToken.methods.allowance(ADDRESS_CONTRACT, accounts.value[0]).call().then((balance) => {
-				debugger;
-				if (Number(balance) > 25 * 10 * 18) {
+				if (Number(balance) > 25 * Math.pow(10, 18)) {
 					contract.methods.buy(state.userData.addressUser).call();
 				}
 				else {
-					cToken.methods.approve(accounts.value[0], 25 * 10 * 18).call().then(() => {
+					debugger;
+					cToken.methods.approve(accounts.value[0], 25).call().then(() => {
 						axios.post(apiUrl + '/api/v1/add-link', {addressUser: accounts.value[0]}).then((response: AxiosResponse<UserData>) => {
 							router.push('/referral/' + response.data.referralId)
 						})
@@ -90,7 +90,7 @@ export default {
 						</div>
 					</div>
 					<div class="top-referrals-page-link-text">{{ t('referral_page_text_about_link') }}</div>
-					<a class="top-referrals-page-link-description" v-if="state.userData.referralLink !== ''" :href="siteUrl + '/referral/' + state.userData.referralLink">{{ siteUrl + '/referral/' + state.userData.referralLink }}
+					<a class="top-referrals-page-link-description" v-if="state.userData.referralId !== ''" :href="siteUrl + '/referral/' + state.userData.referralId">{{ siteUrl + '/referral/' + state.userData.referralId }}
 
 
 						<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -101,7 +101,7 @@ export default {
 						</svg>
 					</a>
 					<div class="top-referrals-page-link-description" v-else>{{ t('referral_page_text_about_description') }}</div>
-					<base-button :text="t('referral_page_about_button_text') +' 25  BUSD'" @click="clickToInvest"/>
+					<base-button :is-disable="state.userData.referralId === ''" :text="t('referral_page_about_button_text') +' 25  BUSD'" @click="clickToInvest"/>
 				</div>
 				<div class="top-referrals-page-block-description-qr">
 					<QRCodeVue3

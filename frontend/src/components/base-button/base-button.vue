@@ -4,12 +4,13 @@
  */
 export default {
 	props: {
-		text: String
+		text:      String,
+		isDisable: {type: Boolean, default: false},
 	}
 }
 </script>
 <template>
-	<button class="base-button">{{ text }}</button>
+	<button class="base-button" :class="{'base-button_disable': isDisable}" :disabled="isDisable">{{ text }}</button>
 </template>
 
 <style lang="scss">
@@ -22,9 +23,14 @@ export default {
 	width:          285px;
 	height:         69px;
 	border:         1px solid transparent;
+	cursor:         pointer;
 
 	&:hover {
 		box-shadow: 0 5px 40px rgba(235, 20, 213, 0.5);
+	}
+
+	&_disable {
+		opacity: 0.5;
 	}
 }
 </style>

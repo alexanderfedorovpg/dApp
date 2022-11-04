@@ -143,7 +143,7 @@ server.get('/api/v1/user',
 
 		const response: UserData = {
 			addressUser:  data.addressUser,
-			referralLink: data.referralId,
+			referralId: data.referralId,
 			profit,
 			invited,
 		};
