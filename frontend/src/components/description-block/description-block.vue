@@ -1,5 +1,6 @@
 <script lang="ts">
 import {onMounted, ref} from 'vue';
+import {useBoard} from 'vue-dapp';
 import {useI18n} from 'vue-i18n';
 import {useObserverHook} from '../../hooks/use-observer-hook';
 import BaseButton from '../base-button/base-button.vue';
@@ -14,6 +15,7 @@ export default {
 	setup() {
 		const {t}        = useI18n();
 		const {observer} = useObserverHook()
+		const {open}     = useBoard();
 
 		/** Ref HTML Block Component */
 		const block = ref<Element>(null);
@@ -22,7 +24,7 @@ export default {
 			observer.observe(block.value)
 		})
 
-		return {t, block}
+		return {t, open, block}
 	},
 }
 </script>
@@ -103,7 +105,7 @@ export default {
 		<img class="description-block-image" src="../../assets/images/img.png">
 	</div>
 	<div class="description-block__button-join-us">
-		<base-button :text="t('description_button_text')"/>
+		<base-button @click="open" :text="t('description_button_text')"/>
 	</div>
 	<div class="description-total-block">
 			<div class="description-total-block__item">

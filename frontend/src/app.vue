@@ -1,6 +1,8 @@
 <script lang="ts">
+import {onMounted} from 'vue';
 import BaseHeader from './components/base-header/base-header.vue';
 import BaseFooter from './components/base-footer/base-footer.vue';
+import {useWalletHook} from './hooks/use-wallet-hook';
 
 /**
  * Main app
@@ -10,6 +12,14 @@ export default {
 		BaseHeader,
 		BaseFooter,
 	},
+	setup() {
+		const {checkActiveWallet} = useWalletHook();
+
+		/** Mounted Vue hook */
+		onMounted(() => {
+			checkActiveWallet();
+		});
+	}
 }
 </script>
 <template>

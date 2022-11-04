@@ -12,6 +12,8 @@ const corsOptions = {
 	optionsSuccessStatus: 200,
 }
 const server      = express();
+const prisma      = new PrismaClient();
+
 server.use(express.json());
 server.use(cors(corsOptions))
 
@@ -34,7 +36,7 @@ server.post('/api/v1/save-referral',
 			cost:            req.body.cost
 		}
 
-		await (new PrismaClient()).investorsTransactions.create({
+		await prisma.investorsTransactions.create({
 			data
 		});
 
@@ -52,16 +54,53 @@ server.post('/api/v1/user',
 			return res.status(400).json({errors: errors.array()});
 		}
 
-		const data = {
-			addressUser: req.body.addressUser,
-			referralId:  shortid.generate()
-		};
-
-		await (new PrismaClient()).investor.create({
-			data
+		const data = await prisma.investor.upsert({
+			where:  {
+				addressUser: req.body.addressUser,
+			},
+			update: {},
+			create: {
+				addressUser: req.body.addressUser,
+				referralId:  '',
+			},
 		});
 
-		res.json(data)
+		const response = {
+			addressUser: data.addressUser,
+			referralId:  data.referralId
+		};
+
+		res.json(response)
+	});
+
+server.post('/api/v1/add-link',
+	body('addressUser').isString(),
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({errors: errors.array()});
+		}
+
+		const data = await prisma.investor.upsert({
+			where:  {
+				addressUser: req.body.addressUser,
+			},
+			update: {
+				referralId:  shortid.generate(),
+				addressUser: req.body.addressUser,
+			},
+			create: {
+				referralId:  shortid.generate(),
+				addressUser: req.body.addressUser,
+			},
+		});
+
+		const response = {
+			addressUser: data.addressUser,
+			referralId:  data.referralId
+		};
+
+		res.json(response)
 	});
 
 /**
@@ -75,13 +114,13 @@ server.get('/api/v1/user',
 			return res.status(400).json({errors: errors.array()});
 		}
 
-		const data = await (new PrismaClient()).investor.findFirst({
+		const data = await prisma.investor.findFirst({
 			where: {
 				referralId: req.query.referralId
 			}
 		});
 
-		const referralsData      = await (new PrismaClient()).investorsTransactions.groupBy({
+		const referralsData = await prisma.investorsTransactions.groupBy({
 			by:      ['addressUserFrom'],
 			_count:  {
 				addressUserTo: true,
@@ -99,8 +138,8 @@ server.get('/api/v1/user',
 			}
 		});
 
-		const profit             = referralsData.length > 0 ? referralsData[0]._sum.cost : 0
-		const invited            = referralsData.length > 0 ? referralsData[0]._count.addressUserTo : 0
+		const profit  = referralsData.length > 0 ? referralsData[0]._sum.cost : 0
+		const invited = referralsData.length > 0 ? referralsData[0]._count.addressUserTo : 0
 
 		const response: UserData = {
 			addressUser:  data.addressUser,
@@ -116,7 +155,7 @@ server.get('/api/v1/user',
  * API method get top referrals
  */
 server.get('/api/v1/get-referrals', async (req, res) => {
-	const topReferrals = await (new PrismaClient()).investorsTransactions.groupBy({
+	const topReferrals = await prisma.investorsTransactions.groupBy({
 		by:      ['addressUserFrom'],
 		_count:  {
 			addressUserTo: true,
@@ -136,7 +175,7 @@ server.get('/api/v1/get-referrals', async (req, res) => {
 		result.push({address: row.addressUserFrom, attracted: row._count.addressUserTo, profit: row._sum.cost})
 	})
 
-	res.send(result);
+	res.json(result);
 });
 
 console.log(`

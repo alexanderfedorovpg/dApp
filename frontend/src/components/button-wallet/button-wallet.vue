@@ -1,23 +1,24 @@
 <script lang="ts">
-	import axios from 'axios';
-	import {MetaMaskConnector, WalletConnectConnector, useBoard, useEthersHooks} from 'vue-dapp';
-	import {apiUrl, siteUrl} from '../../../../config';
+	import {computed} from 'vue';
+	import {MetaMaskConnector, WalletConnectConnector, useBoard, useEthersHooks, OnChangedHook} from 'vue-dapp';
+	import {siteUrl} from '../../../../config';
+	import {useWalletHook} from '../../hooks/use-wallet-hook';
 
 	/**
 	 * Button Wallet
 	 */
 	export default {
 		setup() {
-			const {open}        = useBoard();
-			const {onActivated} = useEthersHooks();
+			const {open}                                    = useBoard();
+			const {onActivated}                             = useEthersHooks();
+			const {isActivated, disconnect, authentication, accounts} = useWalletHook();
+
+			/** Text button */
+			const buttonText = computed(() => (isActivated.value ? 'Disconnect wallet' : 'Connect wallet'));
 
 			/** Activated Wallet Hook */
 			onActivated((data) => {
-				axios.post(apiUrl + '/api/v1/user', {
-					addressUser: data.address
-				}).then((response) => {
-					location.replace('/referral/' + response.data.referralId)
-				});
+				authentication(data.address);
 			});
 
 			const infuraId = '0xBf8F49734544385A46C69C339A929DCe58925604';
@@ -37,13 +38,17 @@
 
 			return {
 				connectors,
+				buttonText,
+				isActivated,
+				disconnect,
+				accounts,
 				open,
 			};
 		}
 	}
 </script>
 <template>
-	<button class="button-wallet" @click="open">Connect wallet</button>
+	<button class="button-wallet" @click="isActivated ? disconnect() : open()">{{ buttonText }}</button>
 	<vd-board :connectors="connectors" dark/>
 </template>
 
