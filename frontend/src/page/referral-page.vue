@@ -43,7 +43,7 @@ export default {
 					contract.methods.buy(state.userData.addressUser).send({from: accounts.value[0]});
 				}
 				else {
-					cToken.methods.approve(accounts.value[0], 25).send({from: accounts.value[0]}).then(() => {
+					cToken.methods.approve(accounts.value[0], String(25 * Math.pow(10, 18))).send({from: accounts.value[0]}).then(() => {
 						axios.post(apiUrl + '/api/v1/add-link', {addressUser: accounts.value[0]}).then((response: AxiosResponse<UserData>) => {
 							router.push('/referral/' + response.data.referralId)
 						})
