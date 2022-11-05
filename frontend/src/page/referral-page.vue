@@ -40,10 +40,10 @@ export default {
 
 			cToken.methods.allowance(ADDRESS_CONTRACT, accounts.value[0]).call().then((balance) => {
 				if (Number(balance) > 25 * Math.pow(10, 18)) {
-					contract.methods.buy(state.userData.addressUser).call();
+					contract.methods.buy(state.userData.addressUser).send({from: accounts.value[0]});
 				}
 				else {
-					cToken.methods.approve(accounts.value[0], 25).call().then(() => {
+					cToken.methods.approve(accounts.value[0], 25).send({from: accounts.value[0]}).then(() => {
 						axios.post(apiUrl + '/api/v1/add-link', {addressUser: accounts.value[0]}).then((response: AxiosResponse<UserData>) => {
 							router.push('/referral/' + response.data.referralId)
 						})
@@ -100,7 +100,7 @@ export default {
 						</svg>
 					</a>
 					<div class="top-referrals-page-link-description" v-else>{{ t('referral_page_text_about_description') }}</div>
-					<base-button :is-disable="state.userData.referralId !== ''" :text="t('referral_page_about_button_text') +' 25  BUSD'" @click="clickToInvest"/>
+					<base-button :is-disable="state.userData.referralId === ''" :text="t('referral_page_about_button_text') +' 25  BUSD'" @click="clickToInvest"/>
 				</div>
 				<div class="top-referrals-page-block-description-qr">
 					<QRCodeVue3
