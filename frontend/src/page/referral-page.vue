@@ -100,7 +100,7 @@ export default {
 						</svg>
 					</a>
 					<div class="top-referrals-page-link-description" v-else>{{ t('referral_page_text_about_description') }}</div>
-					<base-button :is-disable="state.userData.referralId === ''" :text="t('referral_page_about_button_text') +' 25  BUSD'" @click="clickToInvest"/>
+					<base-button :is-disable="state.userData.referralId !== ''" :text="t('referral_page_about_button_text') +' 25  BUSD'" @click="clickToInvest"/>
 				</div>
 				<div class="top-referrals-page-block-description-qr">
 					<QRCodeVue3
