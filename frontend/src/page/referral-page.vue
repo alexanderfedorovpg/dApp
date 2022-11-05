@@ -43,7 +43,6 @@ export default {
 					contract.methods.buy(state.userData.addressUser).call();
 				}
 				else {
-					debugger;
 					cToken.methods.approve(accounts.value[0], 25).call().then(() => {
 						axios.post(apiUrl + '/api/v1/add-link', {addressUser: accounts.value[0]}).then((response: AxiosResponse<UserData>) => {
 							router.push('/referral/' + response.data.referralId)
@@ -101,7 +100,7 @@ export default {
 						</svg>
 					</a>
 					<div class="top-referrals-page-link-description" v-else>{{ t('referral_page_text_about_description') }}</div>
-					<base-button :is-disable="state.userData.referralId === ''" :text="t('referral_page_about_button_text') +' 25  BUSD'" @click="clickToInvest"/>
+					<base-button :is-disable="state.userData.referralId !== ''" :text="t('referral_page_about_button_text') +' 25  BUSD'" @click="clickToInvest"/>
 				</div>
 				<div class="top-referrals-page-block-description-qr">
 					<QRCodeVue3
