@@ -23,7 +23,7 @@ server.use(cors(corsOptions))
  */
 server.post('/api/v1/save-referral',
 	body('addressUserFrom').isString(),
-	body('addressUserTo').isNumeric(),
+	body('addressUserTo').isString(),
 	body('cost').isNumeric(),
 	async (req, res) => {
 		const errors = validationResult(req);

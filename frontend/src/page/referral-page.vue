@@ -25,11 +25,12 @@ export default {
 		const {t}                                               = useI18n();
 		const {params}                                          = useRoute();
 		const {currentWalletAddress, referralId, checkNetworks} = useWalletHook();
-		const router                                            = useRouter();
 
 		let routeReferralId                                                = params.referralId;
 		const state: { userData: UserData, referralsData: ReferralData[] } = reactive({userData: {invited: 0, profit: 0, referralId: '', addressUser: ''}, referralsData: null});
-		const referralUrl                                                  = computed(() => (siteUrl + '/referral/' + state.userData.referralId))
+		const referralUrl                                                  = computed(() => (siteUrl + '/referral/' + state.userData.referralId));
+		const isDisableButton                                              = computed(() => (!Boolean(state.userData.referralId) || state.userData.addressUser === currentWalletAddress.value));
+		const isLoadingButton                                              = ref(false);
 
 		/**
 		 * Handler click to invest button
@@ -38,33 +39,42 @@ export default {
 			checkNetworks();
 			const web3 = new Web3(Web3.givenProvider);
 
-			const contract = new web3.eth.Contract(abi, ADDRESS_CONTRACT);
-			const cToken   = new web3.eth.Contract(token, ADDRESS_TOKEN);
+			const contract        = new web3.eth.Contract(abi, ADDRESS_CONTRACT);
+			const cToken          = new web3.eth.Contract(token, ADDRESS_TOKEN);
+
+			isLoadingButton.value = true;
 
 			cToken.methods.allowance(currentWalletAddress.value, ADDRESS_CONTRACT).call().then((balance) => {
 				if (Number(balance) >= 25 * Math.pow(10, 18)) {
 					const address = (state.userData.addressUser && state.userData.addressUser !== currentWalletAddress.value ?
 							state.userData.addressUser : NIl_ADDRESS);
-
 					contract.methods.buy(address).send({from: currentWalletAddress.value}).then(() => {
-						Promise.all([
-							axios.post(apiUrl + '/api/v1/save-referral', {addressUserTo: currentWalletAddress.value, addressUserFrom: state.userData.addressUser, cost: 25}),
-							axios.post(apiUrl + '/api/v1/add-link', {addressUser: currentWalletAddress.value})
-						]).then((response) => {
-							location.href = '/referral/' + response[1].data.referralId;
-						})
+							Promise.all([
+								axios.post(apiUrl + '/api/v1/save-referral', {addressUserTo: state.userData.addressUser, addressUserFrom: currentWalletAddress.value, cost: 25}),
+								axios.post(apiUrl + '/api/v1/add-link', {addressUser: currentWalletAddress.value})
+							]).then((response) => {
+								location.href = '/referral/' + response[1].data.referralId;
+							})
 					}).catch((data) => {
 						alert('Transaction BUY failed.')
+					}).finally(() => {
+						isLoadingButton.value = false;
 					});
 				}
 				else {
-					cToken.methods.approve(ADDRESS_CONTRACT, String(25 * Math.pow(10, 18))).send({from: currentWalletAddress.value}).catch((data) => {
+					cToken.methods.approve(ADDRESS_CONTRACT, String(25 * Math.pow(10, 18))).send({from: currentWalletAddress.value}).then(() => {
+					}).catch((data) => {
 						alert('Transaction APPROVE failed.')
+					}).finally(() => {
+						isLoadingButton.value = false;
 					});
 				}
 			})
 		}
 
+		/**
+		 * Handler copy link referral
+		 */
 		function copy() {
 			if (!navigator.clipboard) {
 				const textArea = document.createElement('textarea');
@@ -114,7 +124,7 @@ export default {
 			state.referralsData = response.data;
 		})
 
-		return {t, state, referralUrl, clickToInvest, copy}
+		return {t, state, referralUrl, isDisableButton, isLoadingButton, clickToInvest, copy, currentWalletAddress}
 	},
 }
 </script>
@@ -152,7 +162,7 @@ export default {
 						</svg>
 					</span>
 					<div class="top-referrals-page-link-description" v-else>{{ t('referral_page_text_about_description') }}</div>
-					<base-button :is-disable="state.userData.referralId !== ''" :text="t('referral_page_about_button_text') +' 25  BUSD'" @click="clickToInvest"/>
+					<base-button :is-disable="isDisableButton" :is-loading="isLoadingButton" :text="t('referral_page_about_button_text') +' 25  BUSD'" @click="clickToInvest"/>
 				</div>
 				<div class="top-referrals-page-block-description-qr">
 					<QRCodeVue3
