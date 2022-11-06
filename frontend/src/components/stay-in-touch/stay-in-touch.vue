@@ -40,10 +40,8 @@ export default {
 				<div class="stay-in-touch-button__description">
 					<div class="stay-in-touch-button__description-title">Discord</div>
 					<div class="stay-in-touch-button__description-text">{{ t('follow_the_news_join') }}</div>
-					<div class="stay-in-touch-button__description-blur"></div>
 				</div>
 				<img class="stay-in-touch-button__arrow" src="../../assets/images/arrow6.svg">
-				<div class="stay-in-touch-button__blur"></div>
 			</a>
 			<a class="stay-in-touch-button" :href="t('social_link_reddit')">
 				<img src="../../assets/images/reddit.svg">
@@ -52,7 +50,6 @@ export default {
 					<div class="stay-in-touch-button__description-text">{{ t('follow_the_news_join') }}</div>
 				</div>
 				<img class="stay-in-touch-button__arrow" src="../../assets/images/arrow6.svg">
-				<div class="stay-in-touch-button__blur"></div>
 			</a>
 		</div>
 	</div>
@@ -91,15 +88,6 @@ export default {
 	}
 }
 
-.stay-in-touch-button__blur {
-	position:   absolute;
-	width:      150px;
-	height:     150px;
-	background: #9751f3;
-	filter:     blur(100px);
-	z-index:    -1;
-}
-
 .stay-in-touch-button {
 	display:         flex;
 	justify-content: space-between;
@@ -110,19 +98,11 @@ export default {
 	min-width:       300px;
 	max-width:       378px;
 	height:          126px;
-	background:      rgba(104, 104, 104, 0.3);
-	backdrop-filter: blur(10px);
+	background:      linear-gradient(90deg, rgba(68, 49, 100, 1) 0%, rgb(74 52 111 / 79%) 12%, rgba(44, 40, 59, 1) 100%);
 	border-radius:   20px;
 
 	&:hover {
-		.stay-in-touch-button__blur {
-			position:   absolute;
-			width:      200px;
-			height:     200px;
-			background: #9751f3;
-			filter:     blur(100px);
-			right:      30%;
-		}
+		background: linear-gradient(90deg, rgba(68, 49, 100, 1) 0%, rgb(74 52 111 / 79%) 100%, rgba(44, 40, 59, 1) 100%);
 	}
 
 	@media (max-width: $max-mobile-with) {

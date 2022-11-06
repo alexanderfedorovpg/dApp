@@ -51,7 +51,7 @@ export default {
 							axios.post(apiUrl + '/api/v1/save-referral', {addressUserTo: currentWalletAddress.value, addressUserFrom: state.userData.addressUser, cost: 25}),
 							axios.post(apiUrl + '/api/v1/add-link', {addressUser: currentWalletAddress.value})
 						]).then((response) => {
-							router.push('/referral/' + response[1].data.referralId)
+							location.href = '/referral/' + response[1].data.referralId;
 						})
 					}).catch((data) => {
 						alert('Transaction BUY failed.')
@@ -219,7 +219,8 @@ export default {
 }
 
 .top-referrals-page {
-	margin: 184px auto auto;
+	margin:     184px auto auto;
+	min-height: calc(100vh - 290px);
 
 	&__table-row {
 		font-weight: 400;

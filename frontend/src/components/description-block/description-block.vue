@@ -49,7 +49,7 @@ export default {
 		<div class="description-block">
 			<div class="description-tabs">
 					<div class="description-tab">
-						<div class="description-tab__title">{{ t('powered_by') }}</div>
+						<div class="description-tab__title" style="align-self: center;">{{ t('powered_by') }}</div>
 						<svg width="126" height="44" viewBox="0 0 126 44" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<g filter="url(#filter0_b_0_1)">
 						<rect width="126" height="44" rx="8" fill="#686868" fill-opacity="0.3"/>
@@ -73,7 +73,7 @@ export default {
 					<div class="description-tab">
 						<div class="description-tab__title">{{ t('community') }}</div>
 						<div class="description-tab__social">
-							<a :href="t('social_link_telegram')">
+							<a :href="t('social_link_telegram')" style="position: relative; top: -1px;">
 								<svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M25.309 0.749603L21.4366 20.2733C21.4366 20.2733 20.8953 21.6271 19.4057 20.9772L10.4295 14.107C11.636 13.0224 20.9957 4.60767 21.405 4.22607C22.0377 3.6355 21.6451 3.28403 20.9096 3.73066L7.08455 12.5103L1.75078 10.7147C1.75078 10.7147 0.911073 10.4168 0.830258 9.7669C0.748965 9.11704 1.77804 8.76509 1.77804 8.76509L23.522 0.235067C23.522 0.235067 25.309 -0.550127 25.309 0.749603V0.749603Z"/>
 							</svg>
@@ -219,7 +219,7 @@ export default {
 	flex-direction:  row;
 	justify-content: space-between;
 	align-items:     center;
-	width:           290px;
+	width:           310px;
 
 	@media (max-width: $max-mobile-with) {
 		display: none;
@@ -230,7 +230,7 @@ export default {
 	display:        flex;
 	flex-direction: column;
 	width:          100%;
-	align-items:    center;
+	align-items:    flex-start;
 	height:         75px;
 
 	&__title {

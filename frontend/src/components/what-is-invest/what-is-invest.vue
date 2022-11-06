@@ -90,6 +90,10 @@ export default {
 
 	&_image {
 		text-align: center;
+
+		@media (max-width: $max-mobile-with) {
+			text-align: left;
+		}
 	}
 }
 
@@ -97,6 +101,11 @@ export default {
 	text-align: center;
 	width:      100%;
 	max-width:  582px;
+
+	@media (max-width: $max-mobile-with) {
+		text-align: left;
+		max-width:  inherit;
+	}
 
 	&_text {
 		text-align: left;

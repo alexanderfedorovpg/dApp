@@ -165,7 +165,7 @@ export default {
 		background:      rgba(104, 104, 104, 0.3);
 		backdrop-filter: blur(10px);
 		border-radius:   20px;
-		height:          365px;
+		height:          390px;
 
 		@media (max-width: $max-mobile-with) {
 			height: inherit;
@@ -185,7 +185,7 @@ export default {
 	}
 
 	&__about-item {
-		padding:       25px;
+		padding:       20px;
 		text-align:    left;
 		margin-right:  30px;
 		background:    linear-gradient(to right, #4d386f, rgb(52 46 69));
@@ -218,6 +218,7 @@ export default {
 		color:       #c6c6c6;
 		font-weight: 400;
 		font-size:   16px;
+		margin:      10px 10px 0 0;
 
 		@media (max-width: $max-mobile-with) {
 			font-size: 15px;
