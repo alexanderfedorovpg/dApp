@@ -31,7 +31,7 @@ createApp(App)
 	})
 	.use(createI18n({
 		legacy:         false,
-		locale:         'en',
+		locale:         detectLang(),
 		fallbackLocale: 'en',
 		messages
 	}))
