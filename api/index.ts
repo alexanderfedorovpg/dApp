@@ -6,6 +6,7 @@ import shortid from 'shortid';
 import cors from 'cors';
 import {siteUrl} from '../config';
 import UserData from '../types/user-data';
+import {NIl_ADDRESS} from '../frontend/src/contract/types';
 
 const corsOptions = {
 	origin:               siteUrl,
@@ -39,7 +40,6 @@ server.post('/api/v1/save-referral',
 		await prisma.investorsTransactions.create({
 			data
 		});
-
 		res.json(data)
 	});
 
@@ -120,6 +120,17 @@ server.get('/api/v1/user',
 			}
 		});
 
+		if (null === data) {
+			const response: UserData = {
+				addressUser: NIl_ADDRESS,
+				referralId:  '',
+				profit:      0,
+				invited:     0,
+			};
+
+			return res.json(response)
+		}
+
 		const referralsData = await prisma.investorsTransactions.groupBy({
 			by:      ['addressUserFrom'],
 			_count:  {
@@ -142,8 +153,8 @@ server.get('/api/v1/user',
 		const invited = referralsData.length > 0 ? referralsData[0]._count.addressUserTo : 0
 
 		const response: UserData = {
-			addressUser:  data.addressUser,
-			referralId: data.referralId,
+			addressUser: data.addressUser,
+			referralId:  data.referralId,
 			profit,
 			invited,
 		};

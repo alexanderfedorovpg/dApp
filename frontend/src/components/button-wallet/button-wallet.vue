@@ -1,27 +1,21 @@
 <script lang="ts">
 	import {computed} from 'vue';
 	import {MetaMaskConnector, WalletConnectConnector, useBoard, useEthersHooks, OnChangedHook} from 'vue-dapp';
+	import {useRouter} from 'vue-router';
 	import {siteUrl} from '../../../../config';
-	import {useWalletHook} from '../../hooks/use-wallet-hook';
+	import {BUTTON_STATUS, useWalletHook} from '../../hooks/use-wallet-hook';
+	import {REFERRAL_PAGE} from '../../page/page-list';
 
 	/**
 	 * Button Wallet
 	 */
 	export default {
 		setup() {
-			const {open}                                    = useBoard();
-			const {onActivated}                             = useEthersHooks();
-			const {isActivated, disconnect, authentication, accounts} = useWalletHook();
+			const {open}                                                             = useBoard();
+			const {isActivated, currentWalletAddress, disconnect, checkActiveWallet} = useWalletHook();
 
 			/** Text button */
 			const buttonText = computed(() => (isActivated.value ? 'Disconnect wallet' : 'Connect wallet'));
-
-			/** Activated Wallet Hook */
-			onActivated((data) => {
-				authentication(data.address);
-			});
-
-			const infuraId = '0xBf8F49734544385A46C69C339A929DCe58925604';
 
 			const connectors = [
 				new MetaMaskConnector({
@@ -29,26 +23,31 @@
 				}),
 				new WalletConnectConnector({
 					qrcode: true,
-					rpc:    {
-						1: `https://mainnet.infura.io/v3/${infuraId}`,
-						4: `https://rinkeby.infura.io/v3/${infuraId}`,
-					},
 				}),
 			];
+
+			function connect() {
+				localStorage.setItem(BUTTON_STATUS, '1');
+				checkActiveWallet()
+
+				if ('' === currentWalletAddress.value) {
+					open();
+				}
+			}
 
 			return {
 				connectors,
 				buttonText,
 				isActivated,
 				disconnect,
-				accounts,
+				connect,
 				open,
 			};
 		}
 	}
 </script>
 <template>
-	<button class="button-wallet" @click="isActivated ? disconnect() : open()">{{ buttonText }}</button>
+	<button class="button-wallet" @click="isActivated ? disconnect() : connect();">{{ buttonText }}</button>
 	<vd-board :connectors="connectors" dark/>
 </template>
 

@@ -47,11 +47,11 @@ export default {
 
 		'mechanics-app_step': 'ШАГ',
 
-		'mechanics-app_block1_title':       'Инвайт',
-		'mechanics-app_block1_description': 'Новый пользователь который захочет зарегистрироваться в приложении, должен получить приглашение от премиум пользователя (инвестора).',
+		'mechanics-app_block1_title':       'Депозит ',
+		'mechanics-app_block1_description': 'Сделать разовый депозит 12 BUSD.',
 
-		'mechanics-app_block2_title':       'Депозит',
-		'mechanics-app_block2_description': 'Сделать разовый депозит 12 BUSD.',
+		'mechanics-app_block2_title':       'Инвайт',
+		'mechanics-app_block2_description': 'Новый пользователь который захочет зарегистрироваться в приложении, должен получить приглашение от премиум пользователя (инвестора).',
 
 		'mechanics-app_block3_title':       'Встреча',
 		'mechanics-app_block3_description': 'Найти рядом со своей геопозицией другого премиум пользователя, договариться о месте и времени встречи, сделать соместное фото.',

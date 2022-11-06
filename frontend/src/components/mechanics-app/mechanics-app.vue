@@ -1,5 +1,5 @@
 <script lang="ts">
-import {onMounted, ref} from 'vue';
+import {computed, onMounted, ref} from 'vue';
 import {useI18n} from 'vue-i18n';
 import {useObserverHook} from '../../hooks/use-observer-hook';
 
@@ -18,6 +18,7 @@ export default {
 			observer.observe(block.value)
 		})
 
+
 		return {t, block}
 	},
 }
@@ -35,7 +36,7 @@ export default {
 						<div class="mechanics-app__steps-item-text">{{ t('mechanics-app_block1_description') }}</div>
 					</div>
 					<div class="mechanics-app__steps-item-image">
-						<img src="../../assets/images/step1.png">
+						<img src="../../assets/images/step2.png">
 					</div>
 				</div>
 			</div>
@@ -48,7 +49,7 @@ export default {
 						<div class="mechanics-app__steps-item-text">{{ t('mechanics-app_block2_description') }}</div>
 					</div>
 					<div class="mechanics-app__steps-item-image">
-						<img src="../../assets/images/step2.png">
+						<img src="../../assets/images/step1.png">
 					</div>
 				</div>
 			</div>
