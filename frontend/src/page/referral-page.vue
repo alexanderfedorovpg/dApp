@@ -1,6 +1,7 @@
 <script lang="ts">
 import axios, {AxiosResponse} from 'axios';
 import {computed, reactive, ref, watch} from 'vue';
+import {useBoard} from 'vue-dapp';
 import {useI18n} from 'vue-i18n';
 import {useRoute, useRouter} from 'vue-router';
 import Web3 from 'web3';
@@ -11,10 +12,10 @@ import ReferralData from '../../../types/referral-data';
 import UserData from '../../../types/user-data';
 import {ADDRESS_CONTRACT, ADDRESS_TOKEN, NIl_ADDRESS} from '../contract/types';
 import {useWalletHook} from '../hooks/use-wallet-hook';
+import {HOME_PAGE} from './page-list';
 
 const abi   = require('../contract/abi.json');
 const token = require('../contract/token.json');
-
 
 /**
  * Page referrals
@@ -24,23 +25,31 @@ export default {
 	setup() {
 		const {t}                                               = useI18n();
 		const {params}                                          = useRoute();
+		const router                                            = useRouter();
 		const {currentWalletAddress, referralId, checkNetworks} = useWalletHook();
+		const {open}                                            = useBoard();
 
 		let routeReferralId                                                = params.referralId;
 		const state: { userData: UserData, referralsData: ReferralData[] } = reactive({userData: {invited: 0, profit: 0, referralId: '', addressUser: ''}, referralsData: null});
 		const referralUrl                                                  = computed(() => (siteUrl + '/referral/' + state.userData.referralId));
-		const isDisableButton                                              = computed(() => (!Boolean(state.userData.referralId) || state.userData.addressUser === currentWalletAddress.value));
+		const isDisableButton                                              = computed(() => (state.userData.addressUser === currentWalletAddress.value));
 		const isLoadingButton                                              = ref(false);
 
 		/**
 		 * Handler click to invest button
 		 */
 		function clickToInvest() {
+			if ('' === currentWalletAddress.value) {
+				open()
+
+				return;
+			}
+
 			checkNetworks();
 			const web3 = new Web3(Web3.givenProvider);
 
-			const contract        = new web3.eth.Contract(abi, ADDRESS_CONTRACT);
-			const cToken          = new web3.eth.Contract(token, ADDRESS_TOKEN);
+			const contract = new web3.eth.Contract(abi, ADDRESS_CONTRACT);
+			const cToken   = new web3.eth.Contract(token, ADDRESS_TOKEN);
 
 			isLoadingButton.value = true;
 
@@ -49,12 +58,15 @@ export default {
 					const address = (state.userData.addressUser && state.userData.addressUser !== currentWalletAddress.value ?
 							state.userData.addressUser : NIl_ADDRESS);
 					contract.methods.buy(address).send({from: currentWalletAddress.value}).then(() => {
-							Promise.all([
-								axios.post(apiUrl + '/api/v1/save-referral', {addressUserTo: state.userData.addressUser, addressUserFrom: currentWalletAddress.value, cost: 25}),
-								axios.post(apiUrl + '/api/v1/add-link', {addressUser: currentWalletAddress.value})
-							]).then((response) => {
-								location.href = '/referral/' + response[1].data.referralId;
-							})
+						const promise = [axios.post(apiUrl + '/api/v1/add-link', {addressUser: currentWalletAddress.value})];
+
+						if ('' !== state.userData.addressUser && state.userData.addressUser !== currentWalletAddress.value) {
+							promise.push(axios.post(apiUrl + '/api/v1/save-referral', {addressUserTo: state.userData.addressUser, addressUserFrom: currentWalletAddress.value, cost: 25}))
+						}
+
+						Promise.all(promise).then((response) => {
+							location.href = '/referral/';
+						})
 					}).catch((data) => {
 						alert('Transaction BUY failed.')
 					}).finally(() => {
@@ -102,6 +114,10 @@ export default {
 		 */
 		function getUserData(referralId) {
 			axios.get(apiUrl + `/api/v1/user/?referralId=${referralId}`).then((response: AxiosResponse<UserData>) => {
+				if (NIl_ADDRESS === response.data.addressUser) {
+					router.push({name: HOME_PAGE});
+				}
+
 				state.userData = response.data;
 			});
 		}
@@ -151,8 +167,7 @@ export default {
 						</div>
 					</div>
 					<div class="top-referrals-page-link-text">{{ t('referral_page_text_about_link') }}</div>
-					<span class="top-referrals-page-link-description" v-if="Boolean(state.userData.referralId)" @click="copy()">{{ referralUrl }}
-
+					<span class="top-referrals-page-link-description" v-if="state.userData.addressUser === currentWalletAddress && Boolean(state.userData.referralId)" @click="copy()">{{ referralUrl }}
 
 						<svg style="position: relative;top: 8px;" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M15 28.125C22.2487 28.125 28.125 22.2487 28.125 15C28.125 7.75126 22.2487 1.875 15 1.875C7.75126 1.875 1.875 7.75126 1.875 15C1.875 22.2487 7.75126 28.125 15 28.125Z" fill="#E6E7E8"/>
@@ -164,7 +179,7 @@ export default {
 					<div class="top-referrals-page-link-description" v-else>{{ t('referral_page_text_about_description') }}</div>
 					<base-button :is-disable="isDisableButton" :is-loading="isLoadingButton" :text="t('referral_page_about_button_text') +' 25  BUSD'" @click="clickToInvest"/>
 				</div>
-				<div class="top-referrals-page-block-description-qr">
+				<div class="top-referrals-page-block-description-qr" v-if="state.userData.addressUser">
 					<QRCodeVue3
 							:width="200"
 							:height="200"

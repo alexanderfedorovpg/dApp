@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {ref} from 'vue';
-import {useRouter} from 'vue-router';
+import {useRoute, useRouter} from 'vue-router';
 import {apiUrl, BSCM, currentNetwork, networks} from '../../../config';
 import {HOME_PAGE, REFERRAL_PAGE} from '../page/page-list';
 
@@ -37,8 +37,6 @@ export const useWalletHook = () => {
 				method: 'wallet_switchEthereumChain',
 				params: [{chainId: networks[currentNetwork].chainId}]
 			}).catch((err) => {
-				router.push({name: HOME_PAGE});
-
 				if (err.code === 4902) {
 					(<any>window.ethereum).request({
 						method: 'wallet_addEthereumChain',
@@ -46,8 +44,11 @@ export const useWalletHook = () => {
 							networks[currentNetwork]
 						]
 					}).catch(() => {
-						router.push({name: HOME_PAGE});
+						location.reload()
 					})
+				}
+				else {
+					location.reload()
 				}
 			})
 		}
@@ -66,18 +67,16 @@ export const useWalletHook = () => {
 	function checkActiveWallet() {
 		const isDisableWallet = '0' === localStorage.getItem(BUTTON_STATUS);
 
-		if (isDisableWallet) {
-			router.push({name: HOME_PAGE});
-		}
-
 		if (window.ethereum) {
 			(<any>window.ethereum).on('accountsChanged', (data) => {
 				if (data.length > 0) {
 					currentWalletAddress.value = data[0];
 					isActivated.value          = true;
 					checkNetworks();
-					authentication(currentWalletAddress.value).then((response) => {
-						router.push({name: REFERRAL_PAGE});
+					authentication(currentWalletAddress.value).then(() => {
+						if (REFERRAL_PAGE !== router.currentRoute.value.name) {
+							router.push({name: REFERRAL_PAGE});
+						}
 					});
 				}
 				else {
@@ -114,7 +113,7 @@ export const useWalletHook = () => {
 
 							break;
 						case REFERRAL_PAGE:
-							if (false === isActivated.value) {
+							if (false === isActivated.value && '' === router.currentRoute.value.params.referralId) {
 								router.push({name: HOME_PAGE});
 							}
 
