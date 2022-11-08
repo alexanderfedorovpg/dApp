@@ -61,7 +61,7 @@ export default {
 						const promise = [axios.post(apiUrl + '/api/v1/add-link', {addressUser: currentWalletAddress.value})];
 
 						if ('' !== state.userData.addressUser && state.userData.addressUser !== currentWalletAddress.value) {
-							promise.push(axios.post(apiUrl + '/api/v1/save-referral', {addressUserTo: state.userData.addressUser, addressUserFrom: currentWalletAddress.value, cost: 25}))
+							promise.push(axios.post(apiUrl + '/api/v1/save-referral', {addressUserTo: currentWalletAddress.value, addressUserFrom: state.userData.addressUser, cost: 25}))
 						}
 
 						Promise.all(promise).then((response) => {
