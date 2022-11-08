@@ -23,11 +23,11 @@ const token = require('../contract/token.json');
 export default {
 	components: {BaseButton, QRCodeVue3},
 	setup() {
-		const {t}                                               = useI18n();
-		const {params}                                          = useRoute();
-		const router                                            = useRouter();
-		const {currentWalletAddress, referralId, checkNetworks} = useWalletHook();
-		const {open}                                            = useBoard();
+		const {t}                                                                               = useI18n();
+		const {params}                                                                          = useRoute();
+		const router                                                                            = useRouter();
+		const {currentWalletAddress, referralId, checkNetworks, isActivated, checkActiveWallet} = useWalletHook();
+		const {open}                                                                            = useBoard();
 
 		let routeReferralId                                                = params.referralId;
 		const state: { userData: UserData, referralsData: ReferralData[] } = reactive({userData: {invited: 0, profit: 0, referralId: '', addressUser: ''}, referralsData: null});
@@ -39,8 +39,13 @@ export default {
 		 * Handler click to invest button
 		 */
 		function clickToInvest() {
-			if ('' === currentWalletAddress.value || '0' === localStorage.getItem(BUTTON_STATUS)) {
-				open()
+			if (false === isActivated.value) {
+				localStorage.setItem(BUTTON_STATUS, '1');
+				checkActiveWallet();
+
+				if ('' === currentWalletAddress.value) {
+					open();
+				}
 
 				return;
 			}
