@@ -11,7 +11,7 @@ import QRCodeVue3 from 'qrcode-vue3';
 import ReferralData from '../../../types/referral-data';
 import UserData from '../../../types/user-data';
 import {ADDRESS_CONTRACT, ADDRESS_TOKEN, NIl_ADDRESS} from '../contract/types';
-import {useWalletHook} from '../hooks/use-wallet-hook';
+import {BUTTON_STATUS, useWalletHook} from '../hooks/use-wallet-hook';
 import {HOME_PAGE} from './page-list';
 
 const abi   = require('../contract/abi.json');
@@ -39,7 +39,7 @@ export default {
 		 * Handler click to invest button
 		 */
 		function clickToInvest() {
-			if ('' === currentWalletAddress.value) {
+			if ('' === currentWalletAddress.value || '0' === localStorage.getItem(BUTTON_STATUS)) {
 				open()
 
 				return;
