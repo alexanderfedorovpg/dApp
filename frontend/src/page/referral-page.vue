@@ -32,7 +32,7 @@ export default {
 		let routeReferralId                                                = params.referralId;
 		const state: { userData: UserData, referralsData: ReferralData[] } = reactive({userData: {invited: 0, profit: 0, referralId: '', addressUser: ''}, referralsData: null});
 		const referralUrl                                                  = computed(() => (siteUrl + '/referral/' + state.userData.referralId));
-		const isDisableButton                                              = computed(() => (state.userData.addressUser === currentWalletAddress.value));
+		const isDisableButton                                              = computed(() => (Boolean(referralId.value) || state.userData.addressUser === currentWalletAddress.value));
 		const isLoadingButton                                              = ref(false);
 
 		/**
