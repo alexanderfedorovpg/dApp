@@ -140,7 +140,7 @@ export default {
 			state.referralsData = response.data;
 		})
 
-		return {t, state, referralUrl, isDisableButton, isLoadingButton, clickToInvest, copy, currentWalletAddress}
+		return {t, state, referralId, referralUrl, isDisableButton, isLoadingButton, clickToInvest, copy, currentWalletAddress}
 	},
 }
 </script>
@@ -167,7 +167,7 @@ export default {
 						</div>
 					</div>
 					<div class="top-referrals-page-link-text">{{ t('referral_page_text_about_link') }}</div>
-					<span class="top-referrals-page-link-description" v-if="state.userData.addressUser === currentWalletAddress && Boolean(state.userData.referralId)" @click="copy()">{{ referralUrl }}
+					<span class="top-referrals-page-link-description" v-if="state.userData.referralId === referralId && Boolean(state.userData.referralId)" @click="copy()">{{ referralUrl }}
 
 						<svg style="position: relative;top: 8px;" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M15 28.125C22.2487 28.125 28.125 22.2487 28.125 15C28.125 7.75126 22.2487 1.875 15 1.875C7.75126 1.875 1.875 7.75126 1.875 15C1.875 22.2487 7.75126 28.125 15 28.125Z" fill="#E6E7E8"/>
