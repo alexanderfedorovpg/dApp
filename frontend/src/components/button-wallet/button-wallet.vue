@@ -2,7 +2,7 @@
 	import {computed} from 'vue';
 	import {MetaMaskConnector, WalletConnectConnector, useBoard, useEthersHooks, OnChangedHook} from 'vue-dapp';
 	import {useRouter} from 'vue-router';
-	import {siteUrl} from '../../../../config';
+	import {currentNetwork, networks, siteUrl} from '../../../../config';
 	import {BUTTON_STATUS, useWalletHook} from '../../hooks/use-wallet-hook';
 	import {REFERRAL_PAGE} from '../../page/page-list';
 
@@ -15,14 +15,18 @@
 			const {isActivated, currentWalletAddress, disconnect, checkActiveWallet} = useWalletHook();
 
 			/** Text button */
-			const buttonText = computed(() => (isActivated.value ? 'Disconnect wallet' : 'Connect wallet'));
+			const buttonText    = computed(() => (isActivated.value ? 'Disconnect wallet' : 'Connect wallet'));
+			const rpc           = {};
 
-			const connectors = [
+			rpc[currentNetwork] = networks[currentNetwork].rpcUrls;
+
+			const connectors    = [
 				new MetaMaskConnector({
 					appUrl: siteUrl,
 				}),
 				new WalletConnectConnector({
 					qrcode: true,
+					rpc,
 				}),
 			];
 

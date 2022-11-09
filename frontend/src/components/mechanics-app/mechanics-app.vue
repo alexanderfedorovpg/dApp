@@ -324,6 +324,10 @@ export default {
 				height: 219px;
 			}
 		}
+
+		@media (max-width: 380px) {
+			bottom: -50px;
+		}
 	}
 
 	&__steps-item-blur {
