@@ -318,6 +318,8 @@ export default {
 		text-align: end;
 
 		@media (max-width: $max-mobile-with) {
+			bottom: -20px;
+
 			img {
 				height: 219px;
 			}

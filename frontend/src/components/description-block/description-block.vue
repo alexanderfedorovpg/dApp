@@ -144,7 +144,7 @@ export default {
 
 	@media (max-width: $max-mobile-with) {
 		position: inherit;
-		width:    fit-content;
+		width:    auto;
 		height:   352px;
 	}
 }
