@@ -1,5 +1,5 @@
 /** API Url */
-export const apiUrl  = 'https://swayze.io:5123';
+export const apiUrl  = 'https://swayze.io';
 /** Current Site Url */
 export const siteUrl = 'https://swayze.io';
 
