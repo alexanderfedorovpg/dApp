@@ -1,7 +1,7 @@
 /** API Url */
-export const apiUrl  = 'http://swayze.io:5123';
+export const apiUrl  = 'https://swayze.io:5123';
 /** Current Site Url */
-export const siteUrl = 'http://swayze.io';
+export const siteUrl = 'https://swayze.io';
 
 export const BSCM           = 56;
 export const testBSCM       = 97;
