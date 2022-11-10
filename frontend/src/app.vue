@@ -1,8 +1,12 @@
 <script lang="ts">
 import {onMounted} from 'vue';
+import {useEthers, useEthersHooks, useWallet} from 'vue-dapp';
+import {useRouter} from 'vue-router';
 import BaseHeader from './components/base-header/base-header.vue';
 import BaseFooter from './components/base-footer/base-footer.vue';
-import {useWalletHook} from './hooks/use-wallet-hook';
+import connectors from './contract/connectors';
+import {BUTTON_STATUS, useWalletHook} from './hooks/use-wallet-hook';
+import {HOME_PAGE, REFERRAL_PAGE} from './page/page-list';
 
 /**
  * Main app
@@ -13,11 +17,60 @@ export default {
 		BaseFooter,
 	},
 	setup() {
-		const {checkActiveWallet} = useWalletHook();
+		const {currentWalletAddress, isActivated, authentication, referralId, checkNetworks, autoConnect} = useWalletHook();
+		const {onActivated, onChanged, onDeactivated}                                                     = useEthersHooks();
+		const {provider, deactivate}                                                                      = useEthers();
+		const router                                                                                      = useRouter();
+
+		autoConnect();
+
+		onActivated((data) => {
+			currentWalletAddress.value = data.address;
+			isActivated.value          = true;
+			checkNetworks();
+			localStorage.setItem(BUTTON_STATUS, '1');
+
+			authentication(currentWalletAddress.value).then((response) => {
+				if (REFERRAL_PAGE !== router.currentRoute.value.name) {
+					router.push({name: REFERRAL_PAGE});
+				}
+
+				referralId.value = response.data.referralId;
+			});
+		});
+
+		onChanged((data) => {
+			currentWalletAddress.value = data.address;
+			isActivated.value          = true;
+			checkNetworks();
+			authentication(currentWalletAddress.value).then((response) => {
+				if (REFERRAL_PAGE !== router.currentRoute.value.name) {
+					router.push({name: REFERRAL_PAGE});
+				}
+
+				referralId.value = response.data.referralId;
+			});
+		});
+
+		onDeactivated(() => {
+			currentWalletAddress.value = '';
+			isActivated.value          = false;
+			localStorage.removeItem(BUTTON_STATUS);
+		});
+
 
 		/** Mounted Vue hook */
 		onMounted(() => {
-			checkActiveWallet();
+			router.isReady().then(() => {
+				switch (router.currentRoute.value.name) {
+					case REFERRAL_PAGE:
+						if (false === isActivated.value && '' === router.currentRoute.value.params.referralId) {
+							router.push({name: HOME_PAGE});
+						}
+
+						break;
+				}
+			});
 		});
 	}
 }

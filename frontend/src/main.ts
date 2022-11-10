@@ -1,7 +1,7 @@
 import {createApp} from 'vue';
 import {createRouter, createWebHistory} from 'vue-router';
 import {createI18n} from 'vue-i18n';
-import {networks} from '../../config';
+import {currentNetwork, networks} from '../../config';
 import App from './app.vue';
 import './assets/normalize.scss';
 import './assets/main.scss';
@@ -11,7 +11,6 @@ import ReferralPage from './page/referral-page.vue';
 import HomePage from './page/home-page.vue';
 import {VueDapp} from 'vue-dapp';
 import messages from './translations/messages';
-
 
 /**
  * App main point.
@@ -28,6 +27,8 @@ const router = createRouter({
 createApp(App)
 	.use(router)
 	.use(VueDapp, {
+		autoConnetct: true,
+		networks
 	})
 	.use(createI18n({
 		legacy:         false,

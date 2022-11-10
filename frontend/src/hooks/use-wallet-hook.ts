@@ -1,8 +1,13 @@
 import axios from 'axios';
 import {ref} from 'vue';
+import {useEthersHooks, useWallet, useEthers} from 'vue-dapp';
 import {useRoute, useRouter} from 'vue-router';
+import Web3 from 'web3';
+import {ethers} from 'ethers';
 import {apiUrl, BSCM, currentNetwork, networks} from '../../../config';
+import connectors from '../contract/connectors';
 import {HOME_PAGE, REFERRAL_PAGE} from '../page/page-list';
+
 
 export const BUTTON_STATUS = 'BUTTON_STATUS';
 
@@ -17,7 +22,9 @@ const referralId           = ref('');
  * Wallet Hook
  */
 export const useWalletHook = () => {
-	const router = useRouter();
+	const router        = useRouter();
+	const {disconnect}  = useWallet();
+	const {connectWith} = useWallet();
 
 	/** User authentication */
 	function authentication(address) {
@@ -26,11 +33,27 @@ export const useWalletHook = () => {
 		});
 	}
 
+	/** AutoConnect */
+	function autoConnect() {
+		if (null !== window.localStorage.getItem('walletconnect')) {
+			connectWith(connectors[1]);
+		}
+
+		if ('1' === localStorage.getItem(BUTTON_STATUS) && window.ethereum && (<any>window.ethereum).isMetaMask) {
+			connectWith(connectors[0]);
+		}
+	}
+
 	/** Check Networks Wallet */
 	function checkNetworks(): Promise<any> {
+
 		let promise = new Promise((resolve) => {
 			resolve('')
 		});
+
+		if (!(<any>window.ethereum)) {
+			return promise;
+		}
 
 		if ((<any>window.ethereum).networkVersion !== currentNetwork) {
 			promise = (<any>window.ethereum).request({
@@ -57,72 +80,12 @@ export const useWalletHook = () => {
 	}
 
 	/** Disconnect Wallet */
-	function disconnect() {
+	function disconnectWallet() {
 		isActivated.value = false;
 		localStorage.setItem(BUTTON_STATUS, '0');
 		router.push({name: HOME_PAGE});
+		disconnect();
 	}
 
-	/** Wallet accounts  */
-	function checkActiveWallet() {
-		const isDisableWallet = '0' === localStorage.getItem(BUTTON_STATUS);
-
-		if (window.ethereum) {
-			(<any>window.ethereum).on('accountsChanged', (data) => {
-				if (data.length > 0) {
-					currentWalletAddress.value = data[0];
-					isActivated.value          = true;
-					checkNetworks();
-					authentication(currentWalletAddress.value).then(() => {
-						if (REFERRAL_PAGE !== router.currentRoute.value.name) {
-							router.push({name: REFERRAL_PAGE});
-						}
-					});
-				}
-				else {
-					isActivated.value = false;
-					router.push({name: HOME_PAGE});
-				}
-			});
-
-			(<any>window.ethereum).request({method: 'eth_accounts'}).then((accountsArr) => {
-				let auth = null;
-
-				if (accountsArr.length > 0) {
-					checkNetworks();
-					currentWalletAddress.value = accountsArr[0];
-
-					if (isDisableWallet) {
-						return;
-					}
-
-					isActivated.value = true;
-					auth              = authentication(accountsArr[0]).then((response) => {
-						referralId.value = response.data.referralId;
-					});
-				}
-
-				router.isReady().then(() => {
-					switch (router.currentRoute.value.name) {
-						case HOME_PAGE:
-							if (null !== auth) {
-								auth.then(() => {
-									router.push({name: REFERRAL_PAGE});
-								});
-							}
-
-							break;
-						case REFERRAL_PAGE:
-							if (false === isActivated.value && '' === router.currentRoute.value.params.referralId) {
-								router.push({name: HOME_PAGE});
-							}
-
-							break;
-					}
-				});
-			});
-		}
-	}
-
-	return {isActivated, currentWalletAddress, referralId, checkActiveWallet, authentication, disconnect, checkNetworks}
+	return {isActivated, currentWalletAddress, referralId, authentication, disconnectWallet, checkNetworks, autoConnect}
 }

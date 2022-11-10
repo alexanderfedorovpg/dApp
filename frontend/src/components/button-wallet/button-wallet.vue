@@ -1,8 +1,9 @@
 <script lang="ts">
 	import {computed} from 'vue';
-	import {MetaMaskConnector, WalletConnectConnector, useBoard, useEthersHooks, OnChangedHook} from 'vue-dapp';
+	import {MetaMaskConnector, WalletConnectConnector, useWallet, useBoard, useEthersHooks, OnChangedHook} from 'vue-dapp';
 	import {useRouter} from 'vue-router';
 	import {currentNetwork, networks, siteUrl} from '../../../../config';
+	import connectors from '../../contract/connectors';
 	import {BUTTON_STATUS, useWalletHook} from '../../hooks/use-wallet-hook';
 	import {REFERRAL_PAGE} from '../../page/page-list';
 
@@ -11,29 +12,16 @@
 	 */
 	export default {
 		setup() {
-			const {open}                                                             = useBoard();
-			const {isActivated, currentWalletAddress, disconnect, checkActiveWallet} = useWalletHook();
+			const {open}                                                = useBoard();
+			const {isActivated, currentWalletAddress, disconnectWallet} = useWalletHook();
 
 			/** Text button */
-			const buttonText    = computed(() => (isActivated.value ? 'Disconnect wallet' : 'Connect wallet'));
-			const rpc           = {};
+			const buttonText = computed(() => (isActivated.value ? 'Disconnect wallet' : 'Connect wallet'));
 
-			rpc[currentNetwork] = networks[currentNetwork].rpcUrls;
-
-			const connectors    = [
-				new MetaMaskConnector({
-					appUrl: siteUrl,
-				}),
-				new WalletConnectConnector({
-					qrcode: true,
-					rpc,
-				}),
-			];
-
+			/**
+			 * Handler connecton
+			 */
 			function connect() {
-				localStorage.setItem(BUTTON_STATUS, '1');
-				checkActiveWallet()
-
 				if ('' === currentWalletAddress.value) {
 					open();
 				}
@@ -43,7 +31,7 @@
 				connectors,
 				buttonText,
 				isActivated,
-				disconnect,
+				disconnectWallet,
 				connect,
 				open,
 			};
@@ -51,7 +39,7 @@
 	}
 </script>
 <template>
-	<button class="button-wallet" @click="isActivated ? disconnect() : connect();">{{ buttonText }}</button>
+	<button class="button-wallet" @click="isActivated ? disconnectWallet() : connect();">{{ buttonText }}</button>
 	<vd-board :connectors="connectors" dark/>
 </template>
 

@@ -1,7 +1,8 @@
 /** API Url */
-export const apiUrl  = 'https://swayze.io';
+export const apiUrl  = 'http://localhost:8081';
+
 /** Current Site Url */
-export const siteUrl = 'https://swayze.io';
+export const siteUrl = 'http://localhost:8080';
 
 export const BSCM           = 56;
 export const testBSCM       = 97;

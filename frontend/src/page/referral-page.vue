@@ -1,7 +1,7 @@
 <script lang="ts">
 import axios, {AxiosResponse} from 'axios';
 import {computed, reactive, ref, watch} from 'vue';
-import {useBoard} from 'vue-dapp';
+import {useBoard, useEthers, useWallet} from 'vue-dapp';
 import {useI18n} from 'vue-i18n';
 import {useRoute, useRouter} from 'vue-router';
 import Web3 from 'web3';
@@ -23,11 +23,13 @@ const token = require('../contract/token.json');
 export default {
 	components: {BaseButton, QRCodeVue3},
 	setup() {
-		const {t}                                                                               = useI18n();
-		const {params}                                                                          = useRoute();
-		const router                                                                            = useRouter();
-		const {currentWalletAddress, referralId, checkNetworks, isActivated, checkActiveWallet} = useWalletHook();
-		const {open}                                                                            = useBoard();
+		const {t}                                                            = useI18n();
+		const {params}                                                       = useRoute();
+		const router                                                         = useRouter();
+		const {currentWalletAddress, referralId, checkNetworks, isActivated} = useWalletHook();
+		const {open}                                                         = useBoard();
+		const {provider}                                                     = useEthers();
+
 
 		let routeReferralId                                                = params.referralId;
 		const state: { userData: UserData, referralsData: ReferralData[] } = reactive({userData: {invited: 0, profit: 0, referralId: '', addressUser: ''}, referralsData: null});
@@ -39,19 +41,16 @@ export default {
 		 * Handler click to invest button
 		 */
 		function clickToInvest() {
-			if (false === isActivated.value) {
-				localStorage.setItem(BUTTON_STATUS, '1');
-				checkActiveWallet();
+			checkNetworks();
 
-				if ('' === currentWalletAddress.value) {
-					open();
-				}
+			if (false === isActivated.value && '' === currentWalletAddress.value) {
+				open();
 
 				return;
 			}
 
-			checkNetworks();
-			const web3 = new Web3(Web3.givenProvider);
+			// @ts-ignore
+			const web3 = new Web3(provider.value.provider);
 
 			const contract = new web3.eth.Contract(abi, ADDRESS_CONTRACT);
 			const cToken   = new web3.eth.Contract(token, ADDRESS_TOKEN);
@@ -62,6 +61,7 @@ export default {
 				if (Number(balance) >= 25 * Math.pow(10, 18)) {
 					const address = (state.userData.addressUser && state.userData.addressUser !== currentWalletAddress.value ?
 							state.userData.addressUser : NIl_ADDRESS);
+
 					contract.methods.buy(address).send({from: currentWalletAddress.value}).then(() => {
 						const promise = [axios.post(apiUrl + '/api/v1/add-link', {addressUser: currentWalletAddress.value})];
 
