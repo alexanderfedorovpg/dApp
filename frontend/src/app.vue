@@ -18,8 +18,9 @@ export default {
 	},
 	setup() {
 		const {currentWalletAddress, isActivated, authentication, referralId, checkNetworks, autoConnect} = useWalletHook();
+		const {onChainChanged}                                                                            = useWallet();
 		const {onActivated, onChanged, onDeactivated}                                                     = useEthersHooks();
-		const {provider, deactivate}                                                                      = useEthers();
+		const {provider, deactivate, lookupDNS}                                                           = useEthers();
 		const router                                                                                      = useRouter();
 
 		autoConnect();
@@ -27,7 +28,6 @@ export default {
 		onActivated((data) => {
 			currentWalletAddress.value = data.address;
 			isActivated.value          = true;
-			checkNetworks();
 			localStorage.setItem(BUTTON_STATUS, '1');
 
 			authentication(currentWalletAddress.value).then((response) => {
@@ -39,10 +39,13 @@ export default {
 			});
 		});
 
+		onChainChanged((data) => {
+			location.reload();
+		});
+
 		onChanged((data) => {
 			currentWalletAddress.value = data.address;
 			isActivated.value          = true;
-
 			authentication(currentWalletAddress.value).then((response) => {
 				referralId.value = response.data.referralId;
 			});

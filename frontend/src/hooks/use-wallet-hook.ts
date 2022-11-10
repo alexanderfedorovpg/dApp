@@ -24,6 +24,7 @@ const referralId           = ref('');
 export const useWalletHook = () => {
 	const router                    = useRouter();
 	const {disconnect, connectWith} = useWallet();
+	const {provider}                = useEthers();
 
 	/** User authentication */
 	function authentication(address) {
@@ -35,7 +36,7 @@ export const useWalletHook = () => {
 	/** AutoConnect */
 	function autoConnect() {
 		if (null !== window.localStorage.getItem(storageId)) {
-			connectWith(connectors[1]);
+			connectWith(connectors[1])
 		}
 		else if ('1' === localStorage.getItem(BUTTON_STATUS) && window.ethereum && (<any>window.ethereum).isMetaMask) {
 			connectWith(connectors[0]);
@@ -49,32 +50,22 @@ export const useWalletHook = () => {
 			resolve('')
 		});
 
-		if (!(<any>window.ethereum)) {
-			return promise;
-		}
-
-		if ((<any>window.ethereum).networkVersion !== currentNetwork) {
-			promise = (<any>window.ethereum).request({
-				method: 'wallet_switchEthereumChain',
-				params: [{chainId: networks[currentNetwork].chainId}]
-			}).catch((err) => {
-				if (err.code === 4902) {
-					(<any>window.ethereum).request({
+		provider.value.getNetwork().then((network) => {
+			if (network.chainId !== currentNetwork) {
+				promise = provider.value.provider.request({
+					method: 'wallet_switchEthereumChain',
+					params: [{chainId: networks[currentNetwork].chainId}]
+				}).catch((err) => {
+					isActivated.value          = false;
+					currentWalletAddress.value = '';
+					router.push({name: HOME_PAGE});
+					provider.value.provider.request({
 						method: 'wallet_addEthereumChain',
-						params: [
-							networks[currentNetwork]
-						]
-					}).catch(() => {
-						disconnectWallet();
+						params: [networks[currentNetwork]]
 					})
-				}
-				else {
-					disconnectWallet();
-				}
-			}).then(() => {
-				autoConnect();
-			})
-		}
+				})
+			}
+		})
 
 		return promise;
 	}
