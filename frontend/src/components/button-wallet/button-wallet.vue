@@ -1,11 +1,11 @@
 <script lang="ts">
-	import {computed} from 'vue';
+	import {computed, ref, watch, watchEffect} from 'vue';
 	import {MetaMaskConnector, WalletConnectConnector, useWallet, useBoard, useEthersHooks, OnChangedHook} from 'vue-dapp';
 	import {useRouter} from 'vue-router';
 	import {currentNetwork, networks, siteUrl} from '../../../../config';
 	import connectors from '../../contract/connectors';
 	import {BUTTON_STATUS, useWalletHook} from '../../hooks/use-wallet-hook';
-	import {REFERRAL_PAGE} from '../../page/page-list';
+	import {HOME_PAGE, REFERRAL_PAGE} from '../../page/page-list';
 
 	/**
 	 * Button Wallet
@@ -14,9 +14,33 @@
 		setup() {
 			const {open}                                                = useBoard();
 			const {isActivated, currentWalletAddress, disconnectWallet} = useWalletHook();
+			const router                                                = useRouter();
 
 			/** Text button */
-			const buttonText = computed(() => (isActivated.value ? 'Disconnect wallet' : 'Connect wallet'));
+			const buttonText = ref('Connect wallet');
+			const handler    = ref(open);
+
+			/** redirec to profile */
+			function goToProfile() {
+				router.push({name: REFERRAL_PAGE});
+			}
+
+			watchEffect(() => {
+				if (isActivated.value) {
+					if (HOME_PAGE === router.currentRoute.value.name) {
+						buttonText.value = 'Profile';
+						handler.value    = goToProfile;
+					}
+					else {
+						buttonText.value = 'Disconnect wallet';
+						handler.value    = disconnectWallet;
+					}
+				}
+				else {
+					buttonText.value = 'Connect wallet';
+					handler.value    = open;
+				}
+			});
 
 			/**
 			 * Handler connecton
@@ -31,15 +55,13 @@
 				connectors,
 				buttonText,
 				isActivated,
-				disconnectWallet,
-				connect,
-				open,
+				handler
 			};
 		}
 	}
 </script>
 <template>
-	<button class="button-wallet" @click="isActivated ? disconnectWallet() : connect();">{{ buttonText }}</button>
+	<button class="button-wallet" @click="handler">{{ buttonText }}</button>
 	<vd-board :connectors="connectors" dark/>
 </template>
 

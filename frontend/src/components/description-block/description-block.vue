@@ -1,7 +1,10 @@
 <script lang="ts">
-import {onMounted, ref} from 'vue';
+import axios, {AxiosResponse} from 'axios';
+import {onMounted, reactive, ref} from 'vue';
 import {useBoard} from 'vue-dapp';
 import {useI18n} from 'vue-i18n';
+import {apiUrl} from '../../../../config';
+import CountersData from '../../../../types/counters-data';
 import {useObserverHook} from '../../hooks/use-observer-hook';
 import BaseButton from '../base-button/base-button.vue';
 
@@ -16,6 +19,12 @@ export default {
 		const {t}        = useI18n();
 		const {observer} = useObserverHook()
 		const {open}     = useBoard();
+		const counters   = <CountersData>reactive({amount: 0, members: 0});
+
+		axios.get(apiUrl + '/api/v1/counters').then((response: AxiosResponse<CountersData>) => {
+			counters.members = response.data.members;
+			counters.amount  = response.data.amount;
+		});
 
 		/** Ref HTML Block Component */
 		const block = ref<Element>(null);
@@ -24,7 +33,7 @@ export default {
 			observer.observe(block.value)
 		})
 
-		return {t, open, block}
+		return {t, open, block, counters}
 	},
 }
 </script>
@@ -109,7 +118,7 @@ export default {
 	</div>
 	<div class="description-total-block">
 			<div class="description-total-block__item">
-				<div class="description-total-block__item-value">2050 BUSD</div>
+				<div class="description-total-block__item-value">{{ counters.amount }} BUSD</div>
 				<div class="description-total-block__item-text">{{ t('raised_funds') }}</div>
 			</div>
 		<div class="description-total-block__item">
@@ -117,7 +126,7 @@ export default {
 				<div class="description-total-block__item-text">{{ t('goal') }}</div>
 		</div>
 		<div class="description-total-block__item">
-				<div class="description-total-block__item-value">1203</div>
+				<div class="description-total-block__item-value">{{ counters.members }}</div>
 				<div class="description-total-block__item-text">{{ t('members') }}</div>
 		</div>
 	</div>

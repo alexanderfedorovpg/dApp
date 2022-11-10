@@ -29,6 +29,7 @@ export default {
 		const {currentWalletAddress, referralId, checkNetworks, isActivated} = useWalletHook();
 		const {open}                                                         = useBoard();
 		const {provider}                                                     = useEthers();
+		const ROUTE_REFERRAL_ID                                              = 'ROUTEREFERRALID'
 
 
 		let routeReferralId                                                = params.referralId;
@@ -70,6 +71,7 @@ export default {
 						}
 
 						Promise.all(promise).then((response) => {
+							localStorage.removeItem(ROUTE_REFERRAL_ID);
 							location.href = '/referral/';
 						})
 					}).catch((data) => {
@@ -118,6 +120,10 @@ export default {
 		 * Handler get user data
 		 */
 		function getUserData(referralId) {
+			if (!referralId) {
+				return;
+			}
+
 			axios.get(apiUrl + `/api/v1/user/?referralId=${referralId}`).then((response: AxiosResponse<UserData>) => {
 				if (NIl_ADDRESS === response.data.addressUser) {
 					router.push({name: HOME_PAGE});
@@ -126,8 +132,12 @@ export default {
 				state.userData = response.data;
 			});
 		}
+		const referralIdlocalStorage = localStorage.getItem(ROUTE_REFERRAL_ID)
 
-		if (false === Boolean(routeReferralId)) {
+		if (null !== referralIdlocalStorage) {
+			getUserData(localStorage.getItem(ROUTE_REFERRAL_ID));
+		}
+		else if (false === Boolean(routeReferralId)) {
 			if ('' !== referralId.value) {
 				getUserData(referralId.value)
 			}
@@ -138,6 +148,7 @@ export default {
 		}
 
 		if (routeReferralId) {
+			localStorage.setItem(ROUTE_REFERRAL_ID, String(routeReferralId));
 			getUserData(routeReferralId)
 		}
 

@@ -1,17 +1,20 @@
 import {MetaMaskConnector, WalletConnectConnector} from 'vue-dapp';
 import {currentNetwork, networks, siteUrl} from '../../../config';
 
-const rpc        = {};
+export const storageId = 'wcSwayze';
+
+const rpc           = {};
 rpc[currentNetwork] = networks[currentNetwork].rpcUrls[0];
 
- const connectors = [
+const connectors = [
 	new MetaMaskConnector({
 		appUrl: siteUrl,
 	}),
 	new WalletConnectConnector({
 		qrcode:  true,
 		chainId: currentNetwork,
-		rpc
+		rpc,
+		storageId,
 	}),
 ];
 

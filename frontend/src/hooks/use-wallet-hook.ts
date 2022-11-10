@@ -5,7 +5,7 @@ import {useRoute, useRouter} from 'vue-router';
 import Web3 from 'web3';
 import {ethers} from 'ethers';
 import {apiUrl, BSCM, currentNetwork, networks} from '../../../config';
-import connectors from '../contract/connectors';
+import connectors, {storageId} from '../contract/connectors';
 import {HOME_PAGE, REFERRAL_PAGE} from '../page/page-list';
 
 
@@ -34,7 +34,7 @@ export const useWalletHook = () => {
 
 	/** AutoConnect */
 	function autoConnect() {
-		if (null !== window.localStorage.getItem('walletconnect')) {
+		if (null !== window.localStorage.getItem(storageId)) {
 			connectWith(connectors[1]);
 		}
 		else if ('1' === localStorage.getItem(BUTTON_STATUS) && window.ethereum && (<any>window.ethereum).isMetaMask) {

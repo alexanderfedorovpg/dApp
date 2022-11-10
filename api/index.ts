@@ -5,6 +5,7 @@ import {query} from 'express-validator/src/middlewares/validation-chain-builders
 import shortid from 'shortid';
 import cors from 'cors';
 import {siteUrl} from '../config';
+import CountersData from '../types/counters-data';
 import UserData from '../types/user-data';
 import {NIl_ADDRESS} from '../frontend/src/contract/types';
 
@@ -40,6 +41,28 @@ server.post('/api/v1/save-referral',
 		await prisma.investorsTransactions.create({
 			data
 		});
+		res.json(data)
+	});
+
+/**
+ * API method get counters on homepage.
+ */
+server.get('/api/v1/counters',
+	async (req, res) => {
+
+		const query = await Promise.all([
+			prisma.investor.count(),
+			prisma.investorsTransactions.aggregate({
+				_sum: {
+					cost: true
+				},
+			})]);
+
+		const data: CountersData = {
+			amount:  query[1]._sum.cost,
+			members: query[0],
+		}
+
 		res.json(data)
 	});
 
