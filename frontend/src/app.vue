@@ -40,18 +40,12 @@ export default {
 		});
 
 		onChanged((data) => {
-			if (data.address) {
-				currentWalletAddress.value = data.address;
-				isActivated.value          = true;
+			currentWalletAddress.value = data.address;
+			isActivated.value          = true;
 
-				authentication(currentWalletAddress.value).then((response) => {
-					if (REFERRAL_PAGE !== router.currentRoute.value.name) {
-						router.push({name: REFERRAL_PAGE});
-					}
-
-					referralId.value = response.data.referralId;
-				});
-			}
+			authentication(currentWalletAddress.value).then((response) => {
+				referralId.value = response.data.referralId;
+			});
 		});
 
 		onDeactivated(() => {

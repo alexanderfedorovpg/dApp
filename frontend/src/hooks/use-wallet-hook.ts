@@ -37,8 +37,7 @@ export const useWalletHook = () => {
 		if (null !== window.localStorage.getItem('walletconnect')) {
 			connectWith(connectors[1]);
 		}
-
-		if ('1' === localStorage.getItem(BUTTON_STATUS) && window.ethereum && (<any>window.ethereum).isMetaMask) {
+		else if ('1' === localStorage.getItem(BUTTON_STATUS) && window.ethereum && (<any>window.ethereum).isMetaMask) {
 			connectWith(connectors[0]);
 		}
 	}

@@ -15,7 +15,7 @@ import messages from './translations/messages';
 /**
  * App main point.
  */
-const router = createRouter({
+const router        = createRouter({
 	routes:  [
 		{path: '/referral/:referralId?', name: REFERRAL_PAGE, component: ReferralPage},
 		{path: '/', name: HOME_PAGE, component: HomePage},
@@ -27,8 +27,6 @@ const router = createRouter({
 createApp(App)
 	.use(router)
 	.use(VueDapp, {
-		autoConnetct: true,
-		networks
 	})
 	.use(createI18n({
 		legacy:         false,
