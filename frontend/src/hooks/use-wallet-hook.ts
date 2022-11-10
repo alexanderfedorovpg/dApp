@@ -22,9 +22,8 @@ const referralId           = ref('');
  * Wallet Hook
  */
 export const useWalletHook = () => {
-	const router        = useRouter();
-	const {disconnect}  = useWallet();
-	const {connectWith} = useWallet();
+	const router                    = useRouter();
+	const {disconnect, connectWith} = useWallet();
 
 	/** User authentication */
 	function authentication(address) {
@@ -67,12 +66,14 @@ export const useWalletHook = () => {
 							networks[currentNetwork]
 						]
 					}).catch(() => {
-						location.reload()
+						disconnectWallet();
 					})
 				}
 				else {
-					location.reload()
+					disconnectWallet();
 				}
+			}).then(() => {
+				autoConnect();
 			})
 		}
 
