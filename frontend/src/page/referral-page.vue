@@ -129,9 +129,13 @@ export default {
 					router.push({name: HOME_PAGE});
 				}
 
-				state.userData = response.data;
+				state.userData.addressUser = response.data.addressUser;
+				state.userData.referralId  = response.data.referralId;
+				state.userData.invited     = response.data.invited;
+				state.userData.profit      = response.data.profit;
 			});
 		}
+
 		const referralIdlocalStorage = localStorage.getItem(ROUTE_REFERRAL_ID)
 
 		if (null !== referralIdlocalStorage) {
@@ -165,7 +169,7 @@ export default {
 	<div class="top-referrals-page" v-if="state.userData">
 			<div class="top-referrals-page-block-description">
 				<div class="top-referrals-page-block-description-wrapper">
-					<div class="top-referrals-page__description-tabs">
+					<div v-if="state.userData.addressUser === currentWalletAddress" class="top-referrals-page__description-tabs">
 						<div class="top-referrals-page__description-tab">
 							<div class="top-referrals-page-description-tab__title">{{ t('referral_page_invited') }}</div>
 							<div class="top-referrals-page-description-tab__counter">
