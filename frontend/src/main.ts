@@ -27,6 +27,7 @@ const router        = createRouter({
 createApp(App)
 	.use(router)
 	.use(VueDapp, {
+		networks: networks[currentNetwork]
 	})
 	.use(createI18n({
 		legacy:         false,

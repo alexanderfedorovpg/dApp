@@ -26,7 +26,8 @@ export const networks = {
 		blockExplorerUrls: ['https://testnet.binance.org/'],
 		chainName:         'Binance Smart Chain Testnet',
 		rpcUrls:           [
-			'https://data-seed-prebsc-1-s1.binance.org:8545',
+			'https://bsctestapi.terminet.io/rpc',
+			'https://data-seed-prebsc-1-s3.binance.org:8545',
 			'https://bsc-testnet.public.blastapi.io'
 		],
 		nativeCurrency:    {name: 'tBNB', decimals: 18, symbol: 'tBNB'},
