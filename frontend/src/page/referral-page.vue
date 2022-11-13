@@ -204,10 +204,10 @@ export default {
 				</div>
 				<div class="top-referrals-page-block-description-qr">
 					<QRCodeVue3
-							v-if="state.userData.addressUser"
+							v-if="referralId"
 							:width="200"
 							:height="200"
-							:value="state.userData.addressUser + 'referral'"
+							:value="referralId"
 							:qrOptions="{ typeNumber: 0, mode: 'Byte', errorCorrectionLevel: 'H' }"
 							:imageOptions="{ hideBackgroundDots: true, imageSize: 0.4, margin: 0 }"
 							:image="require('../assets/images/SwayzeLogo.svg')"
