@@ -11,6 +11,7 @@ import QRCodeVue3 from 'qrcode-vue3';
 import ReferralData from '../../../types/referral-data';
 import UserData from '../../../types/user-data';
 import {ADDRESS_CONTRACT, ADDRESS_TOKEN, NIl_ADDRESS} from '../contract/types';
+import {useObserverHook} from '../hooks/use-observer-hook';
 import {BUTTON_STATUS, useWalletHook} from '../hooks/use-wallet-hook';
 import {HOME_PAGE} from './page-list';
 
@@ -29,6 +30,7 @@ export default {
 		const {currentWalletAddress, referralId, checkNetworks, isActivated} = useWalletHook();
 		const {open}                                                         = useBoard();
 		const {provider}                                                     = useEthers();
+		const {activeLink}                                                   = useObserverHook();
 		const ROUTE_REFERRAL_ID                                              = 'ROUTEREFERRALID'
 
 
@@ -37,6 +39,7 @@ export default {
 		const referralUrl                                                  = computed(() => (siteUrl + '/referral/' + state.userData.referralId));
 		const isDisableButton                                              = computed(() => (Boolean(referralId.value) || state.userData.addressUser === currentWalletAddress.value));
 		const isLoadingButton                                              = ref(false);
+		activeLink.value                                                   = '';
 
 		/**
 		 * Handler click to invest button
@@ -197,10 +200,11 @@ export default {
 						</svg>
 					</span>
 					<div class="top-referrals-page-link-description" v-else>{{ t('referral_page_text_about_description') }}</div>
-					<base-button :is-disable="isDisableButton" :is-loading="isLoadingButton" :text="t('referral_page_about_button_text') +' 25  BUSD'" @click="clickToInvest"/>
+					<base-button :is-disable="isDisableButton" :is-loading="isLoadingButton" :text="(Boolean(referralId) ? t('referral_page_about_button_text_invested') : t('referral_page_about_button_text')) +' 25  BUSD'" @click="clickToInvest"/>
 				</div>
-				<div class="top-referrals-page-block-description-qr" v-if="state.userData.addressUser">
+				<div class="top-referrals-page-block-description-qr">
 					<QRCodeVue3
+							v-if="state.userData.addressUser"
 							:width="200"
 							:height="200"
 							:value="state.userData.addressUser + 'referral'"
@@ -223,7 +227,8 @@ export default {
 									},
 								}"
 					/>
-					<div>{{ t('referral_page_qr_code') }}</div>
+					<img v-else class="top-referrals-page-block-description-qr-image-palaceholder" src="../assets/images/qr.png"/>
+					<div class="top-referrals-page-block-description-qr__text">{{ t('referral_page_qr_code') }}</div>
 				</div>
 		</div>
 		<div class="top-referrals-page__active-investors">
@@ -264,7 +269,7 @@ export default {
 }
 
 .top-referrals-page {
-	margin:     184px auto auto;
+	margin:     204px auto auto;
 	min-height: calc(100vh - 290px);
 
 	&__table-row {
@@ -376,6 +381,11 @@ export default {
 		font-size:       16px;
 		text-align:      center;
 		color:           #c6c6c6;
+
+		&__text {
+			font-size:  15px;
+			margin-top: 15px;
+		}
 
 		&-image {
 			border-radius: 18px;
