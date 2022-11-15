@@ -124,27 +124,30 @@ export default {
 		 */
 		function getUserData(referralId) {
 			if (!referralId) {
-				return;
+				return new Promise((resolve, reject) => {
+					reject('')
+				});
 			}
 
-			axios.get(apiUrl + `/api/v1/user/?referralId=${referralId}`).then((response: AxiosResponse<UserData>) => {
+		return axios.get(apiUrl + `/api/v1/user/?referralId=${referralId}`).then((response: AxiosResponse<UserData>) => {
 				if (NIl_ADDRESS === response.data.addressUser) {
 					router.push({name: HOME_PAGE});
+					localStorage.removeItem(ROUTE_REFERRAL_ID);
 				}
 
 				state.userData.addressUser = response.data.addressUser;
 				state.userData.referralId  = response.data.referralId;
 				state.userData.invited     = response.data.invited;
 				state.userData.profit      = response.data.profit;
+			}).catch(() => {
+				router.push({name: HOME_PAGE});
+				localStorage.removeItem(ROUTE_REFERRAL_ID);
 			});
 		}
 
 		const referralIdlocalStorage = localStorage.getItem(ROUTE_REFERRAL_ID)
 
-		if (null !== referralIdlocalStorage) {
-			getUserData(localStorage.getItem(ROUTE_REFERRAL_ID));
-		}
-		else if (false === Boolean(routeReferralId)) {
+		if (Boolean(referralId.value)) {
 			if ('' !== referralId.value) {
 				getUserData(referralId.value)
 			}
@@ -153,10 +156,16 @@ export default {
 				getUserData(referralId.value)
 			})
 		}
+		else {
+			if (null !== referralIdlocalStorage) {
+				getUserData(referralIdlocalStorage);
+			}
+		}
 
 		if (routeReferralId) {
-			localStorage.setItem(ROUTE_REFERRAL_ID, String(routeReferralId));
-			getUserData(routeReferralId)
+			getUserData(routeReferralId).then(() => {
+				localStorage.setItem(ROUTE_REFERRAL_ID, String(routeReferralId));
+			})
 		}
 
 		axios.get(apiUrl + '/api/v1/get-referrals/').then((response: AxiosResponse<ReferralData[]>) => {
