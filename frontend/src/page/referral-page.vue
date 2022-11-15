@@ -165,7 +165,11 @@ export default {
 		if (routeReferralId) {
 			getUserData(routeReferralId).then(() => {
 				localStorage.setItem(ROUTE_REFERRAL_ID, String(routeReferralId));
-			})
+			}).then(() => {
+				if (false === isActivated.value) {
+					router.push({name: HOME_PAGE});
+				}
+			});
 		}
 
 		axios.get(apiUrl + '/api/v1/get-referrals/').then((response: AxiosResponse<ReferralData[]>) => {
