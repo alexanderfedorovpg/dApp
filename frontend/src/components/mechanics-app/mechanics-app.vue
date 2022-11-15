@@ -36,7 +36,7 @@ export default {
 						<div class="mechanics-app__steps-item-text">{{ t('mechanics-app_block1_description') }}</div>
 					</div>
 					<div class="mechanics-app__steps-item-image">
-						<img src="../../assets/images/step2.png">
+						<img src="../../assets/images/step1.png">
 					</div>
 				</div>
 			</div>
@@ -49,7 +49,7 @@ export default {
 						<div class="mechanics-app__steps-item-text">{{ t('mechanics-app_block2_description') }}</div>
 					</div>
 					<div class="mechanics-app__steps-item-image">
-						<img src="../../assets/images/step1.png">
+						<img src="../../assets/images/step2.png">
 					</div>
 				</div>
 			</div>

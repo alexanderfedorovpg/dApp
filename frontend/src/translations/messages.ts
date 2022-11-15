@@ -30,7 +30,7 @@ export default {
 		members:                 'Участники',
 		// -- -- -- --
 		//-- Home Page
-		'homepage_text_block': 'Мы не финансовая пирамида, не площадка для быстрого заработка,<strong> мы — стартап, с которым инвесторы зарабатывают</strong>',
+		'homepage_text_block': 'Мы - первая move to earn платформа, которая использует стейблкоин <br/> Наша концепция гарантирует стабильность, мы не зависим от волатильности <br/> Мы даем возможность пользователям зарабатывать на этапе сбора средств',
 		// -- -- -- --
 		//-- What Is Invest
 		'what_is_invest_block1_title':            'Во что вы инвестируете',
@@ -47,11 +47,11 @@ export default {
 
 		'mechanics-app_step': 'ШАГ',
 
-		'mechanics-app_block1_title':       'Депозит ',
-		'mechanics-app_block1_description': 'Сделать разовый депозит 12 BUSD.',
+		'mechanics-app_block1_title':       'Инвайт',
+		'mechanics-app_block1_description': 'Новый пользователь который захочет зарегистрироваться в приложении, должен получить приглашение от премиум пользователя (инвестора).',
 
-		'mechanics-app_block2_title':       'Инвайт',
-		'mechanics-app_block2_description': 'Новый пользователь который захочет зарегистрироваться в приложении, должен получить приглашение от премиум пользователя (инвестора).',
+		'mechanics-app_block2_title':       'Депозит ',
+		'mechanics-app_block2_description': 'Сделать разовый депозит 12 BUSD.',
 
 		'mechanics-app_block3_title':       'Встреча',
 		'mechanics-app_block3_description': 'Найти рядом со своей геопозицией другого премиум пользователя, договариться о месте и времени встречи, сделать соместное фото.',
@@ -141,7 +141,7 @@ export default {
 		members:                 'Members',
 		// -- -- -- --
 		//-- Home Page
-		'homepage_text_block': 'We are not a financial pyramid,  not a platform for quick earnings, <strong> we are a startup where investors earn</strong>',
+		'homepage_text_block': 'We are the first move to earn platform that uses stablecoin <br/> Our concept guarantees stability, we do not depend on volatility <br/> We provide users with the opportunity to earn at the fundraising stage',
 		//-- What Is Invest
 		'what_is_invest_block1_title':            'What are you investing in',
 		'what_is_invest_block1_description_text': 'In the development of a dating application without fakes, spam, intimate services, insults and other unpleasant things that are full of existing projects now. <br/> <br/> Because our community decides for itself who to invite to the project, and each new user goes through three stages of verification before entering the network.',
@@ -158,11 +158,11 @@ export default {
 
 		'mechanics-app_step': 'STEP',
 
-		'mechanics-app_block1_title':       'Deposit',
-		'mechanics-app_block1_description': 'Make a one-time deposit 12 BUSD.',
+		'mechanics-app_block1_title':       'Invite',
+		'mechanics-app_block1_description': 'A new user who wants to register in the application must receive an invitation from a premium user (investor).',
 
-		'mechanics-app_block2_title':       'Invite',
-		'mechanics-app_block2_description': 'A new user who wants to register in the application must receive an invitation from a premium user (investor).',
+		'mechanics-app_block2_title':       'Deposit',
+		'mechanics-app_block2_description': 'Make a one-time deposit 12 BUSD.',
 
 		'mechanics-app_block3_title':       'Meeting',
 		'mechanics-app_block3_description': 'Find another premium user near your location, agree on a meeting place and time, and take a photo together.',

@@ -62,7 +62,7 @@ export default {
 }
 
 .text-center {
-	max-width:   685px;
+	max-width:   1208px;
 	font-size:   32px;
 	line-height: 120%;
 	text-align:  center;
