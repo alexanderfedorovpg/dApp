@@ -63,7 +63,7 @@ export default {
 		'mechanics-app_block5_description': 'Пользователь получает премиум статус, возможность делиться кодами, приглашать новых пользователей и зарабатывать.<br/> <br/> Ежемесячная подписка для него составляет 5 BUSD.',
 
 		'mechanics-app_block6_title':       'Движение',
-		'mechanics-app_block6_description': 'За шаги или потраченные каллории начисляется энергия которую можно тратить на проявление симпатий (лайков). <br/> <br/> Знакомиться и общаться с новыми реальными людьми.\n',
+		'mechanics-app_block6_description': 'За шаги или потраченные каллории начисляется энергия которую можно тратить на проявление симпатий (лайков). <br/> <br/> Знакомиться и общаться с новыми реальными людьми.',
 
 
 		'mechanics-app_about_title':        'Как распределяется разовый депозит 12 BUSD',
@@ -133,7 +133,7 @@ export default {
 		//-- Description Block
 		powered_by:              'Powered by',
 		community:               'community',
-		description1:            'Meeting new people Healthy lifestyle Cryptocurrency earnings',
+		description1:            'Meeting new people <br> Healthy lifestyle <br> Cryptocurrency earnings',
 		description2:            'Our goal is to create a dating App where users can combine a healthy lifestyle, earning money and meeting new people',
 		description_button_text: 'join now',
 		raised_funds:            'Raised funds',

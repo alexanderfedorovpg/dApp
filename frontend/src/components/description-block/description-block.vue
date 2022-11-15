@@ -106,7 +106,7 @@ export default {
 			</div>
 			<section>
 				<article>
-					<p class="description-main-text">{{ t('description1') }}</p>
+					<p class="description-main-text" v-html="t('description1')"></p>
 					<p class="description-sub-text">{{ t('description2') }}</p>
 				</article>
 			</section>
