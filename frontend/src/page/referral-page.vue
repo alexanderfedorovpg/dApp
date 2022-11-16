@@ -145,16 +145,14 @@ export default {
 			});
 		}
 
-		const referralIdlocalStorage = localStorage.getItem(ROUTE_REFERRAL_ID)
+		const referralIdlocalStorage = localStorage.getItem(ROUTE_REFERRAL_ID);
+
+		watch(referralId, () => {
+			getUserData(referralId.value)
+		});
 
 		if (Boolean(referralId.value)) {
-			if ('' !== referralId.value) {
-				getUserData(referralId.value)
-			}
-
-			watch(referralId, () => {
-				getUserData(referralId.value)
-			})
+			getUserData(referralId.value)
 		}
 		else {
 			if (null !== referralIdlocalStorage) {
