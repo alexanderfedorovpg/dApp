@@ -31,8 +31,8 @@ export default {
 		 */
 		function clickHeaderLink(selector) {
 			isShoMobileMenu.value = false;
-
-			scrollTo(selector);
+			activeLink.value      = selector;
+			scrollTo('.' + selector);
 		}
 
 		return {isNeedBackground, isShoMobileMenu, clickHeaderLink, clickMenu, t, Links, activeLink}
@@ -42,7 +42,7 @@ export default {
 <template>
 	<div class="header-wrapper" :class="{ 'header-wrapper_background' : isNeedBackground }">
 		<header class="header">
-			<router-link  class="header__logo" to="/">
+			<router-link class="header__logo" to="/">
 					<svg width="127" height="40" viewBox="0 0 127 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M7.65849 27.6953C1.23152 21.4858 1.07758 11.2382 7.35061 4.8382C13.6236 -1.5237 23.9761 -1.63799 30.4415 4.57154L22.8215 12.3049C20.6664 10.2477 17.2412 10.2858 15.1246 12.4192C13.0464 14.5525 13.0849 17.943 15.24 20.0382L7.65849 27.6953Z" fill="url(#paint0_linear_0_1)"/>
 					<path d="M11.4685 39.9999C7.3506 39.9999 3.27121 38.4761 0.0769653 35.4285L7.65848 27.7333C9.81363 29.7904 13.2388 29.7523 15.3555 27.619C17.4336 25.4856 17.3951 22.0952 15.24 19.9999L22.8215 12.3047C29.2485 18.5142 29.4024 28.7618 23.1294 35.1618C19.9351 38.3618 15.7018 39.9999 11.4685 39.9999Z" fill="url(#paint1_linear_0_1)"/>
@@ -71,12 +71,12 @@ export default {
 				</svg>
 			</router-link>
 			<div class="header-links" :class="{'header-links_open': isShoMobileMenu}">
-				<span class="header__link" :class="{'header__link_active': Links.DescriptionBlockWrapper === activeLink }" @click="clickHeaderLink('.' + Links.DescriptionBlockWrapper)">{{ t('link1') }}</span>
-				<span class="header__link" :class="{'header__link_active': 'what-is-invest' === activeLink }" @click="clickHeaderLink('.'+ Links.TextCenter)">{{ t('link2') }}</span>
-				<span class="header__link" :class="{'header__link_active': Links.MechanicsApp === activeLink }" @click="clickHeaderLink('.' + Links.MechanicsApp)">{{ t('link3') }}</span>
-				<span class="header__link" :class="{'header__link_active': Links.WhyBUSD === activeLink } " @click="clickHeaderLink('.' + Links.WhyBUSD)">{{ t('link4') }}</span>
-				<span class="header__link" :class="{'header__link_active': Links.Roadmap === activeLink }" @click="clickHeaderLink('.' + Links.Roadmap)">{{ t('link5') }}</span>
-				<span class="header__link" :class="{'header__link_active': Links.DistributionOfFunds === activeLink }" @click="clickHeaderLink('.' + Links.DistributionOfFunds)">{{ t('link6') }}</span>
+				<span class="header__link" :class="{'header__link_active': Links.DescriptionBlockWrapper === activeLink }" @click="clickHeaderLink(Links.DescriptionBlockWrapper)">{{ t('link1') }}</span>
+				<span class="header__link" :class="{'header__link_active': 'what-is-invest' === activeLink }" @click="clickHeaderLink(Links.TextCenter)">{{ t('link2') }}</span>
+				<span class="header__link" :class="{'header__link_active': Links.MechanicsApp === activeLink }" @click="clickHeaderLink(Links.MechanicsApp)">{{ t('link3') }}</span>
+				<span class="header__link" :class="{'header__link_active': Links.WhyBUSD === activeLink } " @click="clickHeaderLink(Links.WhyBUSD)">{{ t('link4') }}</span>
+				<span class="header__link" :class="{'header__link_active': Links.Roadmap === activeLink }" @click="clickHeaderLink(Links.Roadmap)">{{ t('link5') }}</span>
+				<span class="header__link" :class="{'header__link_active': Links.DistributionOfFunds === activeLink }" @click="clickHeaderLink(Links.DistributionOfFunds)">{{ t('link6') }}</span>
 				<button-wallet/>
 			</div>
 			<div class="header-menu-mobile-button">
