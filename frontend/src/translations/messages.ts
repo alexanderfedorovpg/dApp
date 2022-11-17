@@ -22,7 +22,7 @@ export default {
 		//-- Description Block
 		powered_by:              'Реализован на',
 		community:               'комьюнити',
-		description1:            'Знакомства с новыми людьми, Здоровый образ жизни, Заработок криптовалюты',
+		description1:            'Знакомства с новыми людьми <br/> Здоровый образ жизни <br/> Заработок криптовалюты',
 		description2:            'Наша цель создать приложение знакомств, в котором пользователи смогут совмещать здоровый образ жизни, заработок и общение с новыми людьми',
 		description_button_text: 'Присоединиться сейчас',
 		raised_funds:            'Собрано',
@@ -30,7 +30,7 @@ export default {
 		members:                 'Участники',
 		// -- -- -- --
 		//-- Home Page
-		'homepage_text_block': 'Мы - первая move to earn платформа, которая использует стейблкоин <br/> Наша концепция гарантирует стабильность, мы не зависим от волатильности <br/> Мы даем возможность пользователям зарабатывать на этапе сбора средств',
+		'homepage_text_block': '<strong>Мы</strong> - первая <strong>move to earn</strong> платформа, которая использует <strong>стейблкоин</strong> <br/> Наша концепция <strong>гарантирует стабильность</strong>, мы не зависим от волатильности <br/> <strong>Мы даем возможность пользователям зарабатывать на этапе сбора средств</strong>',
 		// -- -- -- --
 		//-- What Is Invest
 		'what_is_invest_block1_title':            'Во что вы инвестируете',
@@ -141,7 +141,7 @@ export default {
 		members:                 'Members',
 		// -- -- -- --
 		//-- Home Page
-		'homepage_text_block': 'We are the first move to earn platform that uses stablecoin <br/> Our concept guarantees stability, we do not depend on volatility <br/> We provide users with the opportunity to earn at the fundraising stage',
+		'homepage_text_block': '<strong>We</strong> are the first <strong>move to earn</strong> platform that uses stablecoin <br/> Our concept <strong>guarantees stability</strong>, we do not depend on volatility <br/> <strong>We provide users with the opportunity to earn at the fundraising stage</strong>',
 		//-- What Is Invest
 		'what_is_invest_block1_title':            'What are you investing in',
 		'what_is_invest_block1_description_text': 'In the development of a dating application without fakes, spam, intimate services, insults and other unpleasant things that are full of existing projects now. <br/> <br/> Because our community decides for itself who to invite to the project, and each new user goes through three stages of verification before entering the network.',

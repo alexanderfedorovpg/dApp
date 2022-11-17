@@ -218,13 +218,12 @@ export default {
 							v-if="referralId"
 							:width="200"
 							:height="200"
-							:value="referralId"
+							:value="currentWalletAddress"
 							:qrOptions="{ typeNumber: 0, mode: 'Byte', errorCorrectionLevel: 'H' }"
 							:imageOptions="{ hideBackgroundDots: true, imageSize: 0.4, margin: 0 }"
-							:image="require('../assets/images/SwayzeLogo.svg')"
-							:backgroundOptions="{ color: '#d9d9d9' }"
-							:cornersSquareOptions="{ type: 'extra-rounded', color: '#453563' }"
-							:cornersDotOptions="{type: 'square', color: '#453563'}"
+							:backgroundOptions="{ color: '#ffffff' }"
+							:cornersSquareOptions="{ type: 'extra-rounded', color: '#000000' }"
+							:cornersDotOptions="{type: 'square', color: '#000000'}"
 							:imgclass="'top-referrals-page-block-description-qr-image'"
 							:dotsOptions="{
 									type: 'dots',
@@ -232,8 +231,8 @@ export default {
 										type: 'radial',
 										rotation: 0,
 										colorStops: [
-											{ offset: 0, color: '#9f068f' },
-											{ offset: 1, color: '#6627c2' },
+											{ offset: 0, color: '#000000' },
+											{ offset: 1, color: '#000000' },
 										],
 									},
 								}"
@@ -350,6 +349,7 @@ export default {
 	}
 
 	&__active-investors {
+		margin-top: 137px;
 		font-size:  32px;
 		text-align: center;
 		color:      #fff;
