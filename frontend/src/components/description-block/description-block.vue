@@ -1,12 +1,15 @@
 <script lang="ts">
 import axios, {AxiosResponse} from 'axios';
-import {onMounted, reactive, ref} from 'vue';
+import {onMounted, reactive, ref, watchEffect} from 'vue';
 import {useBoard} from 'vue-dapp';
 import {useI18n} from 'vue-i18n';
+import {useRouter} from 'vue-router';
 import {apiUrl} from '../../../../config';
 import CountersData from '../../../../types/counters-data';
 import numberFormat from '../../helpers/number-format-helper';
 import {useObserverHook} from '../../hooks/use-observer-hook';
+import {useWalletHook} from '../../hooks/use-wallet-hook';
+import {HOME_PAGE, REFERRAL_PAGE} from '../../page/page-list';
 import BaseButton from '../base-button/base-button.vue';
 
 /**
@@ -21,6 +24,8 @@ export default {
 		const {observer} = useObserverHook()
 		const {open}     = useBoard();
 		const counters   = <CountersData>reactive({amount: 0, members: 0});
+		const {isActivated, currentWalletAddress, disconnectWallet} = useWalletHook();
+		const router                                                = useRouter();
 
 		axios.get(apiUrl + '/api/v1/counters').then((response: AxiosResponse<CountersData>) => {
 			counters.members = response.data.members;
@@ -29,12 +34,28 @@ export default {
 
 		/** Ref HTML Block Component */
 		const block = ref<Element>(null);
+		/** Handler Button */
+		const handler = ref(open);
 
 		onMounted(() => {
 			observer.observe(block.value)
 		})
 
-		return {t, open, block, counters, numberFormat}
+		/** redirec to profile */
+		function goToProfile() {
+			router.push({name: REFERRAL_PAGE});
+		}
+
+		watchEffect(() => {
+			if (isActivated.value) {
+				handler.value = goToProfile;
+			}
+			else {
+				handler.value = open;
+			}
+		});
+
+		return {t, open, handler, block, counters, numberFormat}
 	},
 }
 </script>
@@ -108,7 +129,7 @@ export default {
 		<img class="description-block-image" src="../../assets/images/img2.svg">
 	</div>
 	<div class="description-block__button-join-us">
-		<base-button @click="open" :text="t('description_button_text')"/>
+		<base-button @click="handler" :text="t('description_button_text')"/>
 	</div>
 	<div class="description-total-block">
 			<div class="description-total-block__item">
