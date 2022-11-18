@@ -7,7 +7,7 @@ export const BSCM           = 56;
 export const testBSCM       = 97;
 
 /** Current Network (BSCM or testBSCM) */
-export const currentNetwork = 97;
+export const currentNetwork = 56;
 
 export const networks = {
 	56: {
