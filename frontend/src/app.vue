@@ -31,10 +31,6 @@ export default {
 			localStorage.setItem(BUTTON_STATUS, '1');
 
 			authentication(currentWalletAddress.value).then((response) => {
-				if (REFERRAL_PAGE !== router.currentRoute.value.name) {
-					router.push({name: REFERRAL_PAGE});
-				}
-
 				referralId.value = response.data.referralId;
 			});
 		});
