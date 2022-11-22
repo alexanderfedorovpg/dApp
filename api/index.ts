@@ -25,22 +25,43 @@ server.use(cors(corsOptions))
 server.post('/api/v1/save-referral',
 	body('addressUserFrom').isString(),
 	body('addressUserTo').isString(),
-	body('cost').isNumeric(),
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			return res.status(400).json({errors: errors.array()});
 		}
 
-		const data = {
-			addressUserFrom: req.body.addressUserFrom,
-			addressUserTo:   req.body.addressUserTo,
-			cost:            req.body.cost
+		let data;
+
+		if (NIl_ADDRESS === req.body.addressUserFrom) {
+			data = await prisma.investorsTransactions.create({
+				data: {
+					addressUserFrom: req.body.addressUserTo,
+					addressUserTo:   NIl_ADDRESS,
+					cost:            25
+				}
+			});
+		}
+		else {
+			data = await Promise.all([
+				prisma.investorsTransactions.create({
+					data: {
+						addressUserFrom: req.body.addressUserFrom,
+						addressUserTo:   NIl_ADDRESS,
+						cost:            25
+					}
+				}),
+
+				prisma.investorsTransactions.create({
+					data: {
+						addressUserFrom: req.body.addressUserFrom,
+						addressUserTo:   req.body.addressUserTo,
+						cost:            5
+					}
+				}),
+			]);
 		}
 
-		await prisma.investorsTransactions.create({
-			data
-		});
 		res.json(data)
 	});
 
@@ -53,9 +74,12 @@ server.get('/api/v1/counters',
 		const query = await Promise.all([
 			prisma.investor.count(),
 			prisma.investorsTransactions.aggregate({
-				_sum: {
+				_sum:  {
 					cost: true
 				},
+				where: {
+					cost: 25
+				}
 			})]);
 
 		const data: CountersData = {
@@ -162,13 +186,11 @@ server.get('/api/v1/user',
 			_sum:    {
 				cost: true
 			},
-			orderBy: {
-				_sum: {
-					cost: 'desc'
-				}
-			},
-			where:   {
+			where: {
 				addressUserFrom: data.addressUser,
+				NOT:             {
+					addressUserTo: NIl_ADDRESS
+				}
 			}
 		});
 
@@ -196,6 +218,11 @@ server.get('/api/v1/get-referrals', async (req, res) => {
 		},
 		_sum:    {
 			cost: true
+		},
+		where: {
+			NOT: {
+				addressUserTo: NIl_ADDRESS,
+			}
 		},
 		orderBy: {
 			_sum: {

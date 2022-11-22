@@ -67,11 +67,10 @@ export default {
 							state.userData.addressUser : NIl_ADDRESS);
 
 					contract.methods.buy(address).send({from: currentWalletAddress.value}).then(() => {
-						const promise = [axios.post(apiUrl + '/api/v1/add-link', {addressUser: currentWalletAddress.value})];
-
-						if ('' !== state.userData.addressUser && state.userData.addressUser !== currentWalletAddress.value) {
-							promise.push(axios.post(apiUrl + '/api/v1/save-referral', {addressUserTo: currentWalletAddress.value, addressUserFrom: state.userData.addressUser, cost: 25}))
-						}
+						const promise = [
+							axios.post(apiUrl + '/api/v1/add-link', {addressUser: currentWalletAddress.value}),
+							axios.post(apiUrl + '/api/v1/save-referral', {addressUserTo: currentWalletAddress.value, addressUserFrom: address})
+						];
 
 						Promise.all(promise).then((response) => {
 							localStorage.removeItem(ROUTE_REFERRAL_ID);

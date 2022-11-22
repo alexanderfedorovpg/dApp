@@ -62,6 +62,7 @@ export default {
 }
 
 .text-center {
+	white-space: nowrap;
 	max-width:   1208px;
 	font-size:   32px;
 	line-height: 120%;
@@ -70,8 +71,9 @@ export default {
 	margin:      120px auto auto;
 
 	@media (max-width: $max-mobile-with) {
-		margin:    80px auto auto;
-		font-size: 20px;
+		margin:      80px auto auto;
+		font-size:   20px;
+		white-space: normal;
 	}
 }
 </style>
