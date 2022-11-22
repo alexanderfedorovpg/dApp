@@ -33,10 +33,10 @@ server.post('/api/v1/save-referral',
 
 		let data;
 
-		if (NIl_ADDRESS === req.body.addressUserFrom) {
+		if (NIl_ADDRESS === req.body.addressUserTo) {
 			data = await prisma.investorsTransactions.create({
 				data: {
-					addressUserFrom: req.body.addressUserTo,
+					addressUserFrom: req.body.addressUserFrom,
 					addressUserTo:   NIl_ADDRESS,
 					cost:            25
 				}
@@ -187,10 +187,7 @@ server.get('/api/v1/user',
 				cost: true
 			},
 			where: {
-				addressUserFrom: data.addressUser,
-				NOT:             {
-					addressUserTo: NIl_ADDRESS
-				}
+				addressUserTo: data.addressUser,
 			}
 		});
 

@@ -69,7 +69,7 @@ export default {
 					contract.methods.buy(address).send({from: currentWalletAddress.value}).then(() => {
 						const promise = [
 							axios.post(apiUrl + '/api/v1/add-link', {addressUser: currentWalletAddress.value}),
-							axios.post(apiUrl + '/api/v1/save-referral', {addressUserTo: currentWalletAddress.value, addressUserFrom: address})
+							axios.post(apiUrl + '/api/v1/save-referral', {addressUserTo: address, addressUserFrom: currentWalletAddress.value})
 						];
 
 						Promise.all(promise).then((response) => {
