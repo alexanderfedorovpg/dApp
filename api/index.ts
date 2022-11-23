@@ -71,20 +71,21 @@ server.post('/api/v1/save-referral',
 server.get('/api/v1/counters',
 	async (req, res) => {
 
-		const query = await Promise.all([
-			prisma.investor.count(),
-			prisma.investorsTransactions.aggregate({
+		const query = await prisma.investorsTransactions.aggregate({
 				_sum:  {
 					cost: true
 				},
+				_count: {
+					addressUserTo: true
+				},
 				where: {
-					cost: 25
+					addressUserTo: NIl_ADDRESS
 				}
-			})]);
+			});
 
 		const data: CountersData = {
-			amount:  query[1]._sum.cost,
-			members: query[0],
+			amount:  query._sum.cost,
+			members: query._count.addressUserTo,
 		}
 
 		res.json(data)
