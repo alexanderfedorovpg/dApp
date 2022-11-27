@@ -48,7 +48,7 @@ server.post('/api/v1/save-referral',
 					data: {
 						addressUserFrom: req.body.addressUserFrom,
 						addressUserTo:   NIl_ADDRESS,
-						cost:            25
+						cost:            20
 					}
 				}),
 
