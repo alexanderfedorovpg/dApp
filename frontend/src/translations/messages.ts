@@ -5,8 +5,8 @@ export default {
 	ru: {
 		// -- Social
 		social_link_telegram: 'https://t.me/ru_swayze_channel',
-		social_link_reddit:   'https://www.reddit.com/r/SwayzeCommunity/',
-		social_link_discord:  'https://discord.gg/x4aUvae6',
+		social_link_discord:  'https://discord.gg/rAZp6faEgk',
+		social_link_reddit:   'https://www.reddit.com/r/Swayze_io/',
 		//
 
 		// -- Header - Footer
@@ -117,8 +117,8 @@ export default {
 	en: {
 		// -- Social
 		social_link_telegram: 'https://t.me/en_swayze_channel',
-		social_link_discord:  'https://discord.gg/x4aUvae6',
-		social_link_reddit:   'https://www.reddit.com/r/SwayzeCommunity/',
+		social_link_discord:  'https://discord.gg/rAZp6faEgk',
+		social_link_reddit:   'https://www.reddit.com/r/Swayze_io/',
 		// -- -- -- --
 		// -- Header
 		link1: 'About project',
