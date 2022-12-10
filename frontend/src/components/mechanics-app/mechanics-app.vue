@@ -119,7 +119,7 @@ export default {
 					<p class="mechanics-app__about-item-text">{{ t('mechanics-app_about_block2_title') }}</p>
 				</div>
 				<div class="mechanics-app__about-item">
-					<span class="mechanics-app__about-item-title">по 1 BUSD</span>
+					<span class="mechanics-app__about-item-title">1 BUSD</span>
 					<p class="mechanics-app__about-item-text">{{ t('mechanics-app_about_block3_title') }}</p>
 				</div>
 				<div class="mechanics-app__about-item">

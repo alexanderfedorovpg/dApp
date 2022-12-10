@@ -8,6 +8,7 @@ import {siteUrl} from '../config';
 import CountersData from '../types/counters-data';
 import UserData from '../types/user-data';
 import {NIl_ADDRESS} from '../frontend/src/contract/types';
+import {getAmount, getMembers} from './utils/counters';
 
 const corsOptions = {
 	origin:               siteUrl,
@@ -58,9 +59,12 @@ server.get('/api/v1/counters',
 				},
 			})]);
 
+		const members = getMembers(query[0])
+		const amount = getAmount(query[1]._sum.cost, query[0])
+
 		const data: CountersData = {
-			amount:  query[1]._sum.cost,
-			members: query[0],
+			amount,
+			members
 		}
 
 		res.json(data)
