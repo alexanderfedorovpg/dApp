@@ -180,7 +180,7 @@ server.get('/api/v1/user',
 		}
 
 		const referralsData = await prisma.investorsTransactions.groupBy({
-			by:      ['addressUserFrom'],
+			by:      ['addressUserTo'],
 			_count:  {
 				addressUserTo: true,
 			},
@@ -210,7 +210,7 @@ server.get('/api/v1/user',
  */
 server.get('/api/v1/get-referrals', async (req, res) => {
 	const topReferrals = await prisma.investorsTransactions.groupBy({
-		by:      ['addressUserFrom'],
+		by:      ['addressUserTo'],
 		_count:  {
 			addressUserTo: true,
 		},
@@ -231,7 +231,7 @@ server.get('/api/v1/get-referrals', async (req, res) => {
 
 	const result = [];
 	topReferrals.forEach((row) => {
-		result.push({address: row.addressUserFrom, attracted: row._count.addressUserTo, profit: row._sum.cost})
+		result.push({address: row.addressUserTo, attracted: row._count.addressUserTo, profit: row._sum.cost})
 	})
 
 	res.json(result);
