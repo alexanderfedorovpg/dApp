@@ -8,6 +8,7 @@ import {siteUrl} from '../config';
 import CountersData from '../types/counters-data';
 import UserData from '../types/user-data';
 import {NIl_ADDRESS} from '../frontend/src/contract/types';
+import {getAmount, getMembers} from './utils/counters';
 
 const corsOptions = {
 	origin:               siteUrl,
@@ -25,43 +26,22 @@ server.use(cors(corsOptions))
 server.post('/api/v1/save-referral',
 	body('addressUserFrom').isString(),
 	body('addressUserTo').isString(),
+	body('cost').isNumeric(),
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			return res.status(400).json({errors: errors.array()});
 		}
 
-		let data;
-
-		if (NIl_ADDRESS === req.body.addressUserTo) {
-			data = await prisma.investorsTransactions.create({
-				data: {
-					addressUserFrom: req.body.addressUserFrom,
-					addressUserTo:   NIl_ADDRESS,
-					cost:            25
-				}
-			});
-		}
-		else {
-			data = await Promise.all([
-				prisma.investorsTransactions.create({
-					data: {
-						addressUserFrom: req.body.addressUserFrom,
-						addressUserTo:   NIl_ADDRESS,
-						cost:            20
-					}
-				}),
-
-				prisma.investorsTransactions.create({
-					data: {
-						addressUserFrom: req.body.addressUserFrom,
-						addressUserTo:   req.body.addressUserTo,
-						cost:            5
-					}
-				}),
-			]);
+		const data = {
+			addressUserFrom: req.body.addressUserFrom,
+			addressUserTo:   req.body.addressUserTo,
+			cost:            req.body.cost
 		}
 
+		await prisma.investorsTransactions.create({
+			data
+		});
 		res.json(data)
 	});
 
@@ -71,21 +51,20 @@ server.post('/api/v1/save-referral',
 server.get('/api/v1/counters',
 	async (req, res) => {
 
-		const query = await prisma.investorsTransactions.aggregate({
-				_sum:  {
+		const query = await Promise.all([
+			prisma.investor.count(),
+			prisma.investorsTransactions.aggregate({
+				_sum: {
 					cost: true
 				},
-				_count: {
-					addressUserTo: true
-				},
-				where: {
-					addressUserTo: NIl_ADDRESS
-				}
-			});
+			})]);
+
+		const members = getMembers(query[0])
+		const amount = getAmount(query[1]._sum.cost, query[0])
 
 		const data: CountersData = {
-			amount:  query._sum.cost,
-			members: query._count.addressUserTo,
+			amount,
+			members
 		}
 
 		res.json(data)
@@ -180,15 +159,20 @@ server.get('/api/v1/user',
 		}
 
 		const referralsData = await prisma.investorsTransactions.groupBy({
-			by:      ['addressUserTo'],
+			by:      ['addressUserFrom'],
 			_count:  {
 				addressUserTo: true,
 			},
 			_sum:    {
 				cost: true
 			},
-			where: {
-				addressUserTo: data.addressUser,
+			orderBy: {
+				_sum: {
+					cost: 'desc'
+				}
+			},
+			where:   {
+				addressUserFrom: data.addressUser,
 			}
 		});
 
@@ -210,17 +194,12 @@ server.get('/api/v1/user',
  */
 server.get('/api/v1/get-referrals', async (req, res) => {
 	const topReferrals = await prisma.investorsTransactions.groupBy({
-		by:      ['addressUserTo'],
+		by:      ['addressUserFrom'],
 		_count:  {
 			addressUserTo: true,
 		},
 		_sum:    {
 			cost: true
-		},
-		where: {
-			NOT: {
-				addressUserTo: NIl_ADDRESS,
-			}
 		},
 		orderBy: {
 			_sum: {
@@ -231,7 +210,7 @@ server.get('/api/v1/get-referrals', async (req, res) => {
 
 	const result = [];
 	topReferrals.forEach((row) => {
-		result.push({address: row.addressUserTo, attracted: row._count.addressUserTo, profit: row._sum.cost})
+		result.push({address: row.addressUserFrom, attracted: row._count.addressUserTo, profit: row._sum.cost})
 	})
 
 	res.json(result);
