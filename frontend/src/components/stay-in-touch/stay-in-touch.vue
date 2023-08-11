@@ -35,7 +35,7 @@ export default {
 				<img class="stay-in-touch-button__arrow" src="../../assets/images/arrow6.svg">
 				<div class="stay-in-touch-button__blur"></div>
 			</a>
-			<a class="stay-in-touch-button" :href="t('social_link_reddit')">
+			<a class="stay-in-touch-button stay-in-touch-button_disable" href="#">
 				<img src="../../assets/images/reddit.svg">
 				<div class="stay-in-touch-button__description">
 					<div class="stay-in-touch-button__description-title">Reddit</div>
@@ -43,7 +43,7 @@ export default {
 				</div>
 				<img class="stay-in-touch-button__arrow" src="../../assets/images/arrow6.svg">
 			</a>
-			<a class="stay-in-touch-button" :href="t('social_link_discord')">
+			<a class="stay-in-touch-button stay-in-touch-button_disable" href="#">
 				<img src="../../assets/images/discord.svg">
 				<div class="stay-in-touch-button__description">
 					<div class="stay-in-touch-button__description-title">Discord</div>
@@ -107,6 +107,15 @@ export default {
 
 	@media (max-width: $max-mobile-with) {
 		margin: 10px 0;
+	}
+
+	&_disable {
+		opacity: 0.5;
+		cursor:  default;
+
+		&:hover {
+			background: linear-gradient(90deg, rgba(68, 49, 100, 1) 0%, rgb(74 52 111 / 79%) 12%, rgba(44, 40, 59, 1) 100%);
+		}
 	}
 }
 
